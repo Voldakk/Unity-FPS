@@ -4,7 +4,8 @@
 public class SingleProjectile : Ammo
 {
     public float damage;
-    public float lineTime;
+    public float lineTime = 0.01f;
+    public float lineLength = 1000.0f;
 
     public GameObject lineRendererPrefab;
     private LineRendererController lineRendererController;
@@ -12,6 +13,7 @@ public class SingleProjectile : Ammo
     public override void Load(Weapon currentWeapon)
     {
         lineRendererController = Instantiate(lineRendererPrefab, currentWeapon.gameObject.transform.Find("BarrelEnd")).GetComponent<LineRendererController>();
+        lineRendererController.lineRenderer.SetPositions(new Vector3[] { Vector3.zero, Vector3.forward * lineLength });
     }
 
     public override void Unload()

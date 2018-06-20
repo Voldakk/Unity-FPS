@@ -4,7 +4,8 @@
 public class MultiProjectile : Ammo
 {
     public float damage;
-    public float lineTime;
+    public float lineTime = 0.01f;
+    public float lineLength = 1000.0f;
 
     public int numProjectiles;
 
@@ -25,8 +26,6 @@ public class MultiProjectile : Ammo
     }
     public override void Fire(Weapon currentWeapon)
     {
-        Vector3[] directions = new Vector3[numProjectiles];
-
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
 
@@ -35,7 +34,7 @@ public class MultiProjectile : Ammo
             float randomRadius = Random.Range(0, coneRadius);
             float randomAngle = Random.Range(0, 2 * Mathf.PI);
 
-            directions[i] = new Vector3(
+            Vector3 direction = new Vector3(
                 randomRadius * Mathf.Cos(randomAngle),
                 randomRadius * Mathf.Sin(randomAngle),
                 coneLength
@@ -43,7 +42,7 @@ public class MultiProjectile : Ammo
 
             lr.SetPosition(i * 2 + 0, Vector3.zero);
 
-            lr.SetPosition(i * 2 + 1, directions[i] * 100.0f);
+            lr.SetPosition(i * 2 + 1, direction * 1000.0f);
         }
 
         lineRendererController.Fire(lineTime);

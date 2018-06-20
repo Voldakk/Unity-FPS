@@ -8,7 +8,7 @@ public class LineRendererController : MonoBehaviour
 
     float lineTimer;
 
-    void Start()
+    void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;

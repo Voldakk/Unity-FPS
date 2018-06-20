@@ -791,7 +791,7 @@ Prefab:
         type: 2}
       propertyPath: startingWeapon
       value: 
-      objectReference: {fileID: 11400000, guid: 06500ec9aa1faf94ba3e473045cafcf1,
+      objectReference: {fileID: 11400000, guid: 9ed55a286e0e0ff43b80c9ea4dc29b4a,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d14d5c0168b16864fabdac9efc802e45, type: 2}

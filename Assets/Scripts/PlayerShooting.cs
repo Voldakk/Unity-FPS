@@ -38,6 +38,7 @@ public class PlayerShooting : MonoBehaviour
         currentWeapon.gameObject = Instantiate(currentWeapon.prefab, weaponHolder);
 
         // Ammo
+        currentWeapon.ammo = Instantiate(currentWeapon.ammo);
         currentWeapon.ammo.Load(currentWeapon);
 
         // HUD

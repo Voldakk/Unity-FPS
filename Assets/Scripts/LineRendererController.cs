@@ -3,7 +3,9 @@
 [RequireComponent(typeof(LineRenderer))]
 public class LineRendererController : MonoBehaviour
 {
-    LineRenderer lineRenderer;
+    [HideInInspector]
+    public LineRenderer lineRenderer;
+
     float lineTimer;
 
     void Start()

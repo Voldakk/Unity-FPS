@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 70c785bf911af0742a431e21115d21f9, type: 3}
-  m_Name: AK47
+  m_Name: Pistol
   m_EditorClassIdentifier: 
-  weaponName: AK47
-  icon: {fileID: 21300044, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
-  prefab: {fileID: 1952691836859122, guid: caaaa762c0d8ea34eb5a69cbeced8cab, type: 2}
+  weaponName: Pistol
+  icon: {fileID: 21300022, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
+  prefab: {fileID: 1549002290764268, guid: d6be18e53071f3e41914ef560e5552a7, type: 2}
   gameObject: {fileID: 0}
-  ammo: {fileID: 11400000, guid: 678d6d616d72acb4e955d534a42a6301, type: 2}
-  firerate: 300
-  fireTimer: 0
-  reloadTime: 1.5
-  reloadTimer: 0
-  magSize: 30
+  ammo: {fileID: 11400000, guid: 83e22a4341a0da84d80fe7ba957af990, type: 2}
+  firerate: 200
+  fireTimer: 2.151755
+  reloadTime: 1
+  reloadTimer: 34.29839
+  magSize: 12
   magCurrent: 0

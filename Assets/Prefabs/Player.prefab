@@ -242,11 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41ecd3c15fd39fc4cba2d5ced14cc0ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 06500ec9aa1faf94ba3e473045cafcf1, type: 2}
+  startingWeapon: {fileID: 11400000, guid: 06500ec9aa1faf94ba3e473045cafcf1, type: 2}
   weaponHolder: {fileID: 4102498484091722}
   lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
     type: 2}
   lineTime: 0.01
+  hudWeaponIcon: {fileID: 0}
+  hudWeaponAmmo: {fileID: 0}
 --- !u!114 &114863626133615992
 MonoBehaviour:
   m_ObjectHideFlags: 1

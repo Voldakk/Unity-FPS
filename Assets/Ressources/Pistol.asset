@@ -15,7 +15,7 @@ MonoBehaviour:
   icon: {fileID: 21300022, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   prefab: {fileID: 1549002290764268, guid: d6be18e53071f3e41914ef560e5552a7, type: 2}
   gameObject: {fileID: 0}
-  ammo: {fileID: 11400000, guid: 83e22a4341a0da84d80fe7ba957af990, type: 2}
+  ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
   firerate: 200
   fireTimer: 2.151755
   reloadTime: 1

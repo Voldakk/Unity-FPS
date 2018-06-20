@@ -8,9 +8,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62461be91fb7bb44abf19f57ff6596f6, type: 3}
+  m_Script: {fileID: 11500000, guid: a85a066c9e77371409e8a6be8c40e643, type: 3}
   m_Name: 5.56 NATO
   m_EditorClassIdentifier: 
   ammoName: 5.56 NATO
-  icon: {fileID: 21300012, guid: a1d46cd3f2614cc43be92ab44ea7d819, type: 3}
+  icon: {fileID: 21300012, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
   damage: 5.56
+  lineTime: 0.01
+  lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
+    type: 2}

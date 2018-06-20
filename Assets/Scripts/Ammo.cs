@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "New ammo", menuName = "Items/Ammo")]
-public class Ammo : ScriptableObject
+public abstract class Ammo : ScriptableObject
 {
     public string ammoName;
     public Sprite icon;
 
-    public float damage;
+    public abstract void Load(Weapon currentWeapon);
+    public abstract void Unload();
+    public abstract void Fire(Weapon currentWeapon);
 }

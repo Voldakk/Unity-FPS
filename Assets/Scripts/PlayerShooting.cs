@@ -9,22 +9,10 @@ public class PlayerShooting : MonoBehaviour
 
     public Transform weaponHolder;
 
-    public GameObject lineRendererPrefab;
-    private LineRenderer lineRenderer;
-
-    public float lineTime;
-    private float lineTimer;
-
     public Image hudWeaponIcon;
     public Text hudWeaponAmmo;
 
     private bool reloading = false;
-
-    void Awake()
-    {
-        lineRenderer = Instantiate(lineRendererPrefab).GetComponent<LineRenderer>();
-        lineRenderer.enabled = false;
-    }
 
     void Start ()
     {
@@ -38,15 +26,21 @@ public class PlayerShooting : MonoBehaviour
     {
         if(currentWeapon != null)
         {
+            // Ammo
+            currentWeapon.ammo.Unload();
+
+            // Weapon
             Destroy(currentWeapon.gameObject);
         }
 
+        // Weapon
         currentWeapon = Instantiate(newWeapon);
-
         currentWeapon.gameObject = Instantiate(currentWeapon.prefab, weaponHolder);
 
-        lineRenderer.transform.SetParent(currentWeapon.gameObject.transform.Find("BarrelEnd"), false);
+        // Ammo
+        currentWeapon.ammo.Load(currentWeapon);
 
+        // HUD
         hudWeaponIcon.sprite = currentWeapon.icon;
         hudWeaponIcon.type = Image.Type.Simple;
         hudWeaponIcon.preserveAspect = true;
@@ -57,7 +51,6 @@ public class PlayerShooting : MonoBehaviour
     {
         currentWeapon.reloadTimer += Time.deltaTime;
         currentWeapon.fireTimer += Time.deltaTime;
-        lineTimer += Time.deltaTime;
 
         if(reloading && currentWeapon.reloadTimer >= currentWeapon.reloadTime)
         {
@@ -67,23 +60,15 @@ public class PlayerShooting : MonoBehaviour
             UpdateHudAmmo();
         }
 
-        if(lineTimer >= lineTime && lineRenderer.enabled)
-        {
-            lineRenderer.enabled = false;
-        }
-
         if (Input.GetMouseButton(0) && !reloading)
         {
             if(currentWeapon.fireTimer >= 60.0f / currentWeapon.firerate && currentWeapon.magCurrent > 0)
             {
                 currentWeapon.fireTimer = 0;
-
                 currentWeapon.magCurrent--;
-
-                lineTimer = 0;
-                lineRenderer.enabled = true;
-
                 UpdateHudAmmo();
+
+                currentWeapon.ammo.Fire(currentWeapon);
             }
         }
 

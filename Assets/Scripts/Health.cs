@@ -3,15 +3,20 @@
 public class Health : MonoBehaviour
 {
     public float maxHealth;
-    public float currentHealth;
+    private float currentHealth;
 
-	void Start ()
+    private bool dead;
+
+	void Awake ()
     {
-        currentHealth = maxHealth;
+        Reset();
     }
 
     public void Damage(float amount)
     {
+        if (dead)
+            return;
+
         currentHealth -= amount;
         if (currentHealth <= 0.0f)
         {
@@ -22,6 +27,13 @@ public class Health : MonoBehaviour
 
     void Die()
     {
-        Destroy(gameObject);
+        dead = true;
+        SendMessage("OnDeath");
+    }
+
+    void Reset()
+    {
+        currentHealth = maxHealth;
+        dead = false;
     }
 }

@@ -186,6 +186,7 @@ public class GameSparksManager : MonoBehaviour
 
             case 2:
                 // Player position update
+                GameManager.Instance().UpdateOpponentPosition(_packet);
                 break;
 
             case 3:

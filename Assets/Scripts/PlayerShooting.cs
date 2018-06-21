@@ -3,7 +3,6 @@ using UnityEngine.UI;
 
 public class PlayerShooting : MonoBehaviour
 {
-
     public Weapon startingWeapon;
     private Weapon currentWeapon;
 
@@ -42,9 +41,7 @@ public class PlayerShooting : MonoBehaviour
         currentWeapon.ammo.Load(currentWeapon);
 
         // HUD
-        hudWeaponIcon.sprite = currentWeapon.icon;
-        hudWeaponIcon.type = Image.Type.Simple;
-        hudWeaponIcon.preserveAspect = true;
+        UpdateHudWeapon();
         UpdateHudAmmo();
     }
 
@@ -55,10 +52,7 @@ public class PlayerShooting : MonoBehaviour
 
         if(reloading && currentWeapon.reloadTimer >= currentWeapon.reloadTime)
         {
-            reloading = false;
-
-            currentWeapon.magCurrent = currentWeapon.magSize;
-            UpdateHudAmmo();
+            EndReload();
         }
 
         if (Input.GetMouseButton(0) && !reloading)
@@ -66,23 +60,52 @@ public class PlayerShooting : MonoBehaviour
             if(currentWeapon.fireTimer >= 60.0f / currentWeapon.firerate && currentWeapon.magCurrent > 0)
             {
                 currentWeapon.fireTimer = 0;
-                currentWeapon.magCurrent--;
-                UpdateHudAmmo();
-
-                currentWeapon.ammo.Fire(currentWeapon);
+                Fire();
             }
         }
 
         if(Input.GetKeyDown(KeyCode.R) && !reloading)
         {
-            currentWeapon.reloadTimer = 0.0f;
-            reloading = true;
-            hudWeaponAmmo.text = "Reloading...";
+            StartReload();
         }
 	}
 
     void UpdateHudAmmo()
     {
+        return;
         hudWeaponAmmo.text = currentWeapon.magCurrent + " / " + currentWeapon.magSize;
+    }
+
+    void UpdateHudWeapon()
+    {
+        return;
+        hudWeaponIcon.sprite = currentWeapon.icon;
+        hudWeaponIcon.type = Image.Type.Simple;
+        hudWeaponIcon.preserveAspect = true;
+    }
+
+    void Fire()
+    {
+        currentWeapon.magCurrent--;
+        UpdateHudAmmo();
+
+        currentWeapon.ammo.Fire(currentWeapon);
+    }
+
+    void StartReload()
+    {
+        currentWeapon.reloadTimer = 0.0f;
+        reloading = true;
+
+        hudWeaponAmmo.text = "Reloading...";
+    }
+
+    void EndReload()
+    {
+        reloading = false;
+
+        currentWeapon.magCurrent = currentWeapon.magSize;
+
+        UpdateHudAmmo();
     }
 }

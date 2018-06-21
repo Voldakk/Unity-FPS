@@ -23,5 +23,15 @@ public class SingleProjectile : Ammo
     public override void Fire(Weapon currentWeapon)
     {
         lineRendererController.Fire(lineTime);
+
+        RaycastHit hit;
+        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        {
+            Health health = hit.transform.GetComponent<Health>(); 
+            if(health != null)
+            {
+                health.Damage(damage);
+            }
+        }
     }
 }

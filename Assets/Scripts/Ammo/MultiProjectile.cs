@@ -43,6 +43,18 @@ public class MultiProjectile : Ammo
             lr.SetPosition(i * 2 + 0, Vector3.zero);
 
             lr.SetPosition(i * 2 + 1, direction * 1000.0f);
+
+            RaycastHit hit;
+            Vector3 origin = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 worldDirection = Camera.main.transform.TransformDirection(direction);
+            if (Physics.Raycast(origin, worldDirection, out hit))
+            {
+                Health health = hit.transform.GetComponent<Health>();
+                if (health != null)
+                {
+                    health.Damage(damage);
+                }
+            }
         }
 
         lineRendererController.Fire(lineTime);

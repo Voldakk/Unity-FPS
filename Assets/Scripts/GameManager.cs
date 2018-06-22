@@ -26,23 +26,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    /// <summary>
-    /// Updates the opponent's position, rotation
-    /// </summary>
-    /// <param name="_packet">Packet Received From Opponent Player</param>
-    public void UpdateOpponentPosition(RTPacket _packet)
-    {
-        for (int i = 0; i < playerList.Length; i++)
-        {
-            // Check the name of the tank matches the sender
-            if (playerList[i].name == _packet.Sender.ToString())
-            { 
-                playerList[i].SetPosition(_packet.Data.GetVector3(1).Value, _packet.Data.GetVector3(2).Value);
-                break;
-            }
-        }
-    }
-
     void Start()
     {
         #region Setup Players
@@ -60,6 +43,7 @@ public class GameManager : MonoBehaviour
             playerList[i].transform.position = spawnPoints[i].position;
             playerList[i].transform.rotation = spawnPoints[i].rotation;
 
+            playerList[i].peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
             playerList[i].name = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId.ToString();
 
             if (GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId == GameSparksManager.Instance().GetRTSession().PeerId)
@@ -73,5 +57,69 @@ public class GameManager : MonoBehaviour
         }
 
         #endregion
+    }
+
+    /// <summary>
+    /// Updates the opponent's position, rotation
+    /// </summary>
+    /// <param name="_packet">Packet Received From Opponent Player</param>
+    public void UpdateOpponentPosition(RTPacket _packet)
+    {
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            // Check the name of the tank matches the sender
+            if (playerList[i].name == _packet.Sender.ToString())
+            { 
+                playerList[i].SetPosition(_packet.Data.GetVector3(1).Value, _packet.Data.GetVector2(2).Value);
+                break;
+            }
+        }
+    }
+
+    public void Fire(Player player)
+    {
+        using (RTData data = RTData.Get())
+        {
+            GameSparksManager.Instance().GetRTSession().SendData(3, GameSparksRT.DeliveryIntent.RELIABLE, data);
+        }
+    }
+
+    public void OnPlayerFire(RTPacket _packet)
+    {
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            if (playerList[i].peerId == _packet.Sender)
+            {
+                playerList[i].PlayerShooting.Fire(false);
+                break;
+            }
+        }
+    }
+
+    public void DamagePlayer(Player player, float amount)
+    {
+        Debug.LogFormat("GameManager::DamagePlayer - Player {0} damaging player {1} for {2} damage", GameSparksManager.PeerId(), player.peerId, amount);
+
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(1, player.peerId);
+            data.SetFloat(2, amount);
+
+            GameSparksManager.Instance().GetRTSession().SendData(4, GameSparksRT.DeliveryIntent.RELIABLE, data);
+        }
+    }
+
+    public void OnPlayerDamage(RTPacket _packet)
+    {
+        Debug.LogFormat("GameManager::OnPlayerDamage - Player {0} damaging player {1} for {2} damage", _packet.Sender, _packet.Data.GetInt(1).Value, _packet.Data.GetFloat(2).Value);
+
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            if (playerList[i].peerId == _packet.Data.GetInt(1).Value)
+            {
+                playerList[i].Health.Damage(_packet.Data.GetFloat(2).Value);
+                break;
+            }
+        }
     }
 }

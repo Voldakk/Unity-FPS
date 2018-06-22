@@ -20,17 +20,17 @@ public class SingleProjectile : Ammo
     {
         Destroy(lineRendererController.gameObject);
     }
-    public override void Fire(Weapon currentWeapon)
+    public override void Fire(Weapon currentWeapon, PlayerShooting ps, bool doDamage)
     {
         lineRendererController.Fire(lineTime);
 
         RaycastHit hit;
-        if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit))
+        if(Physics.Raycast(ps.eyes.position, ps.eyes.forward, out hit))
         {
-            Health health = hit.transform.GetComponent<Health>(); 
-            if(health != null)
+            Player player = hit.transform.GetComponent<Player>(); 
+            if(player != null)
             {
-                health.Damage(damage);
+                GameManager.Instance().DamagePlayer(player, damage);
             }
         }
     }

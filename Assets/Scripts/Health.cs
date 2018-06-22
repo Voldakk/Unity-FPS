@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
@@ -7,9 +8,20 @@ public class Health : MonoBehaviour
 
     private bool dead;
 
-	void Awake ()
+    private Text hudPlayerHealth;
+
+    void Awake ()
     {
         Reset();
+    }
+
+    public void Initialize(bool isPlayer)
+    {
+        if (!isPlayer)
+            return;
+
+        hudPlayerHealth = GameObject.Find("HudPlayerHealth").GetComponent<Text>();
+        UpdateHud();
     }
 
     public void Damage(float amount)
@@ -23,6 +35,8 @@ public class Health : MonoBehaviour
             currentHealth = 0.0f;
             Die();
         }
+
+        UpdateHud();
     }
 
     void Die()
@@ -35,5 +49,12 @@ public class Health : MonoBehaviour
     {
         currentHealth = maxHealth;
         dead = false;
+        UpdateHud();
+    }
+
+    void UpdateHud()
+    {
+        if(hudPlayerHealth != null)
+            hudPlayerHealth.text = Mathf.CeilToInt(currentHealth).ToString();
     }
 }

@@ -24,7 +24,7 @@ public class MultiProjectile : Ammo
     {
         Destroy(lineRendererController.gameObject);
     }
-    public override void Fire(Weapon currentWeapon)
+    public override void Fire(Weapon currentWeapon, PlayerShooting ps, bool doDamage)
     {
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
@@ -49,10 +49,10 @@ public class MultiProjectile : Ammo
             Vector3 worldDirection = Camera.main.transform.TransformDirection(direction);
             if (Physics.Raycast(origin, worldDirection, out hit))
             {
-                Health health = hit.transform.GetComponent<Health>();
-                if (health != null)
+                Player player = hit.transform.GetComponent<Player>();
+                if (player != null)
                 {
-                    health.Damage(damage);
+                    GameManager.Instance().DamagePlayer(player, damage);
                 }
             }
         }

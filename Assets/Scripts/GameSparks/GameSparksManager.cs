@@ -191,9 +191,19 @@ public class GameSparksManager : MonoBehaviour
 
             case 3:
                 // Player fire
+                GameManager.Instance().OnPlayerFire(_packet);
+                break;
+            case 4:
+                // Player damage
+                GameManager.Instance().OnPlayerDamage(_packet);
                 break;
 
         }
+    }
+
+    public static int PeerId()
+    {
+        return Instance().GetRTSession().PeerId.Value;
     }
 }
 

@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  peerId: 0
   updateRate: 0.2
 --- !u!114 &114189014057242586
 MonoBehaviour:
@@ -330,9 +331,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingWeapon: {fileID: 11400000, guid: 06500ec9aa1faf94ba3e473045cafcf1, type: 2}
+  eyes: {fileID: 4532681919768450}
   weaponHolder: {fileID: 4102498484091722}
-  hudWeaponIcon: {fileID: 0}
-  hudWeaponAmmo: {fileID: 0}
+  isPlayer: 0
 --- !u!114 &114787937084060708
 MonoBehaviour:
   m_ObjectHideFlags: 1

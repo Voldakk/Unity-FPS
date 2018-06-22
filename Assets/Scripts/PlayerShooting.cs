@@ -6,19 +6,32 @@ public class PlayerShooting : MonoBehaviour
     public Weapon startingWeapon;
     private Weapon currentWeapon;
 
+    public Transform eyes;
     public Transform weaponHolder;
 
-    public Image hudWeaponIcon;
-    public Text hudWeaponAmmo;
+    private Image hudWeaponIcon;
+    private Text hudWeaponAmmo;
 
     private bool reloading = false;
 
-    void Start ()
+    [HideInInspector]
+    public bool isPlayer;
+    private Player player;
+
+    public void Initialize(bool _isPlayer, Player _player)
     {
+        isPlayer = _isPlayer;
+        player = _player; 
+
+        if(isPlayer)
+        {
+            hudWeaponIcon = GameObject.Find("HudWeaponIcon").GetComponent<Image>();
+            hudWeaponAmmo = GameObject.Find("HudWeaponAmmo").GetComponent<Text>();
+        }
+
         SetWeapon(startingWeapon);
 
-        currentWeapon.magCurrent = currentWeapon.magSize;
-        UpdateHudAmmo();
+        EndReload();
     }
 	
     void SetWeapon(Weapon newWeapon)
@@ -47,6 +60,9 @@ public class PlayerShooting : MonoBehaviour
 
 	void Update ()
     {
+        if (!isPlayer)
+            return;
+
         currentWeapon.reloadTimer += Time.deltaTime;
         currentWeapon.fireTimer += Time.deltaTime;
 
@@ -60,7 +76,8 @@ public class PlayerShooting : MonoBehaviour
             if(currentWeapon.fireTimer >= 60.0f / currentWeapon.firerate && currentWeapon.magCurrent > 0)
             {
                 currentWeapon.fireTimer = 0;
-                Fire();
+                Fire(true);
+                GameManager.Instance().Fire(player);
             }
         }
 
@@ -72,27 +89,30 @@ public class PlayerShooting : MonoBehaviour
 
     void UpdateHudAmmo()
     {
-        return;
+        if (!isPlayer)
+            return;
+
         hudWeaponAmmo.text = currentWeapon.magCurrent + " / " + currentWeapon.magSize;
     }
 
     void UpdateHudWeapon()
     {
-        return;
+        if (!isPlayer)
+            return;
         hudWeaponIcon.sprite = currentWeapon.icon;
         hudWeaponIcon.type = Image.Type.Simple;
         hudWeaponIcon.preserveAspect = true;
     }
 
-    void Fire()
+    public void Fire(bool doDamage)
     {
         currentWeapon.magCurrent--;
         UpdateHudAmmo();
 
-        currentWeapon.ammo.Fire(currentWeapon);
+        currentWeapon.ammo.Fire(currentWeapon, this, doDamage);
     }
 
-    void StartReload()
+    public void StartReload()
     {
         currentWeapon.reloadTimer = 0.0f;
         reloading = true;
@@ -100,7 +120,7 @@ public class PlayerShooting : MonoBehaviour
         hudWeaponAmmo.text = "Reloading...";
     }
 
-    void EndReload()
+    public void EndReload()
     {
         reloading = false;
 

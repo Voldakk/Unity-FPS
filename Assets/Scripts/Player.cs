@@ -6,14 +6,23 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class Player : MonoBehaviour
 {
+    [HideInInspector]
+    public int peerId;
+
     public Health Health { get; private set; }
     public PlayerShooting PlayerShooting { get; private set; }
 
     private new Rigidbody rigidbody;
 
     private Vector3 prevPos;
+    private Quaternion prevRot;
 
     public float updateRate;
+
+    private Vector3 goToPos;
+    private Quaternion goToRot;
+
+    private bool isPlayer;
 
     void Awake ()
     {
@@ -29,49 +38,62 @@ public class Player : MonoBehaviour
 
     public void SetIsPlayer(bool value)
     {
-        if(value)
+        isPlayer = value;
+
+        PlayerShooting.Initialize(isPlayer, this);
+        Health.Initialize(isPlayer);
+
+        if (value)
         {
             transform.Find("Model").gameObject.SetActive(false);
             StartCoroutine(SendMovement());
             prevPos = transform.position;
+            prevRot = transform.rotation;
         }
         else
         {
             GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>().enabled = false;
             GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.HeadBob>().enabled = false;
             GetComponentInChildren<Camera>().enabled = false;
-            PlayerShooting.enabled = false;
+            GetComponentInChildren<AudioListener>().enabled = false;
+
+            goToPos = transform.position;
+            goToRot = transform.rotation;
         }
     }
 
-    /// <summary>
-    /// Sends the tank position, rotation and velocity
-    /// </summary>
-    /// <returns>The tank movement.</returns>
+    void Update()
+    {
+        if (!isPlayer)
+        {
+            //transform.position = Vector2.Lerp(transform.position, goToPos, Time.deltaTime / updateRate);
+        }
+    }
+
     private IEnumerator SendMovement()
     {
-        // we don't want to send position updates until we are actually moving //
-        // so we check that the axis-input values are greater or less than zero before sending //
-        if ((transform.position != prevPos) || (Math.Abs(Input.GetAxis("Vertical")) > 0) || (Math.Abs(Input.GetAxis("Horizontal")) > 0))
+        // If we are moving
+        if ((transform.position != prevPos) || (Math.Abs(Input.GetAxis("Vertical")) > 0) || (Math.Abs(Input.GetAxis("Horizontal")) > 0) ||
+            transform.rotation != prevRot)
         {
             using (RTData data = RTData.Get())
             {  
-                // we put a using statement here so that we can dispose of the RTData objects once the packet is sent
                 data.SetVector3(1, transform.position);
-                data.SetVector3(2, transform.rotation.eulerAngles);
+                data.SetVector2(2, new Vector2(PlayerShooting.eyes.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
 
-                GameSparksManager.Instance().GetRTSession().SendData(2, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);// send the data
+                GameSparksManager.Instance().GetRTSession().SendData(2, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
-            prevPos = this.transform.position; // record position for any discrepancies
+            prevPos = transform.position;
         }
 
         yield return new WaitForSeconds(updateRate);
         StartCoroutine(SendMovement());
     }
 
-    public void SetPosition(Vector3 position, Vector3 eulerAngles)
+    public void SetPosition(Vector3 position, Vector2 eulerAngles)
     {
         transform.position = position;
-        transform.rotation = Quaternion.Euler(eulerAngles);
+        transform.localRotation = Quaternion.Euler(0.0f, eulerAngles.y, 0.0f);
+        PlayerShooting.eyes.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
     }
 }

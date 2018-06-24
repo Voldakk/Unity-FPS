@@ -24,21 +24,18 @@ public class Player : MonoBehaviour
 
     private bool isPlayer;
 
-    void Awake ()
-    {
-        Health = GetComponent<Health>();
-        PlayerShooting = GetComponent<PlayerShooting>();
-        rigidbody = GetComponent<Rigidbody>();
-    }
-
     public void OnDeath()
     {
         Debug.Log("Player::OnDeath");
     }
 
-    public void SetIsPlayer(bool value)
+    public void Initialize(bool value)
     {
         isPlayer = value;
+
+        Health = GetComponent<Health>();
+        PlayerShooting = GetComponent<PlayerShooting>();
+        rigidbody = GetComponent<Rigidbody>();
 
         PlayerShooting.Initialize(isPlayer, this);
         Health.Initialize(isPlayer);
@@ -46,9 +43,9 @@ public class Player : MonoBehaviour
         if (value)
         {
             transform.Find("Model").gameObject.SetActive(false);
-            StartCoroutine(SendMovement());
             prevPos = transform.position;
             prevRot = transform.rotation;
+            StartCoroutine(SendMovement());
         }
         else
         {
@@ -60,6 +57,11 @@ public class Player : MonoBehaviour
             goToPos = transform.position;
             goToRot = transform.rotation;
         }
+    }
+
+    public void Respawn()
+    {
+        StartCoroutine(SendMovement());
     }
 
     void Update()

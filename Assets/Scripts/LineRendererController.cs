@@ -3,14 +3,12 @@
 [RequireComponent(typeof(LineRenderer))]
 public class LineRendererController : MonoBehaviour
 {
-    [HideInInspector]
     public LineRenderer lineRenderer;
 
     float lineTimer;
 
     void Awake()
     {
-        lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.enabled = false;
     }
 

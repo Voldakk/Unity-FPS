@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   peerId: 0
-  updateRate: 0.2
+  updateRate: 0.1
 --- !u!114 &114189014057242586
 MonoBehaviour:
   m_ObjectHideFlags: 1

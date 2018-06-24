@@ -34,7 +34,7 @@ public class PlayerShooting : MonoBehaviour
         EndReload();
     }
 	
-    void SetWeapon(Weapon newWeapon)
+    public void SetWeapon(Weapon newWeapon)
     {
         if(currentWeapon != null)
         {

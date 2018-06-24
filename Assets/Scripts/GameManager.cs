@@ -1,18 +1,29 @@
-﻿using GameSparks.RT;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using GameSparks.RT;
 
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;
 
-    public Transform[] spawnPoints;
+    public GameObject[] spawnPoints;
 
     private Player[] playerList;
     public Player[] GetAllPlayers()
     {
         return playerList;
+    }
+
+    public Player Player()
+    {
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            if (playerList[i].peerId == GameSparksManager.PeerId())
+            {
+                return playerList[i];
+            }
+        }
+
+        return null;
     }
 
     private static GameManager instance;
@@ -24,39 +35,44 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Desert", UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
     void Start()
     {
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+
         #region Setup Players
 
         GameObject p = GameObject.Find("Player");
         if (p != null)
             Destroy(p);
 
-        playerList = new Player[(int)GameSparksManager.Instance().GetSessionInfo().GetPlayerList().Count];
+        playerList = new Player[GameSparksManager.Instance().GetSessionInfo().GetPlayerList().Count];
 
         for (int i = 0; i < playerList.Length; i++)
         {
             playerList[i] = Instantiate(playerPrefab).GetComponent<Player>();
 
-            playerList[i].transform.position = spawnPoints[i].position;
-            playerList[i].transform.rotation = spawnPoints[i].rotation;
+            playerList[i].transform.position = spawnPoints[i].transform.position;
+            playerList[i].transform.rotation = spawnPoints[i].transform.rotation;
 
             playerList[i].peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
             playerList[i].name = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId.ToString();
 
-            if (GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId == GameSparksManager.Instance().GetRTSession().PeerId)
+            if (GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId == GameSparksManager.PeerId())
             {
-                playerList[i].SetIsPlayer(true);
+                playerList[i].Initialize(true);
+                playerList[i].gameObject.SetActive(false);
             }
             else
             {
-                playerList[i].SetIsPlayer(false);
+                playerList[i].Initialize(false);
             }
         }
 
         #endregion
+
     }
 
     /// <summary>
@@ -67,7 +83,6 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < playerList.Length; i++)
         {
-            // Check the name of the tank matches the sender
             if (playerList[i].name == _packet.Sender.ToString())
             { 
                 playerList[i].SetPosition(_packet.Data.GetVector3(1).Value, _packet.Data.GetVector2(2).Value);

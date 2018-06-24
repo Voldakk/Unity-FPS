@@ -24,6 +24,9 @@ public class SingleProjectile : Ammo
     {
         lineRendererController.Fire(lineTime);
 
+        if (!doDamage)
+            return;
+
         RaycastHit hit;
         if(Physics.Raycast(ps.eyes.position, ps.eyes.forward, out hit))
         {

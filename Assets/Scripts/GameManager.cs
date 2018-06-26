@@ -113,11 +113,15 @@ public class GameManager : MonoBehaviour
 
     public void DamagePlayer(Player player, float amount)
     {
-        Debug.LogFormat("GameManager::DamagePlayer - Player {0} damaging player {1} for {2} damage", GameSparksManager.PeerId(), player.peerId, amount);
+        DamagePlayer(player.peerId, amount);
+    }
+    public void DamagePlayer(int peerId, float amount)
+    {
+        Debug.LogFormat("GameManager::DamagePlayer - Player {0} damaging player {1} for {2} damage", GameSparksManager.PeerId(), peerId, amount);
 
         using (RTData data = RTData.Get())
         {
-            data.SetInt(1, player.peerId);
+            data.SetInt(1, peerId);
             data.SetFloat(2, amount);
 
             GameSparksManager.Instance().GetRTSession().SendData(4, GameSparksRT.DeliveryIntent.RELIABLE, data);
@@ -136,5 +140,10 @@ public class GameManager : MonoBehaviour
                 break;
             }
         }
+    }
+
+    public int NumPlayers()
+    {
+        return playerList.Length;
     }
 }

@@ -20,5 +20,5 @@ MonoBehaviour:
   fireTimer: 2.151755
   reloadTime: 3
   reloadTimer: 34.29839
-  magSize: 6
+  magSize: 8
   magCurrent: 0

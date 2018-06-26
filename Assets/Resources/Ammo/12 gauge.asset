@@ -13,7 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ammoName: 12 gauge
   icon: {fileID: 21300016, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
-  damage: 20
+  damage: 1
   lineTime: 0.1
   lineLength: 1000
   numProjectiles: 8

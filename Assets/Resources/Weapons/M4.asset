@@ -22,3 +22,4 @@ MonoBehaviour:
   reloadTimer: 34.29839
   magSize: 30
   magCurrent: 0
+  adsPosition: {x: -0.16, y: 0.097, z: -0.1}

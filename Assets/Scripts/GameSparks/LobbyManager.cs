@@ -10,7 +10,7 @@ public class LobbyManager : MonoBehaviour
     public Text userId, connectionStatus;
     public InputField userNameInput, passwordInput;
     public GameObject loginPanel;
-    public Button loginBttn, matchmakingBttn, startGameBttn;
+    public Button loginBttn, soloMatchmakingBttn, duoMatchmakingBttn, startGameBttn;
     public Text matchDetails;
     public GameObject matchDetailsPanel;
 
@@ -37,15 +37,20 @@ public class LobbyManager : MonoBehaviour
         };
         // only the login panel and login button is needed at the start of the scene, so disable any other objects //
         matchDetailsPanel.SetActive(false);
-        matchmakingBttn.gameObject.SetActive(false);
+        soloMatchmakingBttn.gameObject.SetActive(false);
+        duoMatchmakingBttn.gameObject.SetActive(false);
         startGameBttn.gameObject.SetActive(false);
         // we add a custom listener to the on-click delegate of the login button so we don't need to create extra methods //
         loginBttn.onClick.AddListener(() => {
             GameSparksManager.Instance().AuthenticateUser(userNameInput.text, passwordInput.text, OnRegistration, OnAuthentication);
         });
 
-        matchmakingBttn.onClick.AddListener(() => {
-            GameSparksManager.Instance().FindPlayers();
+        soloMatchmakingBttn.onClick.AddListener(() => {
+            GameSparksManager.Instance().FindPlayers("solo");
+            matchDetails.text = "Searching For Players...";
+        });
+        duoMatchmakingBttn.onClick.AddListener(() => {
+            GameSparksManager.Instance().FindPlayers("duo");
             matchDetails.text = "Searching For Players...";
         });
 
@@ -72,7 +77,8 @@ public class LobbyManager : MonoBehaviour
         connectionStatus.text = "New User Registered...";
         loginPanel.SetActive(false);
         loginBttn.gameObject.SetActive(false);
-        matchmakingBttn.gameObject.SetActive(true);
+        soloMatchmakingBttn.gameObject.SetActive(true);
+        duoMatchmakingBttn.gameObject.SetActive(true);
         matchDetailsPanel.SetActive(true);
     }
     /// <summary>
@@ -85,7 +91,8 @@ public class LobbyManager : MonoBehaviour
         connectionStatus.text = "User Authenticated...";
         loginPanel.SetActive(false);
         loginBttn.gameObject.SetActive(false);
-        matchmakingBttn.gameObject.SetActive(true);
+        soloMatchmakingBttn.gameObject.SetActive(true);
+        duoMatchmakingBttn.gameObject.SetActive(true);
         matchDetailsPanel.SetActive(true);
     }
 
@@ -108,7 +115,8 @@ public class LobbyManager : MonoBehaviour
         matchDetails.text = sBuilder.ToString(); // set the string to be the player-list field
 
         tempRTSessionInfo = new RTSessionInfo(_message); // we'll store the match data until we need to create an RT session instance
-        matchmakingBttn.gameObject.SetActive(false);
+        soloMatchmakingBttn.gameObject.SetActive(false);
+        duoMatchmakingBttn.gameObject.SetActive(false);
         startGameBttn.gameObject.SetActive(true);
     }
 }

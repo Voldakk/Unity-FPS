@@ -96,15 +96,15 @@ public class GameSparksManager : MonoBehaviour
     /// This will request a match between as many players you have set in the match.
     /// When the max number of players is found each player will receive the MatchFound message
     /// </summary>
-    public void FindPlayers()
+    public void FindPlayers(string shortCode)
     {
         Debug.Log("GSM| Attempting Matchmaking...");
         new GameSparks.Api.Requests.MatchmakingRequest()
-            .SetMatchShortCode("1v1") // set the shortCode to be the same as the one we created in the first tutorial
-            .SetSkill(0) // in this case we assume all players have skill level zero and we want anyone to be able to join so the skill level for the request is set to zero
+            .SetMatchShortCode(shortCode)
+            .SetSkill(0)
             .Send((response) => {
                 if (response.HasErrors)
-                { // check for errors
+                {
                     Debug.LogError("GSM| MatchMaking Error \n" + response.Errors.JSON);
                 }
             });

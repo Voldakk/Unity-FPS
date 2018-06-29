@@ -22,6 +22,13 @@ public class SingleProjectile : Projectile
             lineRendererController.lineRenderer.SetPosition(1, hit.point);
             lineRendererController.Fire(lineTime);
 
+            if (hit.transform.GetComponent<Rigidbody>() == null)
+            {
+                GameObject bulletMark = bulletMarkPool.Get();
+                bulletMark.transform.position = hit.point + hit.normal * 0.001f;
+                bulletMark.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
+            }
+
             if (!doDamage)
                 return;
 

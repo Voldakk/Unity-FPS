@@ -14,11 +14,16 @@ public class Projectile : Ammo
     public GameObject lineRendererPrefab;
     protected LineRendererController lineRendererController;
 
+    public string bulletMarkPoolName;
+    protected Pool bulletMarkPool;
+
     public override void Load(Gun gun)
     {
         base.Load(gun);
 
         lineRendererController = Instantiate(lineRendererPrefab, gun.weaponObject.transform.Find("BarrelEnd")).GetComponent<LineRendererController>();
+
+        bulletMarkPool = GameObject.Find(bulletMarkPoolName).GetComponent<Pool>();
     }
 
     public override void Unload()

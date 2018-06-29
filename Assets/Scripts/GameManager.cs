@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour
 
     void OnGUI()
     {
-        GUI.Label(new Rect(10, 30, 400, 30), "Elapsed time: " + (Time.timeSinceLevelLoad).ToString() + "s");
+        GUI.Label(new Rect(10, 30, 400, 30), "Elapsed time: " + Time.timeSinceLevelLoad.ToString("0.0") + "s");
 
         GUI.Label(new Rect(10, 50, 400, 30), "Server Time: " + serverClock.TimeOfDay);
         GUI.Label(new Rect(10, 70, 400, 30), "Latency: " + latency.ToString() + "ms");
@@ -344,10 +344,10 @@ public class GameManager : MonoBehaviour
         GUI.Label(new Rect(10, 110, 400, 30), "Total sent: " + totalSent.ToString() + "B");
         GUI.Label(new Rect(10, 130, 400, 30), "Total recieved: " + totalReceived.ToString() + "B");
 
-        float sentKbps = ((totalSent * 8f) / 1024.0f) / Time.timeSinceLevelLoad;
-        GUI.Label(new Rect(10, 150, 400, 30), "Average send rate: " + sentKbps.ToString("0.0") + "kbps");
+        float sentKBps = (totalSent / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 150, 400, 30), "Average send rate: " + sentKBps.ToString("0.0") + "KiB/s");
 
-        float recievedKbps = ((totalReceived * 8f) / 1024.0f) / Time.timeSinceLevelLoad;
-        GUI.Label(new Rect(10, 170, 400, 30), "Average recieve rate: " + recievedKbps.ToString("0.0") + "kbps");
+        float recievedKBps = (totalReceived / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 170, 400, 30), "Average recieve rate: " + recievedKBps.ToString("0.0") + "KiB/s");
     }
 }

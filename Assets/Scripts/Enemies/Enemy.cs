@@ -55,6 +55,7 @@ public class Enemy : MonoBehaviour
         {
             GameManager.Instance().SendNpcPosition(this);
             prevPos = transform.position;
+            prevRot = transform.rotation;
         }
 
         yield return new WaitForSeconds(updateRate);

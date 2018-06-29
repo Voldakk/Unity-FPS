@@ -193,6 +193,9 @@ public class GameSparksManager : MonoBehaviour
 
     private void OnPacketReceived(RTPacket _packet)
     {
+        if (GameManager.Instance() != null)
+            GameManager.Instance().PacketReceived(_packet.PacketSize);
+
         switch ((OpCodes)_packet.OpCode)
         {
             case OpCodes.Chat:
@@ -264,7 +267,8 @@ public class RTSessionInfo
         hostURL = _message.Host;
         acccessToken = _message.AccessToken;
         matchID = _message.MatchId;
-        // we loop through each participant and get their peerId and display name //
+        
+        // We loop through each participant and get their peerId and display name
         foreach (MatchFoundMessage._Participant p in _message.Participants)
         {
             playerList.Add(new RTPlayer(p.DisplayName, p.Id, (int)p.PeerId));
@@ -275,9 +279,9 @@ public class RTSessionInfo
     {
         public RTPlayer(string _displayName, string _id, int _peerId)
         {
-            this.displayName = _displayName;
-            this.id = _id;
-            this.peerId = _peerId;
+            displayName = _displayName;
+            id = _id;
+            peerId = _peerId;
         }
 
         public string displayName;

@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcPosition, TimeStamp = 101, ClockSync = 102 };
+public enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcPosition, TimeStamp = 101, ClockSync = 102 };
 
 public class GameManager : MonoBehaviour
 {
@@ -38,8 +38,6 @@ public class GameManager : MonoBehaviour
         return null;
     }
 
-    private static GameManager instance;
-
     public bool IsHost
     {
         get
@@ -52,10 +50,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private static GameManager instance;
+
     public static GameManager Instance()
     {
         return instance;
     }
+
+    public int NumPlayers()
+    {
+        return playerList.Length;
+    }
+
+    #region Setup
 
     void Awake()
     {
@@ -108,6 +115,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Player updates
+
     /// <summary>
     /// Updates the players's position, rotation
     /// </summary>
@@ -124,32 +135,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public void PlayerWeaponUpdate(Player player, RTData data)
     {
-        GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
-    }
-
-
-    public void OnPlayerSetWeapon(RTPacket _packet)
-    {
-        for (int i = 0; i < playerList.Length; i++)
-        {
-            if (playerList[i].peerId == _packet.Sender)
-            {
-                playerList[i].WeaponBehaviour.SetWeapon(_packet.Data.GetInt(1).Value);
-                break;
-            }
-        }
-    }
-
-    public void SetPlayerWeapon(int index)
-    {
-        using (RTData data = RTData.Get())
-        {
-            data.SetInt(1, index);
-
-            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerSetWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
-        }
+        SendRTData(OpCodes.PlayerWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
     }
 
     public void OnPlayerWeaponUpdate(RTPacket _packet)
@@ -163,6 +152,30 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
+    public void SetPlayerWeapon(int index)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(1, index);
+
+            SendRTData(OpCodes.PlayerSetWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
+        }
+    }
+
+    public void OnPlayerSetWeapon(RTPacket _packet)
+    {
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            if (playerList[i].peerId == _packet.Sender)
+            {
+                playerList[i].WeaponBehaviour.SetWeapon(_packet.Data.GetInt(1).Value);
+                break;
+            }
+        }
+    }
+
 
     public void DamagePlayer(Player player, float amount)
     {
@@ -178,7 +191,7 @@ public class GameManager : MonoBehaviour
             data.SetInt(1, peerId);
             data.SetFloat(2, amount);
 
-            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerDamage, GameSparksRT.DeliveryIntent.RELIABLE, data);
+            SendRTData(OpCodes.PlayerDamage, GameSparksRT.DeliveryIntent.RELIABLE, data);
         }
     }
 
@@ -196,10 +209,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public int NumPlayers()
-    {
-        return playerList.Length;
-    }
+    #endregion
+
+    #region Enemy updates
 
     public void RegisterEnemy(Enemy enemy)
     {
@@ -214,7 +226,7 @@ public class GameManager : MonoBehaviour
             data.SetVector3(2, enemy.transform.position);
             data.SetVector2(3, new Vector2(enemy.transform.rotation.eulerAngles.x, enemy.transform.rotation.eulerAngles.y));
 
-            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.NpcPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
+            SendRTData(OpCodes.NpcPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
         }
     }
 
@@ -227,6 +239,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Clock sync
+
     /// <summary>
     /// Sends a Unix timestamp in milliseconds to the server
     /// </summary>
@@ -237,7 +253,7 @@ public class GameManager : MonoBehaviour
         using (RTData data = RTData.Get())
         {
             data.SetLong(1, (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds); // get the current time as unix timestamp
-            GameSparksManager.Instance().GetRTSession().SendData(101, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+            SendRTData(OpCodes.TimeStamp, GameSparks.RT.GameSparksRT.DeliveryIntent.UNRELIABLE, data, new int[] { 0 }); // send to peerId -> 0, which is the server
         }
         yield return new WaitForSeconds(5f); // wait 5 seconds
         StartCoroutine(SendTimeStamp()); // send the timestamp again
@@ -269,10 +285,69 @@ public class GameManager : MonoBehaviour
         serverClock = dateNow.AddMilliseconds(_packet.Data.GetLong(1).Value + timeDelta).ToLocalTime(); // adjust current time to match clock from server
     }
 
+    #endregion
+
+    # region Packet Analytics
+
+    private int packetSize_sent;
+    private int totalSent = 0;
+
+    /// <summary>
+    /// Sends RTData and records the packet size
+    /// </summary>
+    /// <param name="_opcode">Opcode.</param>
+    /// <param name="_intent">Intent.</param>
+    /// <param name="_data">Data.</param>
+    /// <param name="_targetPeers">Target peers.</param>
+    public void SendRTData(OpCodes _opcode, GameSparksRT.DeliveryIntent _intent, RTData _data, int[] _targetPeers)
+    {
+        packetSize_sent = GameSparksManager.Instance().GetRTSession().SendData((int)_opcode, _intent, _data, _targetPeers);
+        totalSent += packetSize_sent;
+    }
+
+    /// <summary>
+    /// Sends RTData to all players
+    /// </summary>
+    /// <param name="_opcode">Opcode.</param>
+    /// <param name="_intent">Intent.</param>
+    /// <param name="_data">Data.</param>
+    public void SendRTData(OpCodes _opcode, GameSparksRT.DeliveryIntent _intent, RTData _data)
+    {
+        packetSize_sent = GameSparksManager.Instance().GetRTSession().SendData((int)_opcode, _intent, _data);
+        totalSent += packetSize_sent;
+    }
+
+    private int packetSize_incoming;
+    private int totalReceived = 0;
+
+    /// <summary>
+    /// Records the incoming packet size
+    /// </summary>
+    /// <param name="_packetSize">Packet size.</param>
+    public void PacketReceived(int _packetSize)
+    {
+        packetSize_incoming = _packetSize;
+        totalReceived += packetSize_incoming;
+    }
+
+    #endregion
+
+
     void OnGUI()
     {
+        GUI.Label(new Rect(10, 30, 400, 30), "Elapsed time: " + (Time.timeSinceLevelLoad).ToString() + "s");
+
         GUI.Label(new Rect(10, 50, 400, 30), "Server Time: " + serverClock.TimeOfDay);
         GUI.Label(new Rect(10, 70, 400, 30), "Latency: " + latency.ToString() + "ms");
         GUI.Label(new Rect(10, 90, 400, 30), "Time Delta: " + timeDelta.ToString() + "ms");
+
+        GUI.Label(new Rect(10, 110, 400, 30), "Total sent: " + totalSent.ToString() + "B");
+        GUI.Label(new Rect(10, 130, 400, 30), "Total recieved: " + totalReceived.ToString() + "B");
+
+        float sentKbps = ((totalSent * 8f) / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 150, 400, 30), "Average send rate: " + sentKbps.ToString("0.0") + "kbps");
+
+        float recievedKbps = ((totalReceived * 8f) / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 170, 400, 30), "Average recieve rate: " + recievedKbps.ToString("0.0") + "kbps");
     }
 }

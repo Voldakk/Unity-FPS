@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private new Rigidbody rigidbody;
 
     private Vector3 prevPos;
-    private Quaternion prevRot;
+    private Vector2 prevRot;
 
     public float updateRate;
 
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour
         {
             transform.Find("Model").gameObject.SetActive(false);
             prevPos = transform.position;
-            prevRot = transform.rotation;
+            prevRot = XyRot();
             StartCoroutine(SendMovement());
         }
         else
@@ -89,17 +89,20 @@ public class Player : MonoBehaviour
 
     private IEnumerator SendMovement()
     {
-        if ((transform.position != prevPos) || (Math.Abs(Input.GetAxis("Vertical")) > 0) || (Math.Abs(Input.GetAxis("Horizontal")) > 0) ||
-            transform.rotation != prevRot)
+        if (transform.position != prevPos || 
+            Math.Abs(Input.GetAxis("Vertical")) > 0 || 
+            Math.Abs(Input.GetAxis("Horizontal")) > 0 ||
+            XyRot() != prevRot )
         {
             using (RTData data = RTData.Get())
             {  
                 data.SetVector3(1, transform.position);
                 data.SetVector2(2, XyRot());
 
-                GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
+                GameManager.Instance().SendRTData(OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
             prevPos = transform.position;
+            prevRot = XyRot();
         }
 
         yield return new WaitForSeconds(updateRate);

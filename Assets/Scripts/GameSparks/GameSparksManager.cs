@@ -10,6 +10,8 @@ using System.Collections.Generic;
 
 public class GameSparksManager : MonoBehaviour
 {
+    public string sceneName;
+
     /// <summary>The GameSparks Manager singleton</summary>
     private static GameSparksManager instance = null;
 
@@ -89,6 +91,15 @@ public class GameSparksManager : MonoBehaviour
                 }
             });
     }
+    
+    public void DeviceAuthentication(AuthCallback _authcallback)
+    {
+        new GameSparks.Api.Requests.DeviceAuthenticationRequest().Send((response) => 
+        {
+            _authcallback(response);
+        });
+    }
+    
     #endregion
 
     #region Matchmaking Request
@@ -171,39 +182,51 @@ public class GameSparksManager : MonoBehaviour
         if (_isReady)
         {
             Debug.Log("GSM| RT Session Connected...");
-            SceneManager.LoadScene("Main");
+
+            if(string.IsNullOrEmpty(sceneName))
+                GameManager.Instance().SetupPlayers();
+            else
+                SceneManager.LoadScene("Main");
         }
 
     }
 
     private void OnPacketReceived(RTPacket _packet)
     {
-        switch (_packet.OpCode)
+        switch ((OpCodes)_packet.OpCode)
         {
-            case 1:
+            case OpCodes.Chat:
                 // Chat
                 break;
 
-            case 2:
+            case OpCodes.PlayerPosition:
                 // Player position update
-                GameManager.Instance().UpdateOpponentPosition(_packet);
+                GameManager.Instance().UpdatePlayerPosition(_packet);
                 break;
 
-            case 3:
-                // Player fire
-                GameManager.Instance().OnPlayerFire(_packet);
-                break;
-            case 4:
+            case OpCodes.PlayerDamage:
                 // Player damage
                 GameManager.Instance().OnPlayerDamage(_packet);
                 break;
 
+            case OpCodes.PlayerSetWeapon:
+                // Player fire
+                GameManager.Instance().OnPlayerSetWeapon(_packet);
+                break;
+
+            case OpCodes.PlayerWeapon:
+                // Player fire
+                GameManager.Instance().OnPlayerWeaponUpdate(_packet);
+                break;
         }
     }
 
     public static int PeerId()
     {
-        return Instance().GetRTSession().PeerId.Value;
+        if(Instance() != null && Instance().GetRTSession() != null)
+            return Instance().GetRTSession().PeerId.Value;
+
+        return -1;
     }
 }
 

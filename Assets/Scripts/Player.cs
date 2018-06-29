@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int peerId;
 
     public Health Health { get; private set; }
-    //public PlayerShooting PlayerShooting { get; private set; }
+    public WeaponBehaviour WeaponBehaviour { get; private set; }
 
     private new Rigidbody rigidbody;
 
@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     private Vector3 goToPos;
     private Quaternion goToRot;
 
-    private bool isPlayer;
+    private bool isLocal;
 
     public void OnDeath()
     {
@@ -31,14 +31,14 @@ public class Player : MonoBehaviour
 
     public void Initialize(bool value)
     {
-        isPlayer = value;
+        isLocal = value;
+
+        rigidbody = GetComponent<Rigidbody>();
+        WeaponBehaviour = GetComponent<WeaponBehaviour>();
+        WeaponBehaviour.Initialize(this, isLocal);
 
         Health = GetComponent<Health>();
-        //PlayerShooting = GetComponent<PlayerShooting>();
-        rigidbody = GetComponent<Rigidbody>();
-
-        //PlayerShooting.Initialize(isPlayer, this);
-        Health.Initialize(isPlayer);
+        Health.Initialize(isLocal);
 
         if (value)
         {
@@ -49,10 +49,10 @@ public class Player : MonoBehaviour
         }
         else
         {
-            GetComponent<UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController>().enabled = false;
-            GetComponentInChildren<UnityStandardAssets.Characters.FirstPerson.HeadBob>().enabled = false;
-            GetComponentInChildren<Camera>().enabled = false;
-            GetComponentInChildren<AudioListener>().enabled = false;
+            Destroy(GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>());
+            Destroy(GetComponent<Look>());
+            Destroy(GetComponentInChildren<Camera>());
+            Destroy(GetComponentInChildren<AudioListener>());
 
             goToPos = transform.position;
             goToRot = transform.rotation;
@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (!isPlayer)
+        if (!isLocal)
         {
             //transform.position = Vector2.Lerp(transform.position, goToPos, Time.deltaTime / updateRate);
         }
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
             using (RTData data = RTData.Get())
             {  
                 data.SetVector3(1, transform.position);
-                //data.SetVector2(2, new Vector2(PlayerShooting.eyes.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
+                data.SetVector2(2, new Vector2(WeaponBehaviour.eyes.transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
 
                 GameSparksManager.Instance().GetRTSession().SendData(2, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
@@ -96,6 +96,6 @@ public class Player : MonoBehaviour
     {
         transform.position = position;
         transform.localRotation = Quaternion.Euler(0.0f, eulerAngles.y, 0.0f);
-        //PlayerShooting.eyes.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
+        WeaponBehaviour.eyes.transform.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
     }
 }

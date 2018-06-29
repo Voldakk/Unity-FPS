@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using GameSparks.RT;
+enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon };
 
 public class GameManager : MonoBehaviour
 {
+
     public GameObject playerPrefab;
 
-    public GameObject[] spawnPoints;
+    public string sceneName;
+
+    private GameObject[] spawnPoints;
 
     private Player[] playerList;
     public Player[] GetAllPlayers()
@@ -35,14 +39,20 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         instance = this;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Desert", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+
+        if(!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
+            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
     void Start()
     {
-        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
+        if (!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
+            SetupPlayers();
+    }
 
-        #region Setup Players
+    public void SetupPlayers()
+    {
+        spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
         GameObject p = GameObject.Find("Player");
         if (p != null)
@@ -70,16 +80,13 @@ public class GameManager : MonoBehaviour
                 playerList[i].Initialize(false);
             }
         }
-
-        #endregion
-
     }
 
     /// <summary>
-    /// Updates the opponent's position, rotation
+    /// Updates the players's position, rotation
     /// </summary>
-    /// <param name="_packet">Packet Received From Opponent Player</param>
-    public void UpdateOpponentPosition(RTPacket _packet)
+    /// <param name="_packet">Packet received from other player</param>
+    public void UpdatePlayerPosition(RTPacket _packet)
     {
         for (int i = 0; i < playerList.Length; i++)
         {
@@ -91,21 +98,41 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void Fire(Player player)
+    public void PlayerWeaponUpdate(Player player, RTData data)
     {
-        using (RTData data = RTData.Get())
-        {
-            GameSparksManager.Instance().GetRTSession().SendData(3, GameSparksRT.DeliveryIntent.RELIABLE, data);
-        }
+        GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
     }
+    
 
-    public void OnPlayerFire(RTPacket _packet)
+    public void OnPlayerSetWeapon(RTPacket _packet)
     {
         for (int i = 0; i < playerList.Length; i++)
         {
             if (playerList[i].peerId == _packet.Sender)
             {
-                //playerList[i].PlayerShooting.Fire(false);
+                playerList[i].WeaponBehaviour.SetWeapon(_packet.Data.GetInt(1).Value);
+                break;
+            }
+        }
+    }
+
+    public void SetPlayerWeapon(int index)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(1, index);
+
+            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerSetWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
+        }
+    }
+
+    public void OnPlayerWeaponUpdate(RTPacket _packet)
+    {
+        for (int i = 0; i < playerList.Length; i++)
+        {
+            if (playerList[i].peerId == _packet.Sender)
+            {
+                playerList[i].WeaponBehaviour.OnWeaponUpdate(_packet);
                 break;
             }
         }
@@ -115,6 +142,7 @@ public class GameManager : MonoBehaviour
     {
         DamagePlayer(player.peerId, amount);
     }
+
     public void DamagePlayer(int peerId, float amount)
     {
         Debug.LogFormat("GameManager::DamagePlayer - Player {0} damaging player {1} for {2} damage", GameSparksManager.PeerId(), peerId, amount);
@@ -124,7 +152,7 @@ public class GameManager : MonoBehaviour
             data.SetInt(1, peerId);
             data.SetFloat(2, amount);
 
-            GameSparksManager.Instance().GetRTSession().SendData(4, GameSparksRT.DeliveryIntent.RELIABLE, data);
+            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerDamage, GameSparksRT.DeliveryIntent.RELIABLE, data);
         }
     }
 

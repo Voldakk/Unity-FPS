@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Fire
   - SpawnPoint
+  - WeaponHud
+  - GameSparksManager
   layers:
   - Default
   - TransparentFX

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameSparks.RT;
+using UnityEngine;
 using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "New gun", menuName = "Items/Weapons/Gun")]
@@ -33,8 +34,11 @@ public class Gun : Weapon
     {
         base.OnStart();
 
-        hudWeaponIcon = uiObject.Find("Icon").GetComponent<Image>();
-        hudWeaponAmmo = uiObject.Find("Ammo").GetComponent<Text>();
+        if (isLocal)
+        {
+            hudWeaponIcon = uiObject.Find("Icon").GetComponent<Image>();
+            hudWeaponAmmo = uiObject.Find("Ammo").GetComponent<Text>();
+        }
 
         barrelEnd = weaponObject.Find("BarrelEnd");
         if(barrelEnd == null)
@@ -58,11 +62,17 @@ public class Gun : Weapon
 
     void UpdateHudAmmo()
     {
+        if (!isLocal)
+            return;
+
         hudWeaponAmmo.text = magCurrent + " / " + magSize;
     }
 
     void UpdateHudWeapon()
     {
+        if (!isLocal)
+            return;
+
         hudWeaponIcon.sprite = icon;
         hudWeaponIcon.type = Image.Type.Simple;
         hudWeaponIcon.preserveAspect = true;
@@ -85,8 +95,9 @@ public class Gun : Weapon
             if (fireTimer >= 60.0f / firerate && magCurrent > 0)
             {
                 fireTimer = 0;
-                Fire(true);
-                //GameManager.Instance().Fire(player);
+                Fire();
+
+                SendWeaponUpdate();
             }
         }
 
@@ -101,12 +112,15 @@ public class Gun : Weapon
             StopAds();
     }
 
-    public void Fire(bool doDamage)
+    public void Fire()
     {
-        magCurrent--;
-        UpdateHudAmmo();
+        if (isLocal)
+        {
+            magCurrent--;
+            UpdateHudAmmo();
+        }
 
-        ammo.Fire(this, doDamage);
+        ammo.Fire(this, isLocal);
     }
 
     public void StartReload()
@@ -142,5 +156,12 @@ public class Gun : Weapon
         weaponObject.transform.localPosition = Vector3.zero;
 
         camera.fieldOfView = prevFov;
+    }
+
+    public override void OnWeaponUpdate(RTPacket packet)
+    {
+        base.OnWeaponUpdate(packet);
+
+        Fire();
     }
 }

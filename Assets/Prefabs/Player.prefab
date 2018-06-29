@@ -40,10 +40,10 @@ GameObject:
   - component: {fileID: 114573646655795596}
   - component: {fileID: 54764527735256582}
   - component: {fileID: 82359308183971382}
-  - component: {fileID: 114628840895293302}
   - component: {fileID: 114658090779611292}
-  - component: {fileID: 114805087808489058}
+  - component: {fileID: 114628840895293302}
   - component: {fileID: 114549533520525098}
+  - component: {fileID: 114246891403942720}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -334,6 +334,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114246891403942720
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1567632108853674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 11400000, guid: 3636bd50e6c844249804e7df7606fd61, type: 2}
+  eyes: {fileID: 20176361024510456}
+  weaponHolder: {fileID: 4758672324593234}
 --- !u!114 &114549533520525098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -490,28 +504,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1567632108853674}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   peerId: 0
   updateRate: 0.1
---- !u!114 &114805087808489058
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1567632108853674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41ecd3c15fd39fc4cba2d5ced14cc0ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 11400000, guid: 06500ec9aa1faf94ba3e473045cafcf1, type: 2}
-  eyes: {fileID: 4966101520006242}
-  weaponHolder: {fileID: 4758672324593234}
-  isPlayer: 0
 --- !u!124 &124195535388948110
 Behaviour:
   m_ObjectHideFlags: 1

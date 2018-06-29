@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GameSparks.RT;
+using UnityEngine;
 
 public class Weapon : ScriptableObject
 {
@@ -6,6 +7,7 @@ public class Weapon : ScriptableObject
     [HideInInspector] public RectTransform hud;
     [HideInInspector] public Transform transform;
     [HideInInspector] public Transform weaponHolder;
+    [HideInInspector] public WeaponBehaviour weaponBehaviour;
 
     public string weaponName;
     public Sprite icon;
@@ -16,12 +18,17 @@ public class Weapon : ScriptableObject
     public GameObject uiPrefab;
     [HideInInspector] public Transform uiObject;
 
-    public void Setup(Camera camera, RectTransform hud, Transform transform, Transform weaponHolder)
+    public bool isLocal;
+
+    public void Setup(Camera camera, RectTransform hud, Transform transform, Transform weaponHolder, WeaponBehaviour weaponBehaviour)
     {
         this.camera = camera;
         this.hud = hud;
         this.transform = transform;
         this.weaponHolder = weaponHolder;
+        this.weaponBehaviour = weaponBehaviour;
+
+        isLocal = weaponBehaviour.isLocal;
     }
 
     public virtual void OnStart()
@@ -31,7 +38,7 @@ public class Weapon : ScriptableObject
             weaponObject = Instantiate(weaponPrefab, weaponHolder, false).transform;
         }
 
-        if (uiPrefab != null)
+        if (uiPrefab != null && isLocal)
         {
             uiObject = Instantiate(uiPrefab, hud, false).transform;
         }
@@ -47,6 +54,25 @@ public class Weapon : ScriptableObject
     }
 
     public virtual void OnUpdate()
+    {
+
+    }
+
+    public void SendWeaponUpdate()
+    {
+        using (RTData data = RTData.Get())
+        {
+            SendWeaponUpdate(data);
+        }
+    }
+
+    public void SendWeaponUpdate(RTData data)
+    {
+        if (weaponBehaviour.isLocal)
+            GameManager.Instance().PlayerWeaponUpdate(weaponBehaviour.player, data);
+    }
+
+    public virtual void OnWeaponUpdate(RTPacket packet)
     {
 
     }

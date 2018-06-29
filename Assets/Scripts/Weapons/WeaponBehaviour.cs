@@ -2,23 +2,35 @@
 
 public class WeaponBehaviour : MonoBehaviour
 {
-    public Weapon startingWeapon;
     private Weapon weapon;
 
     public Camera eyes;
-    public RectTransform hud;
     public Transform weaponHolder;
+    private RectTransform hud;
 
-    void Start ()
+    [HideInInspector] public Player player;
+
+    [HideInInspector] public bool isLocal;
+
+    void Awake()
     {
-        SetWeapon(startingWeapon);
-	}
+        hud = GameObject.FindGameObjectWithTag("WeaponHud").GetComponent<RectTransform>();
+    }
 
 	void Update ()
     {
+        if (!isLocal)
+            return;
+
         if (weapon != null)
             weapon.OnUpdate();
 	}
+
+    public void SetWeapon(int index)
+    {
+        Weapon[] weapons = Resources.LoadAll<Weapon>("Weapons");
+        SetWeapon(weapons[index]);
+    }
 
     public void SetWeapon(Weapon newWeapon)
     {
@@ -29,7 +41,21 @@ public class WeaponBehaviour : MonoBehaviour
 
         // Weapon
         weapon = Instantiate(newWeapon);
-        weapon.Setup(eyes, hud, transform, weaponHolder);
+        weapon.Setup(eyes, hud, transform, weaponHolder, this);
         weapon.OnStart();
+    }
+
+    public void Initialize(Player player, bool isLocal)
+    {
+        this.isLocal = isLocal;
+        this.player = player;
+    }
+
+    public void OnWeaponUpdate(GameSparks.RT.RTPacket packet)
+    {
+        if (weapon != null)
+        {
+            weapon.OnWeaponUpdate(packet);
+        }
     }
 }

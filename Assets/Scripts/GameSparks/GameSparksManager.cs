@@ -222,7 +222,7 @@ public class GameSparksManager : MonoBehaviour
 
     public static int PeerId()
     {
-        if(Instance() != null && Instance().GetRTSession() != null)
+        if(Instance() != null && Instance().GetRTSession() != null && Instance().GetRTSession().PeerId.HasValue)
             return Instance().GetRTSession().PeerId.Value;
 
         return -1;

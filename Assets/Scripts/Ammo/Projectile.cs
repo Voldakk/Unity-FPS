@@ -37,7 +37,10 @@ public class Projectile : Ammo
     public override void Fire(Gun gun, bool doDamage)
     {
         base.Fire(gun, doDamage);
+    }
 
+    protected void ApplyRecoil(Gun gun)
+    {
         gun.transform.localRotation *= Quaternion.Euler(0f, Random.Range(-horizontalRecoil, horizontalRecoil), 0f);
         gun.camera.transform.localRotation *= Quaternion.Euler(-verticalRecoil, 0f, 0f);
     }

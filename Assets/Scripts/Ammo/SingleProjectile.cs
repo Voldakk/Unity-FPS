@@ -49,5 +49,7 @@ public class SingleProjectile : Projectile
             lineRendererController.lineRenderer.SetPosition(1, gun.barrelEnd.position + gun.camera.transform.forward * lineLength);
             lineRendererController.Fire(lineTime);
         }
+
+        ApplyRecoil(gun);
     }
 }

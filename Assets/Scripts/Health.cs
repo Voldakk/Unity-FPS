@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public float maxHealth;
+    public float maxHealth = 100f;
     private float currentHealth;
 
     private bool dead;

@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114628840895293302}
   - component: {fileID: 114549533520525098}
   - component: {fileID: 114246891403942720}
+  - component: {fileID: 136304184146674868}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -345,9 +346,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 11400000, guid: 3636bd50e6c844249804e7df7606fd61, type: 2}
   eyes: {fileID: 20176361024510456}
   weaponHolder: {fileID: 4758672324593234}
+  player: {fileID: 0}
+  isLocal: 0
 --- !u!114 &114549533520525098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -497,7 +499,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
+  maxHealth: 1000
 --- !u!114 &114658090779611292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -518,6 +520,19 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1646352420000994}
   m_Enabled: 1
+--- !u!136 &136304184146674868
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1567632108853674}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143096916652578094
 CharacterController:
   m_ObjectHideFlags: 1

@@ -5,11 +5,11 @@ public class Pool : MonoBehaviour
 {
     public GameObject prefab;
 
-    public Queue<GameObject> pool;
-    public Queue<GameObject> active;
-
     public int startCount;
     public int maxCount;
+
+    private Queue<GameObject> pool;
+    private Queue<GameObject> active;
 
 	void Start ()
     {
@@ -18,7 +18,7 @@ public class Pool : MonoBehaviour
 
         for (int i = 0; i < startCount; i++)
         {
-            GameObject go = Instantiate(prefab);
+            GameObject go = Instantiate(prefab, transform);
             go.SetActive(false);
             pool.Enqueue(go);
         }
@@ -39,7 +39,7 @@ public class Pool : MonoBehaviour
             // If we can make more
             if(active.Count < maxCount)
             {
-                GameObject go = Instantiate(prefab);
+                GameObject go = Instantiate(prefab, transform);
                 active.Enqueue(go);
                 return go;
             }

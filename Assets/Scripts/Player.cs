@@ -83,7 +83,7 @@ public class Player : MonoBehaviour
                 data.SetVector3(1, transform.position);
                 data.SetVector2(2, new Vector2(WeaponBehaviour.eyes.transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
 
-                GameSparksManager.Instance().GetRTSession().SendData(2, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
+                GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
             prevPos = transform.position;
         }

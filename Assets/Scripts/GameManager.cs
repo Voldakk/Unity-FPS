@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using GameSparks.RT;
-enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon };
+using System.Collections.Generic;
+
+enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcPosition };
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +14,10 @@ public class GameManager : MonoBehaviour
     private GameObject[] spawnPoints;
 
     private Player[] playerList;
+
+    private List<Enemy> enemies;
+    private Dictionary<string, Enemy> enemyTable;
+
     public Player[] GetAllPlayers()
     {
         return playerList;
@@ -31,6 +37,19 @@ public class GameManager : MonoBehaviour
     }
 
     private static GameManager instance;
+
+    public bool IsHost
+    {
+        get
+        {
+            return GameSparksManager.PeerId() == 1;
+        }
+        private set
+        {
+           
+        }
+    }
+
     public static GameManager Instance()
     {
         return instance;
@@ -40,7 +59,10 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
 
-        if(!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
+        enemies = new List<Enemy>();
+        enemyTable = new Dictionary<string, Enemy>();
+
+        if (!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
             UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
@@ -70,7 +92,7 @@ public class GameManager : MonoBehaviour
             playerList[i].peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
             playerList[i].name = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId.ToString();
 
-            if (GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId == GameSparksManager.PeerId())
+            if (playerList[i].peerId == GameSparksManager.PeerId())
             {
                 playerList[i].Initialize(true);
                 playerList[i].gameObject.SetActive(false);
@@ -90,8 +112,8 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < playerList.Length; i++)
         {
-            if (playerList[i].name == _packet.Sender.ToString())
-            { 
+            if (playerList[i].peerId == _packet.Sender)
+            {
                 playerList[i].SetPosition(_packet.Data.GetVector3(1).Value, _packet.Data.GetVector2(2).Value);
                 break;
             }
@@ -102,7 +124,7 @@ public class GameManager : MonoBehaviour
     {
         GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerWeapon, GameSparksRT.DeliveryIntent.RELIABLE, data);
     }
-    
+
 
     public void OnPlayerSetWeapon(RTPacket _packet)
     {
@@ -173,5 +195,31 @@ public class GameManager : MonoBehaviour
     public int NumPlayers()
     {
         return playerList.Length;
+    }
+
+    public void RegisterEnemy(Enemy enemy)
+    {
+        enemyTable.Add(enemy.id, enemy);
+    }
+
+    public void SendNpcPosition(Enemy enemy)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetString(1, enemy.id);
+            data.SetVector3(2, enemy.transform.position);
+            data.SetVector2(3, new Vector2(enemy.transform.rotation.eulerAngles.x, enemy.transform.rotation.eulerAngles.y));
+
+            GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.NpcPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
+        }
+    }
+
+    public void OnNpcPositionUpdate(RTPacket packet)
+    {
+        Enemy enemy = enemyTable[packet.Data.GetString(1)];
+        if(enemy != null)
+        {
+            enemy.UpdateTransform(packet.Data.GetVector3(2).Value, packet.Data.GetVector2(3).Value);
+        }
     }
 }

@@ -196,27 +196,26 @@ public class GameSparksManager : MonoBehaviour
         switch ((OpCodes)_packet.OpCode)
         {
             case OpCodes.Chat:
-                // Chat
                 break;
 
             case OpCodes.PlayerPosition:
-                // Player position update
                 GameManager.Instance().UpdatePlayerPosition(_packet);
                 break;
 
             case OpCodes.PlayerDamage:
-                // Player damage
                 GameManager.Instance().OnPlayerDamage(_packet);
                 break;
 
             case OpCodes.PlayerSetWeapon:
-                // Player fire
                 GameManager.Instance().OnPlayerSetWeapon(_packet);
                 break;
 
             case OpCodes.PlayerWeapon:
-                // Player fire
                 GameManager.Instance().OnPlayerWeaponUpdate(_packet);
+                break;
+
+            case OpCodes.NpcPosition:
+                GameManager.Instance().OnNpcPositionUpdate(_packet);
                 break;
         }
     }

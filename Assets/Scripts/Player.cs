@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     public float updateRate;
 
     private Vector3 goToPos;
-    private Quaternion goToRot;
+    private Vector2 goToRot;
 
     private bool isLocal;
 
@@ -51,16 +51,26 @@ public class Player : MonoBehaviour
         {
             Destroy(GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>());
             Destroy(GetComponent<Look>());
-            Destroy(GetComponentInChildren<Camera>());
-            Destroy(GetComponentInChildren<AudioListener>());
+
+            foreach (var c in GetComponentsInChildren<Camera>())
+            {
+                Destroy(c);
+            }
+            foreach (var al in GetComponentsInChildren<AudioListener>())
+            {
+                Destroy(al);
+            }
 
             goToPos = transform.position;
-            goToRot = transform.rotation;
+            goToRot = XyRot();
         }
     }
 
     public void Respawn()
     {
+        goToPos = transform.position;
+        goToRot = XyRot();
+
         StartCoroutine(SendMovement());
     }
 
@@ -68,20 +78,24 @@ public class Player : MonoBehaviour
     {
         if (!isLocal)
         {
-            //transform.position = Vector2.Lerp(transform.position, goToPos, Time.deltaTime / updateRate);
+            float t = Time.deltaTime / updateRate;
+
+            transform.position = Vector3.Lerp(transform.position, goToPos, t);
+
+            transform.localRotation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0.0f, goToRot.y, 0.0f), t);
+            WeaponBehaviour.eyes.transform.localRotation = Quaternion.Lerp(WeaponBehaviour.eyes.transform.localRotation, Quaternion.Euler(goToRot.x, 0.0f, 0.0f), t);
         }
     }
 
     private IEnumerator SendMovement()
     {
-        // If we are moving
         if ((transform.position != prevPos) || (Math.Abs(Input.GetAxis("Vertical")) > 0) || (Math.Abs(Input.GetAxis("Horizontal")) > 0) ||
             transform.rotation != prevRot)
         {
             using (RTData data = RTData.Get())
             {  
                 data.SetVector3(1, transform.position);
-                data.SetVector2(2, new Vector2(WeaponBehaviour.eyes.transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
+                data.SetVector2(2, XyRot());
 
                 GameSparksManager.Instance().GetRTSession().SendData((int)OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
@@ -94,8 +108,12 @@ public class Player : MonoBehaviour
 
     public void SetPosition(Vector3 position, Vector2 eulerAngles)
     {
-        transform.position = position;
-        transform.localRotation = Quaternion.Euler(0.0f, eulerAngles.y, 0.0f);
-        WeaponBehaviour.eyes.transform.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
+        goToPos = position;
+        goToRot = eulerAngles;
+    }
+
+    Vector2 XyRot()
+    {
+        return new Vector2(WeaponBehaviour.eyes.transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y);
     }
 }

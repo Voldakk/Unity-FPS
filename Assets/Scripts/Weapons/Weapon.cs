@@ -36,6 +36,15 @@ public class Weapon : ScriptableObject
         if (weaponPrefab != null)
         {
             weaponObject = Instantiate(weaponPrefab, weaponHolder, false).transform;
+
+            if(!isLocal)
+            {
+                MeshRenderer[] mrs = weaponObject.GetComponentsInChildren<MeshRenderer>();
+                foreach (var mr in mrs)
+                {
+                    mr.gameObject.layer = 0;
+                }
+            }
         }
 
         if (uiPrefab != null && isLocal)

@@ -217,6 +217,14 @@ public class GameSparksManager : MonoBehaviour
             case OpCodes.NpcPosition:
                 GameManager.Instance().OnNpcPositionUpdate(_packet);
                 break;
+
+            case OpCodes.TimeStamp:
+                GameManager.Instance().CalculateTimeDelta(_packet);
+                break;
+
+            case OpCodes.ClockSync:
+                GameManager.Instance().SyncClock(_packet);
+                break;
         }
     }
 

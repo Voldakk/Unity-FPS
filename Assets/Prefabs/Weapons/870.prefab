@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4186088572524726}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4242541430076374}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 870
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4788782962296878}
   - component: {fileID: 33219271812161450}
   - component: {fileID: 23877259616853634}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: 870_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4532055964954360}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4850025222758606}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4378941733093090}
   - component: {fileID: 33052858734569400}
   - component: {fileID: 23276993595725336}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol
   m_TagString: Untagged
   m_Icon: {fileID: 0}

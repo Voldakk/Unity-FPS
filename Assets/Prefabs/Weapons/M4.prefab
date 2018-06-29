@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4803967715713096}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BarrelEnd
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4214943678032958}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: M4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -51,7 +51,7 @@ GameObject:
   - component: {fileID: 4592627279533686}
   - component: {fileID: 33705136136872058}
   - component: {fileID: 23175084117540606}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: M4_Carbine
   m_TagString: Untagged
   m_Icon: {fileID: 0}

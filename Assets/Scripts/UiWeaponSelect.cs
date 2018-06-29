@@ -39,8 +39,8 @@ public class UiWeaponSelect : MonoBehaviour
 
             player.gameObject.SetActive(true);
             player.Respawn();
-            player.PlayerShooting.SetWeapon(weapons[index]);
-            player.PlayerShooting.EndReload();
+            //player.PlayerShooting.SetWeapon(weapons[index]);
+            //player.PlayerShooting.EndReload();
         }
     }
 }

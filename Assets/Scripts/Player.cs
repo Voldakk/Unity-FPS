@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public int peerId;
 
     public Health Health { get; private set; }
-    public PlayerShooting PlayerShooting { get; private set; }
+    //public PlayerShooting PlayerShooting { get; private set; }
 
     private new Rigidbody rigidbody;
 
@@ -34,10 +34,10 @@ public class Player : MonoBehaviour
         isPlayer = value;
 
         Health = GetComponent<Health>();
-        PlayerShooting = GetComponent<PlayerShooting>();
+        //PlayerShooting = GetComponent<PlayerShooting>();
         rigidbody = GetComponent<Rigidbody>();
 
-        PlayerShooting.Initialize(isPlayer, this);
+        //PlayerShooting.Initialize(isPlayer, this);
         Health.Initialize(isPlayer);
 
         if (value)
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
             using (RTData data = RTData.Get())
             {  
                 data.SetVector3(1, transform.position);
-                data.SetVector2(2, new Vector2(PlayerShooting.eyes.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
+                //data.SetVector2(2, new Vector2(PlayerShooting.eyes.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y));
 
                 GameSparksManager.Instance().GetRTSession().SendData(2, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
@@ -96,6 +96,6 @@ public class Player : MonoBehaviour
     {
         transform.position = position;
         transform.localRotation = Quaternion.Euler(0.0f, eulerAngles.y, 0.0f);
-        PlayerShooting.eyes.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
+        //PlayerShooting.eyes.localRotation = Quaternion.Euler(eulerAngles.x, 0.0f, 0.0f);
     }
 }

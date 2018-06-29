@@ -105,7 +105,7 @@ public class GameManager : MonoBehaviour
         {
             if (playerList[i].peerId == _packet.Sender)
             {
-                playerList[i].PlayerShooting.Fire(false);
+                //playerList[i].PlayerShooting.Fire(false);
                 break;
             }
         }

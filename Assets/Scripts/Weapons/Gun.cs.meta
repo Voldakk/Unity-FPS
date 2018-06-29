@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 2296b89c1cf42df47a30e026faec3d6f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - camera: {instanceID: 0}
+  - hud: {instanceID: 0}
+  - transform: {instanceID: 0}
+  - weaponHolder: {instanceID: 0}
+  - icon: {instanceID: 0}
+  - weaponPrefab: {instanceID: 0}
+  - weaponObject: {instanceID: 0}
+  - uiPrefab: {instanceID: 0}
+  - uiObject: {instanceID: 0}
+  - ammo: {instanceID: 0}
+  - barrelEnd: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

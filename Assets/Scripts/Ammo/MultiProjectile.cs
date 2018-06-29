@@ -1,32 +1,17 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "New ammo", menuName = "Ammo/MultiProjectile")]
-public class MultiProjectile : Ammo
+public class MultiProjectile : Projectile
 {
-    public float damage;
-    public float lineTime = 0.01f;
-    public float lineLength = 1000.0f;
-
     public int numProjectiles;
 
     public float coneRadius;
     public float coneLength;
 
-    public GameObject lineRendererPrefab;
-    private LineRendererController lineRendererController;
+    public override void Fire(Gun gun, bool doDamage)
+    {
+        base.Fire(gun, doDamage);
 
-    public override void Load(Weapon currentWeapon)
-    {
-        lineRendererController = Instantiate(lineRendererPrefab, currentWeapon.gameObject.transform.Find("BarrelEnd")).GetComponent<LineRendererController>();
-    }
-
-    public override void Unload()
-    {
-        Destroy(lineRendererController.gameObject);
-    }
-    public override void Fire(Weapon currentWeapon, PlayerShooting ps, bool doDamage)
-    {
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
 
@@ -51,23 +36,22 @@ public class MultiProjectile : Ammo
                 continue;
 
             RaycastHit hit;
-            Vector3 origin = ps.eyes.position;
-            Vector3 worldDirection = ps.eyes.TransformDirection(direction);
+            Vector3 origin = gun.camera.transform.position;
+            Vector3 worldDirection = gun.camera.transform.TransformDirection(direction);
             if (Physics.Raycast(origin, worldDirection, out hit))
             {
                 Player player = hit.transform.GetComponent<Player>();
                 if (player != null)
                 {
-                    playerDamage[player.peerId-1] += damage;
-                    
+                    playerDamage[player.peerId - 1] += damage;
                 }
             }
         }
 
         for (int i = 0; i < playerDamage.Length; i++)
         {
-            if(playerDamage[i] != 0.0f)
-                GameManager.Instance().DamagePlayer(i+1, playerDamage[i]);
+            if (playerDamage[i] != 0.0f)
+                GameManager.Instance().DamagePlayer(i + 1, playerDamage[i]);
         }
 
         lineRendererController.Fire(lineTime);

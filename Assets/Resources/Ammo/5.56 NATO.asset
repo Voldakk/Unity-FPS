@@ -16,5 +16,7 @@ MonoBehaviour:
   damage: 25
   lineTime: 0.01
   lineLength: 1000
+  verticalRecoil: 0.3
+  horizontalRecoil: 0.3
   lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
     type: 2}

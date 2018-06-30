@@ -33,5 +33,6 @@ MonoBehaviour:
   magCurrent: 0
   adsPosition: {x: -0.16, y: 0.097, z: -0.2}
   fireSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
+  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
   barrelEnd: {fileID: 0}
   adsFov: 40

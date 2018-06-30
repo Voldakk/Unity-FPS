@@ -18,7 +18,7 @@ public class Gun : Weapon
 
     public Vector3 adsPosition;
 
-    public AudioClip fireSound;
+    public AudioClip fireSound, reloadSound;
     private AudioSource audioSource;
 
     private Image hudWeaponIcon;
@@ -127,7 +127,7 @@ public class Gun : Weapon
 
         ammo.Fire(this, isLocal);
 
-        if(audioSource != null && fireSound != null)
+        if(fireSound != null)
         {
             audioSource.clip = fireSound;
             audioSource.Play();
@@ -136,6 +136,12 @@ public class Gun : Weapon
 
     public void StartReload()
     {
+        if(reloadSound != null)
+        {
+            audioSource.clip = reloadSound;
+            audioSource.Play();
+        }
+
         reloadTimer = 0.0f;
         reloading = true;
 

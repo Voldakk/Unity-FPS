@@ -183,10 +183,7 @@ public class GameSparksManager : MonoBehaviour
         {
             Debug.Log("GSM| RT Session Connected...");
 
-            if(string.IsNullOrEmpty(sceneName))
-                GameManager.Instance().SetupPlayers();
-            else
-                SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("Lobby");
         }
 
     }
@@ -222,11 +219,11 @@ public class GameSparksManager : MonoBehaviour
                 break;
 
             case OpCodes.TimeStamp:
-                GameManager.Instance().CalculateTimeDelta(_packet);
+                //GameManager.Instance().CalculateTimeDelta(_packet);
                 break;
 
             case OpCodes.ClockSync:
-                GameManager.Instance().SyncClock(_packet);
+                //GameManager.Instance().SyncClock(_packet);
                 break;
         }
     }

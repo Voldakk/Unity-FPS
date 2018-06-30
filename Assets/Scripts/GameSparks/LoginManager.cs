@@ -5,20 +5,17 @@ using GameSparks.Api.Responses;
 using System.Text;
 using System.Linq;
 
-public class LobbyManager : MonoBehaviour
+public class LoginManager : MonoBehaviour
 {
     public Text userId, connectionStatus;
     public InputField userNameInput, passwordInput;
     public GameObject loginPanel;
-    public Button loginBttn, soloMatchmakingBttn, duoMatchmakingBttn, startGameBttn;
+    public Button loginBttn, soloMatchmakingBttn, duoMatchmakingBttn;
     public Text matchDetails;
     public GameObject matchDetailsPanel;
 
-    private RTSessionInfo tempRTSessionInfo;
-
     void Start()
     {
-
         // we won't start with a user logged in so lets show this also
         userId.text = "No User Logged In...";
 
@@ -35,36 +32,36 @@ public class LobbyManager : MonoBehaviour
                 connectionStatus.text = "GameSparks Disconnected...";
             }
         };
-        // only the login panel and login button is needed at the start of the scene, so disable any other objects //
+
+        // only the login panel and login button is needed at the start of the scene, so disable any other objects
         matchDetailsPanel.SetActive(false);
         soloMatchmakingBttn.gameObject.SetActive(false);
         duoMatchmakingBttn.gameObject.SetActive(false);
-        startGameBttn.gameObject.SetActive(false);
-        // we add a custom listener to the on-click delegate of the login button so we don't need to create extra methods //
-        loginBttn.onClick.AddListener(() => {
+
+        // we add a custom listener to the on-click delegate of the login button so we don't need to create extra methods
+        loginBttn.onClick.AddListener(() => 
+        {
             GameSparksManager.Instance().AuthenticateUser(userNameInput.text, passwordInput.text, OnRegistration, OnAuthentication);
         });
 
-        soloMatchmakingBttn.onClick.AddListener(() => {
+        soloMatchmakingBttn.onClick.AddListener(() => 
+        {
             GameSparksManager.Instance().FindPlayers("solo");
             matchDetails.text = "Searching For Players...";
         });
-        duoMatchmakingBttn.onClick.AddListener(() => {
+
+        duoMatchmakingBttn.onClick.AddListener(() => 
+        {
             GameSparksManager.Instance().FindPlayers("duo");
             matchDetails.text = "Searching For Players...";
         });
 
-        // this listener will update the text in the player-list field if no match was found //
+        // this listener will update the text in the player-list field if no match was found
         GameSparks.Api.Messages.MatchNotFoundMessage.Listener = (message) => {
             matchDetails.text = "No Match Found...";
         };
 
         GameSparks.Api.Messages.MatchFoundMessage.Listener += OnMatchFound;
-
-        // this is a listener for the startGameBttn. Onclick, we will will pass the stored RTSessionInfo to the GameSparksManager to create a new RT session //
-        startGameBttn.onClick.AddListener(() => {
-            GameSparksManager.Instance().StartNewRTSession(tempRTSessionInfo);
-        });
     }
 
     // <summary>
@@ -114,9 +111,6 @@ public class LobbyManager : MonoBehaviour
         }
         matchDetails.text = sBuilder.ToString(); // set the string to be the player-list field
 
-        tempRTSessionInfo = new RTSessionInfo(_message); // we'll store the match data until we need to create an RT session instance
-        soloMatchmakingBttn.gameObject.SetActive(false);
-        duoMatchmakingBttn.gameObject.SetActive(false);
-        startGameBttn.gameObject.SetActive(true);
+        GameSparksManager.Instance().StartNewRTSession(new RTSessionInfo(_message));
     }
 }

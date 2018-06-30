@@ -3,8 +3,6 @@ using UnityEngine.UI;
 
 public class UiWeaponSelect : MonoBehaviour
 {
-    public GameObject menu;
-
     public GameObject weaponPanelPrefab;
     public Transform weaponList;
 
@@ -31,17 +29,6 @@ public class UiWeaponSelect : MonoBehaviour
     {
         Debug.Log("Clicked " + index);
 
-        Player player = GameManager.Instance().Player();
-
-        if(player != null)
-        {
-            menu.SetActive(false);
-
-            player.gameObject.SetActive(true);
-            player.Respawn();
-            player.WeaponBehaviour.SetWeapon(weapons[index]);
-
-            GameManager.Instance().SetPlayerWeapon(index);
-        }
+        PlayerSetting.Current.startingWeapon = index;
     }
 }

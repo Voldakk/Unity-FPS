@@ -71,20 +71,18 @@ public class GameManager : MonoBehaviour
         enemies = new List<Enemy>();
         enemyTable = new Dictionary<string, Enemy>();
 
-        if (!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
-            UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
     }
 
     void Start()
     {
-        StartCoroutine(SendTimeStamp());
-
-        if (!string.IsNullOrEmpty(sceneName) && FindObjectOfType<AutoConnect>() == null)
-            SetupPlayers();
+        Setup();
     }
 
-    public void SetupPlayers()
+    public void Setup()
     {
+        StartCoroutine(SendTimeStamp());
+
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
 
         GameObject p = GameObject.Find("Player");
@@ -106,7 +104,8 @@ public class GameManager : MonoBehaviour
             if (playerList[i].peerId == GameSparksManager.PeerId())
             {
                 playerList[i].Initialize(true);
-                playerList[i].gameObject.SetActive(false);
+                playerList[i].WeaponBehaviour.SetWeapon(PlayerSetting.Current.startingWeapon);
+                SetPlayerWeapon(PlayerSetting.Current.startingWeapon);
             }
             else
             {

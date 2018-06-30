@@ -622,10 +622,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: c2ac46320604bcc4880345f7cbe4f04e, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b127815fd0f2074eae3a0c6a4786d0b, type: 2}
   m_IsPrefabParent: 0
@@ -1062,7 +1058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62b57f4c9ced1dc478376400c9fcc2d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 11400000, guid: 0fc57a1d1d70b804e89ec316e06080e3, type: 2}
+  weapon: {fileID: 11400000, guid: 3636bd50e6c844249804e7df7606fd61, type: 2}
   weaponBehaviour: {fileID: 2069212660}
 --- !u!4 &1903484705
 Transform:

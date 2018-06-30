@@ -36,8 +36,8 @@ GameObject:
   - component: {fileID: 4040522424580014}
   - component: {fileID: 33065811802956844}
   - component: {fileID: 23203556203794774}
-  m_Layer: 0
-  m_Name: AK-47
+  m_Layer: 10
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,8 +53,8 @@ GameObject:
   - component: {fileID: 4475878912969606}
   - component: {fileID: 33926082277153396}
   - component: {fileID: 23719734222110068}
-  m_Layer: 0
-  m_Name: AK-4_Mag
+  m_Layer: 10
+  m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -70,8 +70,8 @@ GameObject:
   - component: {fileID: 4752625195810714}
   - component: {fileID: 33800321570846864}
   - component: {fileID: 23177714247965076}
-  m_Layer: 0
-  m_Name: AK-47_Safety
+  m_Layer: 10
+  m_Name: AK-47_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85,6 +85,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4058213865597838}
+  - component: {fileID: 95812642125131170}
   m_Layer: 10
   m_Name: AK47
   m_TagString: Untagged
@@ -103,7 +104,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4058213865597838}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4058213865597838
 Transform:
@@ -116,8 +117,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4299932889717418}
-  - {fileID: 4475878912969606}
   - {fileID: 4040522424580014}
+  - {fileID: 4475878912969606}
   - {fileID: 4752625195810714}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -146,7 +147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4058213865597838}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4752625195810714
 Transform:
@@ -287,3 +288,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1356163386697356}
   m_Mesh: {fileID: 4300004, guid: 7d0124d3bdb8cba4f834aae3a9962ddc, type: 3}
+--- !u!95 &95812642125131170
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1952691836859122}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4888000537863654}
   - component: {fileID: 33391069058483478}
   - component: {fileID: 23502058866278716}
-  m_Layer: 0
-  m_Name: Pistol
+  m_Layer: 10
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 4892425095657364}
   - component: {fileID: 33522609138709448}
   - component: {fileID: 23937945866231518}
-  m_Layer: 0
-  m_Name: Pistol_Mag
+  m_Layer: 10
+  m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,8 +55,8 @@ GameObject:
   - component: {fileID: 4799036611824966}
   - component: {fileID: 33147731066419216}
   - component: {fileID: 23993561071220878}
-  m_Layer: 0
-  m_Name: Pistol_Slide
+  m_Layer: 10
+  m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 4842921176338318}
   - component: {fileID: 33240118603796964}
   - component: {fileID: 23035878224951954}
-  m_Layer: 0
-  m_Name: L96
+  m_Layer: 10
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,8 +38,8 @@ GameObject:
   - component: {fileID: 4722597329609782}
   - component: {fileID: 33249166823522590}
   - component: {fileID: 23808660813616570}
-  m_Layer: 0
-  m_Name: L96_Bolt
+  m_Layer: 10
+  m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,6 +68,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4686241228990476}
+  - component: {fileID: 95611481932310836}
   m_Layer: 10
   m_Name: L96
   m_TagString: Untagged
@@ -85,8 +86,8 @@ GameObject:
   - component: {fileID: 4187725148158280}
   - component: {fileID: 33613979987880754}
   - component: {fileID: 23309627298495390}
-  m_Layer: 0
-  m_Name: L96_Scope
+  m_Layer: 10
+  m_Name: Scope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,8 +103,8 @@ GameObject:
   - component: {fileID: 4529778085593054}
   - component: {fileID: 33187057359791270}
   - component: {fileID: 23477990013062114}
-  m_Layer: 0
-  m_Name: L96_Mag
+  m_Layer: 10
+  m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4686241228990476}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4686241228990476
 Transform:
@@ -160,8 +161,8 @@ Transform:
   m_Children:
   - {fileID: 4492530501991824}
   - {fileID: 4842921176338318}
-  - {fileID: 4722597329609782}
   - {fileID: 4529778085593054}
+  - {fileID: 4722597329609782}
   - {fileID: 4187725148158280}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -177,7 +178,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4686241228990476}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4842921176338318
 Transform:
@@ -360,3 +361,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1414326690241872}
   m_Mesh: {fileID: 4300002, guid: d78fce1f586605a47ab057832f697a8d, type: 3}
+--- !u!95 &95611481932310836
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1410260068998500}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

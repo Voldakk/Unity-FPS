@@ -323,7 +323,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Pistol_Idle
+  m_Name: Idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -350,7 +350,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Pistol_Ads
+  m_Name: Ads
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -377,7 +377,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Pistol_Reload
+  m_Name: Reload
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

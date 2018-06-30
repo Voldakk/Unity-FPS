@@ -11,8 +11,13 @@ public class Enemy : MonoBehaviour
     private Vector3 prevPos;
     private Quaternion prevRot;
 
+    private Vector3 goToPos;
+    private Vector2 goToRot;
+
     private new Rigidbody rigidbody;
     private Health health;
+
+    private bool isHost;
 
     void Reset()
     {
@@ -36,16 +41,28 @@ public class Enemy : MonoBehaviour
     {
         GameManager.Instance().RegisterEnemy(this);
 
-        if(GameManager.Instance().IsHost)
-        {
+        isHost = GameManager.Instance().IsHost;
+
+        if (isHost)
             StartCoroutine(SendMovement());
+    }
+
+    void Update()
+    {
+        if (!isHost)
+        {
+            float t = Time.deltaTime / updateRate;
+
+            transform.position = Vector3.Lerp(transform.position, goToPos, t);
+
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(goToRot.x, goToRot.y, 0.0f), t);
         }
     }
 
     public void UpdateTransform(Vector3 position, Vector2 rotation)
     {
-        transform.position = position;
-        transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0f);
+        goToPos = position;
+        goToRot = rotation;
     }
 
     private IEnumerator SendMovement()

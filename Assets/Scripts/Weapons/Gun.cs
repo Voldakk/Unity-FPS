@@ -16,8 +16,6 @@ public class Gun : Weapon
     public int magSize;
     [HideInInspector] public int magCurrent;
 
-    public Vector3 adsPosition;
-
     public AudioClip fireSound, reloadSound;
     private AudioSource audioSource;
 
@@ -33,6 +31,8 @@ public class Gun : Weapon
     public float adsFov;
     private float prevFov;
 
+    protected Animator animator;
+
     public override void OnStart()
     {
         base.OnStart();
@@ -46,6 +46,12 @@ public class Gun : Weapon
         barrelEnd = weaponObject.Find("BarrelEnd");
         if(barrelEnd == null)
             Debug.LogError("Gun::OnStart - Missing 'BarrelEnd'");
+
+        animator = weaponObject.GetComponent<Animator>();
+        if(animator != null)
+        {
+            animator.SetFloat("ReloadTime", 1f / reloadTime);
+        }
 
         audioSource = weaponHolder.GetComponent<AudioSource>();
 
@@ -132,15 +138,23 @@ public class Gun : Weapon
             audioSource.clip = fireSound;
             audioSource.Play();
         }
+
+        if (animator != null)
+            animator.SetTrigger("Fire");
     }
 
     public void StartReload()
     {
+        StopAds();
+
         if(reloadSound != null)
         {
             audioSource.clip = reloadSound;
             audioSource.Play();
         }
+
+        if (animator != null)
+            animator.SetTrigger("Reload");
 
         reloadTimer = 0.0f;
         reloading = true;
@@ -161,18 +175,20 @@ public class Gun : Weapon
     {
         crosshair.Hide();
 
-        weaponObject.transform.localPosition = adsPosition;
+        //prevFov = camera.fieldOfView;
+        //camera.fieldOfView = adsFov;
 
-        prevFov = camera.fieldOfView;
-        camera.fieldOfView = adsFov;
+        if (animator != null)
+            animator.SetBool("Ads", true);
     }
     public void StopAds()
     {
         crosshair.Show();
 
-        weaponObject.transform.localPosition = Vector3.zero;
+        //camera.fieldOfView = prevFov;
 
-        camera.fieldOfView = prevFov;
+        if (animator != null)
+            animator.SetBool("Ads", false);
     }
 
     public override void OnWeaponUpdate(RTPacket packet)

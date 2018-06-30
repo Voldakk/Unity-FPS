@@ -18,6 +18,9 @@ public class Gun : Weapon
 
     public Vector3 adsPosition;
 
+    public AudioClip fireSound;
+    private AudioSource audioSource;
+
     private Image hudWeaponIcon;
     private Text hudWeaponAmmo;
 
@@ -43,6 +46,8 @@ public class Gun : Weapon
         barrelEnd = weaponObject.Find("BarrelEnd");
         if(barrelEnd == null)
             Debug.LogError("Gun::OnStart - Missing 'BarrelEnd'");
+
+        audioSource = weaponHolder.GetComponent<AudioSource>();
 
         ammo = Instantiate(ammo);
         ammo.Load(this);
@@ -121,6 +126,12 @@ public class Gun : Weapon
         }
 
         ammo.Fire(this, isLocal);
+
+        if(audioSource != null && fireSound != null)
+        {
+            audioSource.clip = fireSound;
+            audioSource.Play();
+        }
     }
 
     public void StartReload()

@@ -15,6 +15,7 @@ MonoBehaviour:
   hud: {fileID: 0}
   transform: {fileID: 0}
   weaponHolder: {fileID: 0}
+  weaponBehaviour: {fileID: 0}
   weaponName: M4
   icon: {fileID: 21300046, guid: 5acb27b603af6d44ea6113c4b7b15385, type: 3}
   weaponPrefab: {fileID: 1768039302347434, guid: 0016e502d98e8424290d3b8e32f68c5d,
@@ -22,6 +23,7 @@ MonoBehaviour:
   weaponObject: {fileID: 0}
   uiPrefab: {fileID: 1641846396229730, guid: c0dc3b0e119053a4aa8d4419afd5eb0f, type: 2}
   uiObject: {fileID: 0}
+  isLocal: 0
   ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
   firerate: 600
   fireTimer: 0
@@ -30,5 +32,6 @@ MonoBehaviour:
   magSize: 30
   magCurrent: 0
   adsPosition: {x: -0.16, y: 0.097, z: -0.2}
+  fireSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
   barrelEnd: {fileID: 0}
   adsFov: 40

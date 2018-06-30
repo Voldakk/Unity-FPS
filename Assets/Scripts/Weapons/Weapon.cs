@@ -18,7 +18,7 @@ public class Weapon : ScriptableObject
     public GameObject uiPrefab;
     [HideInInspector] public Transform uiObject;
 
-    public bool isLocal;
+    [HideInInspector] public bool isLocal;
 
     public void Setup(Camera camera, RectTransform hud, Transform transform, Transform weaponHolder, WeaponBehaviour weaponBehaviour)
     {

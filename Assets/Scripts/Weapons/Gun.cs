@@ -43,6 +43,7 @@ public class Gun : Weapon
         {
             hudWeaponIcon = uiObject.Find("Icon").GetComponent<Image>();
             hudWeaponAmmo = uiObject.Find("Ammo").GetComponent<Text>();
+            crosshair = GameObject.Find("Crosshair").GetComponent<Crosshair>();
         }
 
         barrelEnd = weaponObject.Find("BarrelEnd");
@@ -62,8 +63,6 @@ public class Gun : Weapon
 
         UpdateHudWeapon();
         EndReload();
-
-        crosshair = GameObject.Find("Crosshair").GetComponent<Crosshair>();
     }
 
     public override void OnDestroy()
@@ -75,7 +74,7 @@ public class Gun : Weapon
 
     void UpdateHudAmmo()
     {
-        if (!isLocal)
+        if (hudWeaponAmmo == null)
             return;
 
         hudWeaponAmmo.text = magCurrent + " / " + magSize;
@@ -83,7 +82,7 @@ public class Gun : Weapon
 
     void UpdateHudWeapon()
     {
-        if (!isLocal)
+        if (hudWeaponIcon == null)
             return;
 
         hudWeaponIcon.sprite = icon;
@@ -134,13 +133,10 @@ public class Gun : Weapon
 
     public void Fire()
     {
-        if (isLocal)
-        {
-            magCurrent--;
-            UpdateHudAmmo();
-        }
-
         ammo.Fire(this, isLocal);
+        magCurrent--;
+
+        UpdateHudAmmo();
 
         if(fireSound != null)
         {
@@ -156,7 +152,10 @@ public class Gun : Weapon
     {
         StopAds();
 
-        if(reloadSound != null)
+        reloadTimer = 0.0f;
+        reloading = true;
+
+        if (reloadSound != null)
         {
             audioSource.clip = reloadSound;
             audioSource.Play();
@@ -165,10 +164,8 @@ public class Gun : Weapon
         if (animator != null)
             animator.SetTrigger("Reload");
 
-        reloadTimer = 0.0f;
-        reloading = true;
-
-        hudWeaponAmmo.text = "Reloading...";
+        if (hudWeaponAmmo != null)
+            hudWeaponAmmo.text = "Reloading...";
     }
 
     public void EndReload()
@@ -182,7 +179,8 @@ public class Gun : Weapon
 
     public void Ads()
     {
-        crosshair.Hide();
+        if(crosshair != null)
+            crosshair.Hide();
 
         //prevFov = camera.fieldOfView;
         //camera.fieldOfView = adsFov;
@@ -192,7 +190,8 @@ public class Gun : Weapon
     }
     public void StopAds()
     {
-        crosshair.Show();
+        if (crosshair != null)
+            crosshair.Show();
 
         //camera.fieldOfView = prevFov;
 
@@ -204,7 +203,7 @@ public class Gun : Weapon
     {
         base.OnWeaponUpdate(packet);
 
-        switch ((UpdateCode)packet.Data.GetInt(1).Value)
+        switch ((UpdateCode)packet.Data.GetInt(2).Value)
         {
             case UpdateCode.Fire:
                 Fire();
@@ -223,7 +222,7 @@ public class Gun : Weapon
                 break;
 
             default:
-                Debug.Log("Gun::OnWeaponUpdate - Unknown update code " + packet.Data.GetInt(1).Value);
+                Debug.LogError("Gun::OnWeaponUpdate - Unknown update code " + packet.Data.GetInt(1).Value);
                 break;
         }
     }

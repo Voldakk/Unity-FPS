@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcPosition, TimeStamp = 101, ClockSync = 102 };
+public enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcUpdate, TimeStamp = 101, ClockSync = 102 };
 
 public class GameManager : MonoBehaviour
 {
@@ -217,24 +217,18 @@ public class GameManager : MonoBehaviour
         enemyTable.Add(enemy.id, enemy);
     }
 
-    public void SendNpcPosition(Enemy enemy)
+    public void NpcSendPacket(Enemy enemy, RTData data, GameSparksRT.DeliveryIntent intent)
     {
-        using (RTData data = RTData.Get())
-        {
-            data.SetString(1, enemy.id);
-            data.SetVector3(2, enemy.transform.position);
-            data.SetVector2(3, new Vector2(enemy.transform.rotation.eulerAngles.x, enemy.transform.rotation.eulerAngles.y));
-
-            SendRTData(OpCodes.NpcPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
-        }
+        data.SetString(1, enemy.id);
+        SendRTData(OpCodes.NpcUpdate, intent, data);
     }
 
-    public void OnNpcPositionUpdate(RTPacket packet)
+    public void OnNpcUpdate(RTPacket packet)
     {
         Enemy enemy = enemyTable[packet.Data.GetString(1)];
         if(enemy != null)
         {
-            enemy.UpdateTransform(packet.Data.GetVector3(2).Value, packet.Data.GetVector2(3).Value);
+            enemy.OnPacket(packet);
         }
     }
 

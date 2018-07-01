@@ -214,8 +214,8 @@ public class GameSparksManager : MonoBehaviour
                 GameManager.Instance().OnPlayerWeaponUpdate(_packet);
                 break;
 
-            case OpCodes.NpcPosition:
-                GameManager.Instance().OnNpcPositionUpdate(_packet);
+            case OpCodes.NpcUpdate:
+                GameManager.Instance().OnNpcUpdate(_packet);
                 break;
 
             case OpCodes.TimeStamp:

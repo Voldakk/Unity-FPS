@@ -85,7 +85,7 @@ public class Weapon : ScriptableObject
     {
         using (RTData data = RTData.Get())
         {
-            data.SetInt(1, value);
+            data.SetInt(2, value);
             SendWeaponUpdate(data);
         }
     }

@@ -4,11 +4,10 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class Enemy : MonoBehaviour
+public class Enemy : NetworkObject
 {
     protected enum UpdateCode { PosAndRot }
 
-    public string id;
     public float updateRate = 0.1f;
 
     private Vector3 prevPos;
@@ -22,18 +21,10 @@ public class Enemy : MonoBehaviour
 
     private bool isHost;
 
-    void Reset()
+    protected override void Awake()
     {
-        id = Guid.NewGuid().ToString("N");
-    }
+        base.Awake();
 
-    void OnValidate()
-    {
-        id = Guid.NewGuid().ToString("N");
-    }
-
-	void Awake ()
-    {
         rigidbody = GetComponent<Rigidbody>();
 
         health = GetComponent<Health>();
@@ -42,8 +33,6 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        GameManager.Instance().RegisterEnemy(this);
-
         isHost = GameManager.Instance().IsHost;
 
         if (isHost)
@@ -66,9 +55,15 @@ public class Enemy : MonoBehaviour
     {
         goToPos = position;
     }
+
     private void UpdateRotation(Vector2 rotation)
     {
         goToRot = rotation;
+    }
+
+    void OnDeath()
+    {
+        Destroy(gameObject);
     }
 
     private IEnumerator SendMovement()
@@ -79,10 +74,10 @@ public class Enemy : MonoBehaviour
             using (RTData data = RTData.Get())
             {
                 if (transform.position != prevPos)
-                    data.SetVector3(10, transform.position);
+                    data.SetVector3(1, transform.position);
 
                 if(transform.rotation != prevRot)
-                    data.SetVector2(11, new Vector2(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y));
+                    data.SetVector2(2, new Vector2(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y));
 
                 SendPacket(UpdateCode.PosAndRot, data, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED);
             }
@@ -97,44 +92,37 @@ public class Enemy : MonoBehaviour
 
     protected void SendPacket(UpdateCode updateCode, RTData data, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
     {
-        data.SetInt(2, (int)updateCode);
-        GameManager.Instance().NpcSendPacket(this, data, intent);
+        data.SetInt((int)NetworkManager.DataIndex.ObjectCode, (int)updateCode);
+        SendPacket(data, intent);
     }
 
     protected void SendPacket(UpdateCode updateCode, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
     {
         using (RTData data = RTData.Get())
         {
-            data.SetInt(2, (int)updateCode);
-            GameManager.Instance().NpcSendPacket(this, data, intent);
+            data.SetInt((int)NetworkManager.DataIndex.ObjectCode, (int)updateCode);
+            SendPacket(data, intent);
         }
     }
 
-    public virtual void OnPacket(RTPacket packet)
+    public override void OnPacket(RTPacket packet)
     {
-        switch ((UpdateCode)packet.Data.GetInt(2).Value)
+        int code = packet.Data.GetInt((int)NetworkManager.DataIndex.ObjectCode).Value;
+        switch ((UpdateCode)code)
         {
             case UpdateCode.PosAndRot:
-                if (packet.Data.GetVector3(10).HasValue)
-                    UpdatePosition(packet.Data.GetVector3(10).Value);
+                if (packet.Data.GetVector3(1).HasValue)
+                    UpdatePosition(packet.Data.GetVector3(1).Value);
 
-                if (packet.Data.GetVector2(11).HasValue)
-                    UpdateRotation(packet.Data.GetVector2(11).Value);
+                if (packet.Data.GetVector2(2).HasValue)
+                    UpdateRotation(packet.Data.GetVector2(2).Value);
                 break;
 
             default:
-                Debug.LogError("Enemy::OnPacket - Unknown update code " + packet.Data.GetInt(2).Value);
+                Debug.LogError("Enemy::OnPacket - Unknown update code " + code);
                 break;
         }
     }
 
-    void OnDeath()
-    {
-        Destroy(gameObject);
-    }
-
-    void OnDamage(float amount)
-    {
-
-    }
+    
 }

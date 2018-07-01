@@ -5,12 +5,18 @@ using UnityEngine;
 
 public class NetworkManager
 {
-    public enum DataIndex { NetworkId = 100 }
+    public enum DataIndex { NetworkId = 100, ObjectCode }
 
     private static Dictionary<string, NetworkObject> table = new Dictionary<string, NetworkObject>();
 
     public static void Register(NetworkObject networkObject)
     {
+        if(table.ContainsKey(networkObject.networkId))
+        {
+            Debug.LogError("NetworkManager::Register - Duplicate key: " + networkObject.networkId);
+            return;
+        }
+
         table.Add(networkObject.networkId, networkObject);
     }
 

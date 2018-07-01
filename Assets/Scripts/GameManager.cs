@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public enum OpCodes { None, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcUpdate, NetworkObject, TimeStamp = 101, ClockSync = 102 };
+public enum OpCodes { None, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NetworkObject, TimeStamp = 101, ClockSync = 102 };
 
 public class GameManager : MonoBehaviour
 {
@@ -205,30 +205,6 @@ public class GameManager : MonoBehaviour
                 playerList[i].Health.Damage(_packet.Data.GetFloat(2).Value);
                 break;
             }
-        }
-    }
-
-    #endregion
-
-    #region Enemy updates
-
-    public void RegisterEnemy(Enemy enemy)
-    {
-        enemyTable.Add(enemy.id, enemy);
-    }
-
-    public void NpcSendPacket(Enemy enemy, RTData data, GameSparksRT.DeliveryIntent intent)
-    {
-        data.SetString(1, enemy.id);
-        SendRTData(OpCodes.NpcUpdate, intent, data);
-    }
-
-    public void OnNpcUpdate(RTPacket packet)
-    {
-        Enemy enemy = enemyTable[packet.Data.GetString(1)];
-        if(enemy != null)
-        {
-            enemy.OnPacket(packet);
         }
     }
 

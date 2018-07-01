@@ -211,10 +211,6 @@ public class GameSparksManager : MonoBehaviour
                 GameManager.Instance().OnPlayerWeaponUpdate(packet);
                 break;
 
-            case OpCodes.NpcUpdate:
-                GameManager.Instance().OnNpcUpdate(packet);
-                break;
-
             case OpCodes.NetworkObject:
                 NetworkManager.OnPacket(packet);
                 break;

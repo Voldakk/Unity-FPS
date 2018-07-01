@@ -4,9 +4,8 @@ using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Health))]
-public class Player : MonoBehaviour
+public class Player : NetworkObject
 {
-    [HideInInspector]
     public int peerId;
 
     public Health Health { get; private set; }
@@ -29,9 +28,16 @@ public class Player : MonoBehaviour
         Debug.Log("Player::OnDeath");
     }
 
-    public void Initialize(bool value)
+    void Start()
     {
-        isLocal = value;
+        peerId = owner;
+        GameManager.Instance().playerList[peerId-1] = this;
+        Initialize(peerId == GameSparksManager.PeerId());
+    }
+
+    public void Initialize(bool _isLocal)
+    {
+        isLocal = _isLocal;
 
         rigidbody = GetComponent<Rigidbody>();
         WeaponBehaviour = GetComponent<WeaponBehaviour>();
@@ -40,12 +46,15 @@ public class Player : MonoBehaviour
         Health = GetComponent<Health>();
         Health.Initialize(isLocal);
 
-        if (value)
+        if (isLocal)
         {
             transform.Find("Model").gameObject.SetActive(false);
             prevPos = transform.position;
             prevRot = XyRot();
             StartCoroutine(SendMovement());
+
+            WeaponBehaviour.SetWeapon(PlayerSetting.Current.startingWeapon);
+            GameManager.Instance().SetPlayerWeapon(PlayerSetting.Current.startingWeapon);
         }
         else
         {

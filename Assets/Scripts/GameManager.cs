@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
 
     private GameObject[] spawnPoints;
 
-    private Player[] playerList;
+    public Player[] playerList;
 
     public Player[] GetAllPlayers()
     {
@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+        playerList = new Player[GameSparksManager.Instance().GetSessionInfo().GetPlayerList().Count];
     }
 
     public void SetMatchStartTimer(float time)
@@ -83,34 +84,19 @@ public class GameManager : MonoBehaviour
 
         StartCoroutine(SendTimeStamp());
 
+        if (!IsHost)
+            return;
+
         spawnPoints = GameObject.FindGameObjectsWithTag("SpawnPoint");
-
-        GameObject p = GameObject.Find("Player");
-        if (p != null)
-            Destroy(p);
-
-        playerList = new Player[GameSparksManager.Instance().GetSessionInfo().GetPlayerList().Count];
 
         for (int i = 0; i < playerList.Length; i++)
         {
-            playerList[i] = Instantiate(playerPrefab).GetComponent<Player>();
+            int peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
+
+            playerList[i] = NetworkManager.NetworkInstantiate(playerPrefab, peerId).GetComponent<Player>();
 
             playerList[i].transform.position = spawnPoints[i].transform.position;
             playerList[i].transform.rotation = spawnPoints[i].transform.rotation;
-
-            playerList[i].peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
-            playerList[i].name = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId.ToString();
-
-            if (playerList[i].peerId == GameSparksManager.PeerId())
-            {
-                playerList[i].Initialize(true);
-                playerList[i].WeaponBehaviour.SetWeapon(PlayerSetting.Current.startingWeapon);
-                SetPlayerWeapon(PlayerSetting.Current.startingWeapon);
-            }
-            else
-            {
-                playerList[i].Initialize(false);
-            }
         }
     }
 
@@ -270,5 +256,8 @@ public class GameManager : MonoBehaviour
 
         float recievedKBps = (GameSparksManager.Instance().totalReceived / 1024.0f) / Time.timeSinceLevelLoad;
         GUI.Label(new Rect(10, 170, 400, 30), "Average recieve rate: " + recievedKBps.ToString("0.0") + "KiB/s");
+
+        GUI.Label(new Rect(10, 190, 400, 30), "Last packet sent: " + GameSparksManager.Instance().packetSize_sent.ToString() + "B");
+        GUI.Label(new Rect(10, 210, 400, 30), "Last packet recieved: " + GameSparksManager.Instance().packetSize_incoming.ToString() + "B");
     }
 }

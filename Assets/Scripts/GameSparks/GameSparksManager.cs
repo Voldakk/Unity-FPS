@@ -11,7 +11,7 @@ using System.Collections.Generic;
 public enum OpCodes
 {
     None,
-    PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NetworkObject,
+    PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NetworkObject, NetworkInstantiate,
     TimeStamp = 101, ClockSync = 102,
     PlayerReady = 200, LoadGame, PlayerLoaded, MatchStartTimer, StartMatch
 };
@@ -347,6 +347,10 @@ public class GameSparksManager : MonoBehaviour
 
             case OpCodes.NetworkObject:
                 NetworkManager.OnPacket(packet);
+                break;
+
+            case OpCodes.NetworkInstantiate:
+                NetworkManager.OnNetworkInstantiate(packet);
                 break;
 
             case OpCodes.TimeStamp:

@@ -799,7 +799,7 @@ MonoBehaviour:
   inGameUi: {fileID: 519412768}
   playerPrefab: {fileID: 1567632108853674, guid: 142120d47341a1e4292650ebb0cae19d,
     type: 2}
-  sceneName: Desert
+  sceneName: Test
 --- !u!4 &968979922
 Transform:
   m_ObjectHideFlags: 0

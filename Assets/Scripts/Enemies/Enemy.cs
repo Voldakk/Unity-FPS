@@ -1,7 +1,6 @@
-﻿using GameSparks.RT;
-using System;
+﻿using UnityEngine;
+using GameSparks.RT;
 using System.Collections;
-using UnityEngine;
 
 [RequireComponent(typeof(Health))]
 public class Enemy : NetworkObject

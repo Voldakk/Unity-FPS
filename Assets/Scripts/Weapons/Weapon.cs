@@ -67,6 +67,12 @@ public class Weapon : ScriptableObject
 
     }
 
+    public void SendWeaponUpdate(RTData data)
+    {
+        if (weaponBehaviour.isLocal)
+            GameManager.Instance().PlayerWeaponUpdate(weaponBehaviour.player, data);
+    }
+
     public void SendWeaponUpdate()
     {
         using (RTData data = RTData.Get())
@@ -75,10 +81,13 @@ public class Weapon : ScriptableObject
         }
     }
 
-    public void SendWeaponUpdate(RTData data)
+    public void SendWeaponUpdate(int value)
     {
-        if (weaponBehaviour.isLocal)
-            GameManager.Instance().PlayerWeaponUpdate(weaponBehaviour.player, data);
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(1, value);
+            SendWeaponUpdate(data);
+        }
     }
 
     public virtual void OnWeaponUpdate(RTPacket packet)

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New gun", menuName = "Items/Weapons/Gun")]
 public class Gun : Weapon
 {
+    protected enum UpdateCode { Fire, Reload, Ads, StopAds }
+
     public Ammo ammo;
 
     public float firerate;
@@ -108,19 +110,26 @@ public class Gun : Weapon
                 fireTimer = 0;
                 Fire();
 
-                SendWeaponUpdate();
+                SendWeaponUpdate(UpdateCode.Fire);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
             StartReload();
+            SendWeaponUpdate(UpdateCode.Reload);
         }
 
         if (Input.GetMouseButtonDown(1))
+        {
             Ads();
+            SendWeaponUpdate(UpdateCode.Ads);
+        }
         else if (Input.GetMouseButtonUp(1))
+        {
             StopAds();
+            SendWeaponUpdate(UpdateCode.StopAds);
+        }
     }
 
     public void Fire()
@@ -195,6 +204,32 @@ public class Gun : Weapon
     {
         base.OnWeaponUpdate(packet);
 
-        Fire();
+        switch ((UpdateCode)packet.Data.GetInt(1).Value)
+        {
+            case UpdateCode.Fire:
+                Fire();
+                break;
+
+            case UpdateCode.Reload:
+                StartReload();
+                break;
+
+            case UpdateCode.Ads:
+                Ads();
+                break;
+
+            case UpdateCode.StopAds:
+                StopAds();
+                break;
+
+            default:
+                Debug.Log("Gun::OnWeaponUpdate - Unknown update code " + packet.Data.GetInt(1).Value);
+                break;
+        }
+    }
+
+    protected void SendWeaponUpdate(UpdateCode code)
+    {
+        SendWeaponUpdate((int)code);
     }
 }

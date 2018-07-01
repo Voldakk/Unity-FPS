@@ -1,18 +1,24 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System.Text;
 
 public class LobbyManager : MonoBehaviour
 {
     public Text matchDetails;
-    public Button startButton;
+    public Button readyButton;
+
+    public static LobbyManager instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
-        startButton.onClick.AddListener(() => 
+        readyButton.onClick.AddListener(() => 
         {
-            OnStartButton();
+            OnReadyButton();
         });
 
         // Player list
@@ -28,8 +34,9 @@ public class LobbyManager : MonoBehaviour
         matchDetails.text = sBuilder.ToString();
     }
 
-    void OnStartButton()
+    void OnReadyButton()
     {
-        SceneManager.LoadScene("Main");
+        GameSparksManager.Instance().SetPlayerReady(true);
+        readyButton.interactable = false;
     }
 }

@@ -1179,6 +1179,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Main
+  packetSize_sent: 0
+  totalSent: 0
+  packetSize_incoming: 0
+  totalReceived: 0
 --- !u!4 &1268026243
 Transform:
   m_ObjectHideFlags: 0

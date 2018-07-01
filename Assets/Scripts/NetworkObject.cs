@@ -32,7 +32,7 @@ public class NetworkManager
     public static void SendPacket(NetworkObject networkObject, RTData data, GameSparksRT.DeliveryIntent intent)
     {
         data.SetString((int)DataIndex.NetworkId, networkObject.networkId);
-        GameManager.Instance().SendRTData(OpCodes.NetworkObject, intent, data);
+        GameSparksManager.Instance().SendRTData(OpCodes.NetworkObject, intent, data);
     }
 }
 

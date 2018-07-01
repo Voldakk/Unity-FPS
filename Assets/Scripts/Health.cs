@@ -46,13 +46,13 @@ public class Health : NetworkObject
         }
 
         UpdateHud();
-        SendMessage("OnDamage", amount);
+        SendMessage("OnDamage", amount, SendMessageOptions.DontRequireReceiver);
     }
 
     void Die()
     {
         dead = true;
-        SendMessage("OnDeath");
+        SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
     }
 
     void Reset()

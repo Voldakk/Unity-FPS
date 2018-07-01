@@ -199,7 +199,7 @@ GameObject:
   - component: {fileID: 410389579}
   - component: {fileID: 410389578}
   m_Layer: 5
-  m_Name: StartButton
+  m_Name: ReadyButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,7 +446,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Start
+  m_Text: Ready
 --- !u!222 &643011999
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   matchDetails: {fileID: 136252213}
-  startButton: {fileID: 410389578}
+  readyButton: {fileID: 410389578}
 --- !u!1 &1651361753
 GameObject:
   m_ObjectHideFlags: 0

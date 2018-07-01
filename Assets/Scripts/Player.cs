@@ -52,14 +52,14 @@ public class Player : MonoBehaviour
             Destroy(GetComponent<UnityStandardAssets.Characters.FirstPerson.FirstPersonController>());
             Destroy(GetComponent<Look>());
 
+            foreach (var c in GetComponentsInChildren<AudioListener>())
+                c.enabled = false;
+
+            foreach (var c in GetComponentsInChildren<FlareLayer>())
+                c.enabled = false;
+
             foreach (var c in GetComponentsInChildren<Camera>())
-            {
-                Destroy(c);
-            }
-            foreach (var al in GetComponentsInChildren<AudioListener>())
-            {
-                Destroy(al);
-            }
+                c.enabled = false;
 
             goToPos = transform.position;
             goToRot = XyRot();
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour
                 data.SetVector3(1, transform.position);
                 data.SetVector2(2, XyRot());
 
-                GameManager.Instance().SendRTData(OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
+                GameSparksManager.Instance().SendRTData(OpCodes.PlayerPosition, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED, data);
             }
             prevPos = transform.position;
             prevRot = XyRot();

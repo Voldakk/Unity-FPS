@@ -8,6 +8,65 @@ using GameSparks.RT;
 
 using System.Collections.Generic;
 
+public enum OpCodes
+{
+    None,
+    PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NetworkObject,
+    TimeStamp = 101, ClockSync = 102,
+    PlayerReady = 200, LoadGame, PlayerLoaded, MatchStartTimer, StartMatch
+};
+
+public class RTSessionInfo
+{
+    private string hostURL;
+    public string GetHostURL() { return this.hostURL; }
+    private string acccessToken;
+    public string GetAccessToken() { return this.acccessToken; }
+    private int portID;
+    public int GetPortID() { return this.portID; }
+    private string matchID;
+    public string GetMatchID() { return this.matchID; }
+
+    private List<RTPlayer> playerList = new List<RTPlayer>();
+    public List<RTPlayer> GetPlayerList()
+    {
+        return playerList;
+    }
+
+    /// <summary>
+    /// Creates a new RTSession object which is held until a new RT session is created
+    /// </summary>
+    /// <param name="_message">Message.</param>
+    public RTSessionInfo(MatchFoundMessage _message)
+    {
+        portID = (int)_message.Port;
+        hostURL = _message.Host;
+        acccessToken = _message.AccessToken;
+        matchID = _message.MatchId;
+
+        // We loop through each participant and get their peerId and display name
+        foreach (MatchFoundMessage._Participant p in _message.Participants)
+        {
+            playerList.Add(new RTPlayer(p.DisplayName, p.Id, (int)p.PeerId));
+        }
+    }
+
+    public class RTPlayer
+    {
+        public RTPlayer(string _displayName, string _id, int _peerId)
+        {
+            displayName = _displayName;
+            id = _id;
+            peerId = _peerId;
+        }
+
+        public string displayName;
+        public string id;
+        public int peerId;
+        public bool isOnline;
+    }
+}
+
 public class GameSparksManager : MonoBehaviour
 {
     public string sceneName;
@@ -21,14 +80,22 @@ public class GameSparksManager : MonoBehaviour
         if (instance != null)
         {
             // return the singleton if the instance has been setup
-            return instance; 
+            return instance;
         }
         else
-        { 
+        {
             // otherwise return an error
             Debug.LogError("GSM| GameSparksManager Not Initialized...");
         }
         return null;
+    }
+
+    public static int PeerId()
+    {
+        if (Instance() != null && Instance().GetRTSession() != null && Instance().GetRTSession().PeerId.HasValue)
+            return Instance().GetRTSession().PeerId.Value;
+
+        return -1;
     }
 
     void Awake()
@@ -91,15 +158,15 @@ public class GameSparksManager : MonoBehaviour
                 }
             });
     }
-    
+
     public void DeviceAuthentication(AuthCallback _authcallback)
     {
-        new GameSparks.Api.Requests.DeviceAuthenticationRequest().Send((response) => 
+        new GameSparks.Api.Requests.DeviceAuthenticationRequest().Send((response) =>
         {
             _authcallback(response);
         });
     }
-    
+
     #endregion
 
     #region Matchmaking Request
@@ -113,7 +180,8 @@ public class GameSparksManager : MonoBehaviour
         new GameSparks.Api.Requests.MatchmakingRequest()
             .SetMatchShortCode(shortCode)
             .SetSkill(0)
-            .Send((response) => {
+            .Send((response) =>
+            {
                 if (response.HasErrors)
                 {
                     Debug.LogError("GSM| MatchMaking Error \n" + response.Errors.JSON);
@@ -121,6 +189,8 @@ public class GameSparksManager : MonoBehaviour
             });
     }
     #endregion
+
+    #region Session
 
     private GameSparksRTUnity gameSparksRTUnity;
 
@@ -167,16 +237,6 @@ public class GameSparksManager : MonoBehaviour
 
     }
 
-    private void OnPlayerConnectedToGame(int _peerId)
-    {
-        Debug.Log("GSM| Player Connected, " + _peerId);
-    }
-
-    private void OnPlayerDisconnected(int _peerId)
-    {
-        Debug.Log("GSM| Player Disconnected, " + _peerId);
-    }
-
     private void OnRTReady(bool _isReady)
     {
         if (_isReady)
@@ -188,13 +248,87 @@ public class GameSparksManager : MonoBehaviour
 
     }
 
+    private void OnPlayerConnectedToGame(int _peerId)
+    {
+        Debug.Log("GSM| Player Connected, " + _peerId);
+    }
+
+    private void OnPlayerDisconnected(int _peerId)
+    {
+        Debug.Log("GSM| Player Disconnected, " + _peerId);
+    }
+
+    #endregion
+
+    # region Packet Analytics
+
+    public int packetSize_sent;
+    public int totalSent = 0;
+
+    /// <summary>
+    /// Sends RTData and records the packet size
+    /// </summary>
+    /// <param name="_opcode">Opcode.</param>
+    /// <param name="_intent">Intent.</param>
+    /// <param name="_data">Data.</param>
+    /// <param name="_targetPeers">Target peers.</param>
+    public void SendRTData(OpCodes opcode, GameSparksRT.DeliveryIntent intent, RTData data, int[] targetPeers)
+    {
+        packetSize_sent = GetRTSession().SendData((int)opcode, intent, data, targetPeers);
+        totalSent += packetSize_sent;
+    }
+    public void SendRTData(OpCodes opcode, GameSparksRT.DeliveryIntent intent, int[] targetPeers)
+    {
+        using (RTData data = RTData.Get())
+        {
+            SendRTData(opcode, intent, data, targetPeers);
+        }
+    }
+
+    /// <summary>
+    /// Sends RTData to all players
+    /// </summary>
+    /// <param name="_opcode">Opcode.</param>
+    /// <param name="_intent">Intent.</param>
+    /// <param name="_data">Data.</param>
+    public void SendRTData(OpCodes opcode, GameSparksRT.DeliveryIntent intent, RTData data)
+    {
+        packetSize_sent = GetRTSession().SendData((int)opcode, intent, data);
+        totalSent += packetSize_sent;
+    }
+
+    public void SendRTData(OpCodes opcode, GameSparksRT.DeliveryIntent intent)
+    {
+        using (RTData data = RTData.Get())
+        {
+            SendRTData(opcode, intent, data);
+        }
+    }
+
+    public int packetSize_incoming;
+    public int totalReceived = 0;
+
+    /// <summary>
+    /// Records the incoming packet size
+    /// </summary>
+    /// <param name="_packetSize">Packet size.</param>
+    public void PacketReceived(int _packetSize)
+    {
+        packetSize_incoming = _packetSize;
+        totalReceived += packetSize_incoming;
+    }
+
+    #endregion
+
     private void OnPacketReceived(RTPacket packet)
     {
-        if (GameManager.Instance() != null)
-            GameManager.Instance().PacketReceived(packet.PacketSize);
+        PacketReceived(packet.PacketSize);
 
         switch ((OpCodes)packet.OpCode)
         {
+            case OpCodes.None:
+                break;
+
             case OpCodes.PlayerPosition:
                 GameManager.Instance().UpdatePlayerPosition(packet);
                 break;
@@ -216,71 +350,77 @@ public class GameSparksManager : MonoBehaviour
                 break;
 
             case OpCodes.TimeStamp:
-                //GameManager.Instance().CalculateTimeDelta(packet);
+                // GameManager.Instance().CalculateTimeDelta(packet);
                 break;
 
             case OpCodes.ClockSync:
-                //GameManager.Instance().SyncClock(packet);
+                // GameManager.Instance().SyncClock(packet);
+                break;
+
+            case OpCodes.PlayerReady:
+                // ---
+                break;
+
+            case OpCodes.LoadGame:
+                OnLoadGame();
+                break;
+
+            case OpCodes.PlayerLoaded:
+                // ---
+                break;
+
+            case OpCodes.MatchStartTimer:
+                SetMatchTimer(packet);
+                break;
+
+            case OpCodes.StartMatch:
+                OnStartMatch();
                 break;
         }
     }
 
-    public static int PeerId()
+    public void SetPlayerReady(bool value)
     {
-        if(Instance() != null && Instance().GetRTSession() != null && Instance().GetRTSession().PeerId.HasValue)
-            return Instance().GetRTSession().PeerId.Value;
-
-        return -1;
-    }
-}
-
-public class RTSessionInfo
-{
-    private string hostURL;
-    public string GetHostURL() { return this.hostURL; }
-    private string acccessToken;
-    public string GetAccessToken() { return this.acccessToken; }
-    private int portID;
-    public int GetPortID() { return this.portID; }
-    private string matchID;
-    public string GetMatchID() { return this.matchID; }
-
-    private List<RTPlayer> playerList = new List<RTPlayer>();
-    public List<RTPlayer> GetPlayerList()
-    {
-        return playerList;
-    }
-
-    /// <summary>
-    /// Creates a new RTSession object which is held until a new RT session is created
-    /// </summary>
-    /// <param name="_message">Message.</param>
-    public RTSessionInfo(MatchFoundMessage _message)
-    {
-        portID = (int)_message.Port;
-        hostURL = _message.Host;
-        acccessToken = _message.AccessToken;
-        matchID = _message.MatchId;
-        
-        // We loop through each participant and get their peerId and display name
-        foreach (MatchFoundMessage._Participant p in _message.Participants)
+        Debug.Log("GameSparksManager::SetReadyState");
+        if (value == true)
         {
-            playerList.Add(new RTPlayer(p.DisplayName, p.Id, (int)p.PeerId));
+            using (RTData data = RTData.Get())
+            {
+                data.SetInt(1, PeerId());
+                SendRTData(OpCodes.PlayerReady, GameSparksRT.DeliveryIntent.RELIABLE, new int[] { 0 });
+            }
+        }
+        else
+        {
+
         }
     }
 
-    public class RTPlayer
+    void OnLoadGame()
     {
-        public RTPlayer(string _displayName, string _id, int _peerId)
-        {
-            displayName = _displayName;
-            id = _id;
-            peerId = _peerId;
-        }
+        Debug.Log("GameSparksManager::LoadGame");
+        SceneManager.LoadScene("Main");
+    }
 
-        public string displayName;
-        public string id;
-        public int peerId;
-        public bool isOnline;
+    public void SetPlayerLoaded()
+    {
+        Debug.Log("GameSparksManager::SetPlayerLoaded");
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(1, PeerId());
+            SendRTData(OpCodes.PlayerLoaded, GameSparksRT.DeliveryIntent.RELIABLE, new int[] { 0 });
+        }
+    }
+
+    void SetMatchTimer(RTPacket packet)
+    {
+        Debug.Log("GameSparksManager::SetMatchTimer - " + packet.Data.GetInt(1).Value);
+        GameManager.Instance().SetMatchStartTimer(packet.Data.GetInt(1).Value / 1000f);
+    }
+
+    void OnStartMatch()
+    {
+        Debug.Log("GameSparksManager::StartMatch");
+        GameManager.Instance().StartMatch();
     }
 }

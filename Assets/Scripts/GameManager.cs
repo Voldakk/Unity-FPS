@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public enum OpCodes { None, Chat, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcUpdate, TimeStamp = 101, ClockSync = 102 };
+public enum OpCodes { None, PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NpcUpdate, NetworkObject, TimeStamp = 101, ClockSync = 102 };
 
 public class GameManager : MonoBehaviour
 {

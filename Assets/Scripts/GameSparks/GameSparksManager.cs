@@ -188,42 +188,43 @@ public class GameSparksManager : MonoBehaviour
 
     }
 
-    private void OnPacketReceived(RTPacket _packet)
+    private void OnPacketReceived(RTPacket packet)
     {
         if (GameManager.Instance() != null)
-            GameManager.Instance().PacketReceived(_packet.PacketSize);
+            GameManager.Instance().PacketReceived(packet.PacketSize);
 
-        switch ((OpCodes)_packet.OpCode)
+        switch ((OpCodes)packet.OpCode)
         {
-            case OpCodes.Chat:
-                break;
-
             case OpCodes.PlayerPosition:
-                GameManager.Instance().UpdatePlayerPosition(_packet);
+                GameManager.Instance().UpdatePlayerPosition(packet);
                 break;
 
             case OpCodes.PlayerDamage:
-                GameManager.Instance().OnPlayerDamage(_packet);
+                GameManager.Instance().OnPlayerDamage(packet);
                 break;
 
             case OpCodes.PlayerSetWeapon:
-                GameManager.Instance().OnPlayerSetWeapon(_packet);
+                GameManager.Instance().OnPlayerSetWeapon(packet);
                 break;
 
             case OpCodes.PlayerWeapon:
-                GameManager.Instance().OnPlayerWeaponUpdate(_packet);
+                GameManager.Instance().OnPlayerWeaponUpdate(packet);
                 break;
 
             case OpCodes.NpcUpdate:
-                GameManager.Instance().OnNpcUpdate(_packet);
+                GameManager.Instance().OnNpcUpdate(packet);
+                break;
+
+            case OpCodes.NetworkObject:
+                NetworkManager.OnPacket(packet);
                 break;
 
             case OpCodes.TimeStamp:
-                //GameManager.Instance().CalculateTimeDelta(_packet);
+                //GameManager.Instance().CalculateTimeDelta(packet);
                 break;
 
             case OpCodes.ClockSync:
-                //GameManager.Instance().SyncClock(_packet);
+                //GameManager.Instance().SyncClock(packet);
                 break;
         }
     }

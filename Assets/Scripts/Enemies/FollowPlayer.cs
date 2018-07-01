@@ -73,9 +73,4 @@ public class FollowPlayer : MonoBehaviour
             agent.SetDestination(target.transform.position);
         }
     }
-
-    void OnDeath()
-    {
-        Destroy(gameObject);
-    }
 }

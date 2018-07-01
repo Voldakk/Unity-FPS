@@ -97,11 +97,17 @@ public class Enemy : MonoBehaviour
 
     protected void SendPacket(UpdateCode updateCode, RTData data, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
     {
-        if (!isHost)
-            return;
-
         data.SetInt(2, (int)updateCode);
         GameManager.Instance().NpcSendPacket(this, data, intent);
+    }
+
+    protected void SendPacket(UpdateCode updateCode, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(2, (int)updateCode);
+            GameManager.Instance().NpcSendPacket(this, data, intent);
+        }
     }
 
     public virtual void OnPacket(RTPacket packet)
@@ -120,5 +126,15 @@ public class Enemy : MonoBehaviour
                 Debug.LogError("Enemy::OnPacket - Unknown update code " + packet.Data.GetInt(2).Value);
                 break;
         }
+    }
+
+    void OnDeath()
+    {
+        Destroy(gameObject);
+    }
+
+    void OnDamage(float amount)
+    {
+
     }
 }

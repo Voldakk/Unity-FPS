@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using GameSparks.RT;
+using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class Health : NetworkObject
 {
     public float maxHealth = 100f;
     private float currentHealth;
@@ -10,8 +11,10 @@ public class Health : MonoBehaviour
 
     private Text hudPlayerHealth;
 
-    void Awake ()
+    protected override void Awake ()
     {
+        base.Awake();
+
         Reset();
     }
 
@@ -26,6 +29,12 @@ public class Health : MonoBehaviour
 
     public void Damage(float amount)
     {
+        SendFloat(1, amount);
+        ApplyDamage(amount);
+    }
+
+    private void ApplyDamage(float amount)
+    {
         if (dead)
             return;
 
@@ -37,6 +46,7 @@ public class Health : MonoBehaviour
         }
 
         UpdateHud();
+        SendMessage("OnDamage", amount);
     }
 
     void Die()
@@ -56,5 +66,10 @@ public class Health : MonoBehaviour
     {
         if(hudPlayerHealth != null)
             hudPlayerHealth.text = Mathf.CeilToInt(currentHealth).ToString();
+    }
+
+    public override void OnPacket(RTPacket packet)
+    {
+        ApplyDamage(packet.Data.GetFloat(1).Value);
     }
 }

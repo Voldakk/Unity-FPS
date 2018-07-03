@@ -8,12 +8,8 @@ public class TestNetworkInstantiate : MonoBehaviour
     {
 		if(Input.GetKeyDown(KeyCode.P) && GetComponent<Player>().peerId == GameSparksManager.PeerId())
         {
-            Debug.Log("TestNetworkInstantiate::Update - instantiating '" + prefab.name + "'");
-            GameObject copy = NetworkManager.NetworkInstantiate(prefab);
-
-            Debug.Log("TestNetworkInstantiate::Update - Instantiated");
-
-            copy.transform.position = transform.position + transform.forward * 2f;
+            Vector3 spawnPos = transform.position + transform.forward * 2f;
+            GameObject copy = NetworkManager.NetworkInstantiate(prefab, position: spawnPos);
         }
     }
 }

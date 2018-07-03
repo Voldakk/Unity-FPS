@@ -17,13 +17,13 @@ public class NetworkTransform : NetworkObject
     protected override void Awake()
     {
         base.Awake();
-
-        prevPos = transform.position;
-        prevRot = transform.rotation;
     }
 
     void Start()
     {
+        prevPos = transform.position;
+        prevRot = transform.rotation;
+
         isHost = GameManager.Instance().IsHost;
 
         if (isHost)

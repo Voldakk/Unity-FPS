@@ -92,11 +92,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < playerList.Length; i++)
         {
             int peerId = GameSparksManager.Instance().GetSessionInfo().GetPlayerList()[i].peerId;
+            Vector3 spawnPos = spawnPoints[i].transform.position;
+            Quaternion spawnRot = spawnPoints[i].transform.rotation;
 
-            playerList[i] = NetworkManager.NetworkInstantiate(playerPrefab, peerId).GetComponent<Player>();
-
-            playerList[i].transform.position = spawnPoints[i].transform.position;
-            playerList[i].transform.rotation = spawnPoints[i].transform.rotation;
+            playerList[i] = NetworkManager.NetworkInstantiate(playerPrefab, peerId, spawnPos, spawnRot).GetComponent<Player>();
         }
     }
 

@@ -43,27 +43,35 @@ public class NetworkManager
         GameSparksManager.Instance().SendRTData(OpCodes.NetworkObject, intent, data);
     }
 
-    public static GameObject NetworkInstantiate(GameObject original, int owner = 0)
+    public static GameObject NetworkInstantiate(GameObject original, int owner = 0, Vector3 position = new Vector3(), Quaternion rotation = new Quaternion())
     {
         // Copy
         GameObject copy = UnityEngine.Object.Instantiate(original);
 
+        string objectId = NetworkObject.GenerateId();
+        copy.name += " (" + objectId + ")";
+
+        copy.transform.position = position;
+        copy.transform.rotation = rotation;
+
         // Get all the NetworkObjects
         NetworkObject[] nos = copy.GetComponentsInChildren<NetworkObject>();
+
+        // Set all the network ids
+        for (uint i = 0; i < nos.Length; i++)
+        {
+            nos[i].owner = owner;
+            nos[i].SetId(objectId + "-" + i);
+        }
 
         using (RTData data = RTData.Get())
         {
             // Set the prefab index
             data.SetInt(1, NetworkPrefabs.instance.prefabs.IndexOf(original));
             data.SetInt(2, owner);
-
-            // Set all the network ids
-            for (uint i = 0; i < nos.Length; i++)
-            {
-                nos[i].SetId(NetworkObject.GenerateId());
-                nos[i].owner = owner;
-                data.SetString(i + 3, nos[i].networkId);
-            }
+            data.SetString(3, objectId);
+            data.SetVector3(4, position);
+            data.SetVector3(5, rotation.eulerAngles);
 
             // Send
             GameSparksManager.Instance().SendRTData(OpCodes.NetworkInstantiate, GameSparksRT.DeliveryIntent.RELIABLE, data);
@@ -76,6 +84,9 @@ public class NetworkManager
     {
         int prefabIndex = packet.Data.GetInt(1).Value;
         int owner = packet.Data.GetInt(2).Value;
+        string objectId = packet.Data.GetString(3);
+        Vector3 position = packet.Data.GetVector3(4).Value;
+        Vector3 rotation = packet.Data.GetVector3(5).Value;
 
         // Get the prefab
         GameObject prefab = NetworkPrefabs.instance.prefabs[prefabIndex];
@@ -85,12 +96,17 @@ public class NetworkManager
             // Copy
             Transform copy = UnityEngine.Object.Instantiate(prefab).transform;
 
+            copy.name += " (" + objectId + ")";
+
+            copy.position = position;
+            copy.rotation = Quaternion.Euler(rotation);
+
             // Get all the NetworkObjects and set the ids
             NetworkObject[] nos = copy.GetComponentsInChildren<NetworkObject>();
             for (uint i = 0; i < nos.Length; i++)
             {
-                nos[i].SetId(packet.Data.GetString(i + 3));
                 nos[i].owner = owner;
+                nos[i].SetId(objectId + "-" + i);
             }
         }
     }
@@ -118,7 +134,7 @@ public abstract class NetworkObject : MonoBehaviour
 
     protected virtual void Awake()
     {
-        SetId(networkId);       
+        SetId(networkId);
     }
 
     public static string GenerateId()

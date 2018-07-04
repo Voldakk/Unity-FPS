@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(Health))]
 public class Player : NetworkObject
 {
-    public int peerId;
-
     public Health Health { get; private set; }
     public WeaponBehaviour WeaponBehaviour { get; private set; }
 
@@ -21,8 +19,6 @@ public class Player : NetworkObject
     private Vector3 goToPos;
     private Vector2 goToRot;
 
-    private bool isLocal;
-
     public void OnDeath()
     {
         Debug.Log("Player::OnDeath");
@@ -30,23 +26,20 @@ public class Player : NetworkObject
 
     void Start()
     {
-        peerId = owner;
-        GameManager.Instance().playerList[peerId-1] = this;
-        Initialize(peerId == GameSparksManager.PeerId());
+        GameManager.Instance().playerList[owner-1] = this;
+        Initialize();
     }
 
-    public void Initialize(bool _isLocal)
+    public void Initialize()
     {
-        isLocal = _isLocal;
-
         rigidbody = GetComponent<Rigidbody>();
         WeaponBehaviour = GetComponent<WeaponBehaviour>();
-        WeaponBehaviour.Initialize(this, isLocal);
+        WeaponBehaviour.Initialize(this, isOwner);
 
         Health = GetComponent<Health>();
-        Health.Initialize(isLocal);
+        Health.Initialize(isOwner);
 
-        if (isLocal)
+        if (isOwner)
         {
             transform.Find("Model").gameObject.SetActive(false);
             prevPos = transform.position;
@@ -85,7 +78,7 @@ public class Player : NetworkObject
 
     void Update()
     {
-        if (!isLocal)
+        if (!isOwner)
         {
             float t = Time.deltaTime / updateRate;
 

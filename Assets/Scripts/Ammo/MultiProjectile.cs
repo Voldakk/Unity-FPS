@@ -43,7 +43,7 @@ public class MultiProjectile : Projectile
                 Player player = hit.transform.GetComponent<Player>();
                 if (player != null)
                 {
-                    playerDamage[player.peerId - 1] += damage;
+                    playerDamage[player.owner - 1] += damage;
                 }
             }
         }

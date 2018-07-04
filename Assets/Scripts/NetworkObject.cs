@@ -43,7 +43,7 @@ public class NetworkManager
         GameSparksManager.Instance().SendRTData(OpCodes.NetworkObject, intent, data);
     }
 
-    public static GameObject NetworkInstantiate(GameObject original, int owner = 0, Vector3 position = new Vector3(), Quaternion rotation = new Quaternion())
+    public static GameObject NetworkInstantiate(GameObject original, int owner = 1, Vector3 position = new Vector3(), Quaternion rotation = new Quaternion())
     {
         // Copy
         GameObject copy = UnityEngine.Object.Instantiate(original);
@@ -60,7 +60,7 @@ public class NetworkManager
         // Set all the network ids
         for (uint i = 0; i < nos.Length; i++)
         {
-            nos[i].owner = owner;
+            nos[i].SetOwner(owner);
             nos[i].SetId(objectId + "-" + i);
         }
 
@@ -105,7 +105,7 @@ public class NetworkManager
             NetworkObject[] nos = copy.GetComponentsInChildren<NetworkObject>();
             for (uint i = 0; i < nos.Length; i++)
             {
-                nos[i].owner = owner;
+                nos[i].SetOwner(owner);
                 nos[i].SetId(objectId + "-" + i);
             }
         }
@@ -114,8 +114,13 @@ public class NetworkManager
 
 public abstract class NetworkObject : MonoBehaviour
 {
-    public string networkId;
-    public int owner;
+    public string networkId = "0";
+
+    protected int peerId;
+    protected bool isHost;
+
+    public int owner = 1;
+    protected bool isOwner;
 
     public virtual void OnPacket(RTPacket packet)
     {
@@ -134,7 +139,11 @@ public abstract class NetworkObject : MonoBehaviour
 
     protected virtual void Awake()
     {
+        peerId = GameSparksManager.PeerId();
+        isHost = GameManager.Instance().IsHost;
+
         SetId(networkId);
+        SetOwner(owner);
     }
 
     public static string GenerateId()
@@ -168,5 +177,11 @@ public abstract class NetworkObject : MonoBehaviour
         NetworkManager.Remove(this);
         networkId = newId;
         NetworkManager.Register(this);
+    }
+
+    public void SetOwner(int owner)
+    {
+        this.owner = owner;
+        isOwner = (peerId == owner);
     }
 }

@@ -10,9 +10,7 @@ public class NetworkTransform : NetworkObject
     private Quaternion prevRot;
 
     private Vector3 goToPos;
-    private Vector2 goToRot;
-
-    private bool isHost;
+    private Vector3 goToRot;
 
     protected override void Awake()
     {
@@ -24,21 +22,21 @@ public class NetworkTransform : NetworkObject
         prevPos = transform.position;
         prevRot = transform.rotation;
 
-        isHost = GameManager.Instance().IsHost;
+        goToPos = transform.position;
+        goToRot = transform.rotation.eulerAngles;
 
-        if (isHost)
+        if (isOwner)
             StartCoroutine(SendMovement());
     }
 
     void Update()
     {
-        if (!isHost)
+        if (!isOwner)
         {
             float t = Time.deltaTime / updateRate;
 
             transform.position = Vector3.Lerp(transform.position, goToPos, t);
-
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(goToRot.x, goToRot.y, 0.0f), t);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(goToRot), t);
         }
     }
 
@@ -48,7 +46,7 @@ public class NetworkTransform : NetworkObject
             goToPos = packet.Data.GetVector3(1).Value;
 
         if (packet.Data.GetVector2(2).HasValue)
-            goToRot = packet.Data.GetVector2(2).Value;
+            goToRot = packet.Data.GetVector3(2).Value;
     }
 
     private IEnumerator SendMovement()
@@ -61,7 +59,7 @@ public class NetworkTransform : NetworkObject
                     data.SetVector3(1, transform.position);
 
                 if (transform.rotation != prevRot)
-                    data.SetVector2(2, new Vector2(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y));
+                    data.SetVector3(2, transform.rotation.eulerAngles);
 
                 SendPacket(data, GameSparksRT.DeliveryIntent.UNRELIABLE_SEQUENCED);
             }

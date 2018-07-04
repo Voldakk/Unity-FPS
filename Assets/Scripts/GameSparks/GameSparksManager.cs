@@ -7,6 +7,8 @@ using GameSparks.Api.Responses;
 using GameSparks.RT;
 
 using System.Collections.Generic;
+using System.Collections;
+using System;
 
 public enum OpCodes
 {
@@ -243,6 +245,8 @@ public class GameSparksManager : MonoBehaviour
         {
             Debug.Log("GSM| RT Session Connected...");
 
+            StartCoroutine(SendTimeStamp());
+
             SceneManager.LoadScene("Lobby");
         }
 
@@ -320,6 +324,73 @@ public class GameSparksManager : MonoBehaviour
 
     #endregion
 
+    #region Clock sync
+
+    /// <summary>
+    /// Sends a Unix timestamp in milliseconds to the server
+    /// </summary>
+    private IEnumerator SendTimeStamp()
+    {
+        // send a packet with our current time first //
+        using (RTData data = RTData.Get())
+        {
+            data.SetLong(1, (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds); // get the current time as unix timestamp
+            SendRTData(OpCodes.TimeStamp, GameSparksRT.DeliveryIntent.UNRELIABLE, data, new int[] { 0 }); // send to peerId -> 0, which is the server
+        }
+        yield return new WaitForSeconds(5f); // wait 5 seconds
+        StartCoroutine(SendTimeStamp()); // send the timestamp again
+    }
+
+    DateTime serverClock;
+    private int timeDelta, latency, roundTrip;
+
+    /// <summary>
+    /// Calculates the time-difference between the client and server
+    /// </summary>
+    public void CalculateTimeDelta(RTPacket _packet)
+    {
+        // calculate the time taken from the packet to be sent from the client and then for the server to return it //
+        roundTrip = (int)((long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds - _packet.Data.GetLong(1).Value);
+        latency = roundTrip / 2; // the latency is half the round-trip time
+        // calculate the server-delta from the server time minus the current time
+        int serverDelta = (int)(_packet.Data.GetLong(2).Value - (long)(DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0)).TotalMilliseconds);
+        timeDelta = serverDelta + latency; // the time-delta is the server-delta plus the latency
+    }
+
+    /// <summary>
+    /// Syncs the local clock to server-time
+    /// </summary>
+    /// <param name="_packet">Packet.</param>
+    public void SyncClock(RTPacket _packet)
+    {
+        DateTime dateNow = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc); // get the current time
+        serverClock = dateNow.AddMilliseconds(_packet.Data.GetLong(1).Value + timeDelta).ToLocalTime(); // adjust current time to match clock from server
+    }
+
+    #endregion
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(10, 10, 400, 30), "Peer id: " + PeerId());
+        GUI.Label(new Rect(10, 30, 400, 30), "Elapsed time: " + Time.timeSinceLevelLoad.ToString("0.0") + "s");
+
+        GUI.Label(new Rect(10, 50, 400, 30), "Server Time: " + serverClock.TimeOfDay);
+        GUI.Label(new Rect(10, 70, 400, 30), "Latency: " + latency.ToString() + "ms");
+        GUI.Label(new Rect(10, 90, 400, 30), "Time Delta: " + timeDelta.ToString() + "ms");
+
+        GUI.Label(new Rect(10, 110, 400, 30), "Total sent: " + totalSent.ToString() + "B");
+        GUI.Label(new Rect(10, 130, 400, 30), "Total recieved: " + totalReceived.ToString() + "B");
+
+        float sentKBps = (totalSent / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 150, 400, 30), "Average send rate: " + sentKBps.ToString("0.0") + "KiB/s");
+
+        float recievedKBps = (totalReceived / 1024.0f) / Time.timeSinceLevelLoad;
+        GUI.Label(new Rect(10, 170, 400, 30), "Average recieve rate: " + recievedKBps.ToString("0.0") + "KiB/s");
+
+        GUI.Label(new Rect(10, 190, 400, 30), "Last packet sent: " + packetSize_sent.ToString() + "B");
+        GUI.Label(new Rect(10, 210, 400, 30), "Last packet recieved: " + packetSize_incoming.ToString() + "B");
+    }
+
     private void OnPacketReceived(RTPacket packet)
     {
         PacketReceived(packet.PacketSize);
@@ -354,11 +425,11 @@ public class GameSparksManager : MonoBehaviour
                 break;
 
             case OpCodes.TimeStamp:
-                // GameManager.Instance().CalculateTimeDelta(packet);
+                CalculateTimeDelta(packet);
                 break;
 
             case OpCodes.ClockSync:
-                // GameManager.Instance().SyncClock(packet);
+                SyncClock(packet);
                 break;
 
             case OpCodes.PlayerReady:

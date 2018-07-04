@@ -23,7 +23,8 @@ GameObject:
   - component: {fileID: 23920739526954882}
   - component: {fileID: 135073346450056938}
   - component: {fileID: 114608386633990550}
-  - component: {fileID: 114781298905686088}
+  - component: {fileID: 114626893489311200}
+  - component: {fileID: 54076829203584682}
   m_Layer: 0
   m_Name: TestPrefab
   m_TagString: Untagged
@@ -86,6 +87,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266246065868918}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54076829203584682
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1266246065868918}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!114 &114608386633990550
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -97,9 +113,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8b33fb9d0468f4996d5f1231a57f7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 3bff7db65f6c43c6bf03d7f363651671
-  owner: 0
---- !u!114 &114781298905686088
+  networkId: 0051555ae4714015afb3ebffa63e365d
+  owner: 1
+--- !u!114 &114626893489311200
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -110,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 31b710bef729450aadc56947b075b225
-  owner: 0
+  networkId: 713bfd24b3504b4cbfdb30b58b75dc55
+  owner: 1
   updateRate: 0.1
 --- !u!135 &135073346450056938
 SphereCollider:

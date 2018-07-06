@@ -20,7 +20,7 @@ public class NetworkTransform : NetworkObject
     private Vector3 goToPos;
     private Vector3 goToRot;
 
-    enum DataIndex { Position, PosX, PosY, PosZ, Rotation, RotX, RotY, RotZ }
+    enum DataIndex { Position = 1, PosX, PosY, PosZ, Rotation, RotX, RotY, RotZ }
 
     Vector3 GetPosition()
     {
@@ -86,6 +86,7 @@ public class NetworkTransform : NetworkObject
 
             if(sendRotation)
             {
+                
                 if(rotX && rotY && rotZ)
                 {
                     Quaternion currentRotation = GetRotation();
@@ -99,19 +100,21 @@ public class NetworkTransform : NetworkObject
                 }
                 else
                 {
-                    Vector3 currentRotation = GetEulerRotation();
+                    Vector3 targetRotation = GetEulerRotation();
 
                     if (rotX)
-                        currentRotation.x = Mathf.Lerp(currentRotation.x, goToRot.x, t);
+                        targetRotation.x =  goToRot.x;
                     if (rotY)
-                        currentRotation.y = Mathf.Lerp(currentRotation.y, goToRot.y, t);
+                        targetRotation.y = goToRot.y;
                     if (rotZ)
-                        currentRotation.z = Mathf.Lerp(currentRotation.z, goToRot.z, t);
+                        targetRotation.z = goToRot.z;
+
+                    Quaternion finalRotation = Quaternion.Lerp(GetRotation(), Quaternion.Euler(targetRotation), t);
 
                     if (local)
-                        transform.localRotation = Quaternion.Euler(currentRotation);
+                        transform.localRotation = finalRotation;
                     else
-                        transform.rotation = Quaternion.Euler(currentRotation);
+                        transform.rotation = finalRotation;
                 }
             }
         }

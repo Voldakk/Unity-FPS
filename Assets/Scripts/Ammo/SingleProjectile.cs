@@ -30,17 +30,9 @@ public class SingleProjectile : Projectile
             }
             else if(doDamage)
             {
-                Player player = hit.rigidbody.GetComponent<Player>();
-                if (player != null)
-                {
-                    GameManager.Instance().DamagePlayer(player, damage);
-                }
-                else
-                {
-                    Health health = hit.rigidbody.GetComponent<Health>();
-                    if (health != null)
-                        health.Damage(damage);
-                }
+                Health health = hit.rigidbody.GetComponent<Health>();
+                if (health != null)
+                    health.Damage(damage);
             }
         }
         else

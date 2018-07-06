@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 54390836997269586}
   - component: {fileID: 136953207784159010}
   - component: {fileID: 114028219249617452}
+  - component: {fileID: 114380427003930066}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -299,7 +300,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!81 &81996527430007672
 AudioListener:
@@ -521,10 +522,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  networkId: 372190a6d1a941698a983f6eae06a89e
+  owner: 1
+  isOwner: 0
   eyes: {fileID: 20176361024510456}
   weaponHolder: {fileID: 4758672324593234}
   player: {fileID: 0}
-  isLocal: 0
 --- !u!114 &114281359851977902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -536,8 +539,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peerId: 0
+  networkId: ac7c5244359349dc9e0d93d14900a1dc
+  owner: 1
+  isOwner: 0
+--- !u!114 &114380427003930066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1567632108853674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkId: eb4f9fe83d0d4681846609540c3e2882
+  owner: 1
+  isOwner: 0
   updateRate: 0.1
+  local: 1
+  sendPosition: 1
+  posX: 1
+  posY: 0
+  posZ: 1
+  sendRotation: 1
+  rotX: 1
+  rotY: 1
+  rotZ: 0
 --- !u!114 &114549533520525098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,7 +715,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: bdb3cd3d5fa1400392f97af7382504a9
+  networkId: d9e71e729ff84df1a271034ba6c4763c
+  owner: 1
+  isOwner: 0
   maxHealth: 1000
 --- !u!124 &124195535388948110
 Behaviour:

@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
+using System.Collections.Generic;
 
 public class LobbyManager : MonoBehaviour
 {
-    public Text matchDetails;
     public Button readyButton;
 
     public static LobbyManager instance;
+
+    public GameObject PlayerPanelPrefab;
+    public RectTransform playerList;
+
+    public Sprite readySprite;
+
+    List<Transform> playerPanels;
 
     void Awake()
     {
@@ -19,24 +26,29 @@ public class LobbyManager : MonoBehaviour
         readyButton.onClick.AddListener(() => 
         {
             OnReadyButton();
+            SetPlayerReady(GameSparksManager.PeerId());
         });
 
         // Player list
-        StringBuilder sBuilder = new StringBuilder();
-        var playerList = GameSparksManager.Instance().GetSessionInfo().GetPlayerList();
-
-        sBuilder.AppendLine("Players:");
-        foreach (var player in playerList)
+        var players = GameSparksManager.Instance().GetSessionInfo().GetPlayerList();
+        playerPanels = new List<Transform>();
+        foreach (var player in players)
         {
-            sBuilder.AppendLine(player.displayName);
-        }
+            Transform playerPanel = Instantiate(PlayerPanelPrefab, playerList, false).transform;
+            playerPanel.Find("DisplayName").GetComponent<Text>().text = player.displayName;
 
-        matchDetails.text = sBuilder.ToString();
+            playerPanels.Add(playerPanel);
+        }
     }
 
     void OnReadyButton()
     {
         GameSparksManager.Instance().SetPlayerReady(true);
         readyButton.interactable = false;
+    }
+
+    public void SetPlayerReady(int peerId)
+    {
+        playerPanels[peerId - 1].Find("ReadyIcon").GetComponent<Image>().sprite = readySprite;
     }
 }

@@ -18,7 +18,7 @@ public class Weapon : ScriptableObject
     public GameObject uiPrefab;
     [HideInInspector] public Transform uiObject;
 
-    [HideInInspector] public bool isLocal;
+    [HideInInspector] public bool isOwner;
 
     public void Setup(Camera camera, RectTransform hud, Transform transform, Transform weaponHolder, WeaponBehaviour weaponBehaviour)
     {
@@ -28,7 +28,7 @@ public class Weapon : ScriptableObject
         this.weaponHolder = weaponHolder;
         this.weaponBehaviour = weaponBehaviour;
 
-        isLocal = weaponBehaviour.isLocal;
+        isOwner = weaponBehaviour.isOwner;
     }
 
     public virtual void OnStart()
@@ -37,7 +37,7 @@ public class Weapon : ScriptableObject
         {
             weaponObject = Instantiate(weaponPrefab, weaponHolder, false).transform;
 
-            if(!isLocal)
+            if(!isOwner)
             {
                 MeshRenderer[] mrs = weaponObject.GetComponentsInChildren<MeshRenderer>();
                 foreach (var mr in mrs)
@@ -47,7 +47,7 @@ public class Weapon : ScriptableObject
             }
         }
 
-        if (uiPrefab != null && isLocal)
+        if (uiPrefab != null && isOwner)
         {
             uiObject = Instantiate(uiPrefab, hud, false).transform;
         }
@@ -67,30 +67,7 @@ public class Weapon : ScriptableObject
 
     }
 
-    public void SendWeaponUpdate(RTData data)
-    {
-        if (weaponBehaviour.isLocal)
-            GameManager.Instance().PlayerWeaponUpdate(weaponBehaviour.player, data);
-    }
-
-    public void SendWeaponUpdate()
-    {
-        using (RTData data = RTData.Get())
-        {
-            SendWeaponUpdate(data);
-        }
-    }
-
-    public void SendWeaponUpdate(int value)
-    {
-        using (RTData data = RTData.Get())
-        {
-            data.SetInt(2, value);
-            SendWeaponUpdate(data);
-        }
-    }
-
-    public virtual void OnWeaponUpdate(RTPacket packet)
+    public virtual void OnWeaponUpdate(RTPacket packet, int code)
     {
 
     }

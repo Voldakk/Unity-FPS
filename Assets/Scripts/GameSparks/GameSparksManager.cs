@@ -2,18 +2,18 @@
 using UnityEngine.SceneManagement;
 
 using GameSparks.Core;
+using GameSparks.RT;
 using GameSparks.Api.Messages;
 using GameSparks.Api.Responses;
-using GameSparks.RT;
 
-using System.Collections.Generic;
-using System.Collections;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public enum OpCodes
 {
     None,
-    PlayerPosition, PlayerDamage, PlayerSetWeapon, PlayerWeapon, NetworkObject, NetworkInstantiate,
+    NetworkObject, NetworkInstantiate,
     TimeStamp = 101, ClockSync = 102,
     PlayerReady = 200, LoadGame, PlayerLoaded, MatchStartTimer, StartMatch
 };
@@ -398,22 +398,7 @@ public class GameSparksManager : MonoBehaviour
         switch ((OpCodes)packet.OpCode)
         {
             case OpCodes.None:
-                break;
-
-            case OpCodes.PlayerPosition:
-                GameManager.Instance().UpdatePlayerPosition(packet);
-                break;
-
-            case OpCodes.PlayerDamage:
-                GameManager.Instance().OnPlayerDamage(packet);
-                break;
-
-            case OpCodes.PlayerSetWeapon:
-                GameManager.Instance().OnPlayerSetWeapon(packet);
-                break;
-
-            case OpCodes.PlayerWeapon:
-                GameManager.Instance().OnPlayerWeaponUpdate(packet);
+                // Not in use
                 break;
 
             case OpCodes.NetworkObject:
@@ -433,7 +418,7 @@ public class GameSparksManager : MonoBehaviour
                 break;
 
             case OpCodes.PlayerReady:
-                // ---
+                OnPlayerReady(packet);
                 break;
 
             case OpCodes.LoadGame:
@@ -441,7 +426,7 @@ public class GameSparksManager : MonoBehaviour
                 break;
 
             case OpCodes.PlayerLoaded:
-                // ---
+                // No incoming
                 break;
 
             case OpCodes.MatchStartTimer:
@@ -457,18 +442,24 @@ public class GameSparksManager : MonoBehaviour
     public void SetPlayerReady(bool value)
     {
         Debug.Log("GameSparksManager::SetReadyState");
+
         if (value == true)
         {
             using (RTData data = RTData.Get())
             {
                 data.SetInt(1, PeerId());
-                SendRTData(OpCodes.PlayerReady, GameSparksRT.DeliveryIntent.RELIABLE, new int[] { 0 });
+                SendRTData(OpCodes.PlayerReady, GameSparksRT.DeliveryIntent.RELIABLE, data);
             }
         }
         else
         {
-
+            throw new NotImplementedException();
         }
+    }
+
+    void OnPlayerReady(RTPacket packet)
+    {
+        LobbyManager.instance.SetPlayerReady(packet.Data.GetInt(1).Value);
     }
 
     void OnLoadGame()
@@ -483,7 +474,7 @@ public class GameSparksManager : MonoBehaviour
         using (RTData data = RTData.Get())
         {
             data.SetInt(1, PeerId());
-            SendRTData(OpCodes.PlayerLoaded, GameSparksRT.DeliveryIntent.RELIABLE, new int[] { 0 });
+            SendRTData(OpCodes.PlayerLoaded, GameSparksRT.DeliveryIntent.RELIABLE, data, new int[] { 0 });
         }
     }
 

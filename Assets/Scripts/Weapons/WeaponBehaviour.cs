@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using GameSparks.RT;
+using UnityEngine;
 
-public class WeaponBehaviour : MonoBehaviour
+public class WeaponBehaviour : NetworkObject
 {
     private Weapon weapon;
 
@@ -10,16 +11,18 @@ public class WeaponBehaviour : MonoBehaviour
 
     [HideInInspector] public Player player;
 
-    [HideInInspector] public bool isLocal;
+    public enum OpCode { SetWeapon, Last }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         hud = GameObject.FindGameObjectWithTag("WeaponHud").GetComponent<RectTransform>();
     }
 
 	void Update ()
     {
-        if (!isLocal)
+        if (!isOwner)
             return;
 
         if (weapon != null)
@@ -29,11 +32,13 @@ public class WeaponBehaviour : MonoBehaviour
     public void SetWeapon(int index)
     {
         Weapon[] weapons = Resources.LoadAll<Weapon>("Weapons");
-        SetWeapon(weapons[index]);
-    }
+        Weapon newWeapon = weapons[index];
 
-    public void SetWeapon(Weapon newWeapon)
-    {
+        if(isOwner)
+        {
+            SendInt((int)OpCode.SetWeapon, 1, index);
+        }
+
         if (weapon != null)
         {
             weapon.OnDestroy();
@@ -45,17 +50,30 @@ public class WeaponBehaviour : MonoBehaviour
         weapon.OnStart();
     }
 
-    public void Initialize(Player player, bool isLocal)
+    public void Initialize(Player player)
     {
-        this.isLocal = isLocal;
         this.player = player;
     }
 
-    public void OnWeaponUpdate(GameSparks.RT.RTPacket packet)
+    public void OnWeaponUpdate(RTPacket packet, int code)
     {
         if (weapon != null)
+            weapon.OnWeaponUpdate(packet, code);
+    }
+
+    public override void OnPacket(RTPacket packet, int code)
+    {
+        base.OnPacket(packet);
+
+        switch ((OpCode)code)
         {
-            weapon.OnWeaponUpdate(packet);
+            case OpCode.SetWeapon:
+                SetWeapon(packet.Data.GetInt(1).Value);
+                break;
+
+            default:
+                OnWeaponUpdate(packet, code);
+                break;
         }
     }
 }

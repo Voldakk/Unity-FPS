@@ -30,10 +30,17 @@ public class NetworkManager
 
     public static void OnPacket(RTPacket packet)
     {
-        NetworkObject networkObject = table[packet.Data.GetString((int)DataIndex.NetworkId)];
+        string id = packet.Data.GetString((int)DataIndex.NetworkId);
+        if (!table.ContainsKey(id))
+            return;
+
+        NetworkObject networkObject = table[id];
         if (networkObject != null)
         {
-            networkObject.OnPacket(packet);
+            if (packet.Data.GetInt((int)DataIndex.ObjectCode).HasValue)
+                networkObject.OnPacket(packet, packet.Data.GetInt((int)DataIndex.ObjectCode).Value);
+            else
+                networkObject.OnPacket(packet);
         }
     }
 
@@ -120,17 +127,7 @@ public abstract class NetworkObject : MonoBehaviour
     protected bool isHost;
 
     public int owner = 1;
-    protected bool isOwner;
-
-    public virtual void OnPacket(RTPacket packet)
-    {
-
-    }
-
-    protected void SendPacket(RTData data, GameSparksRT.DeliveryIntent intent)
-    {
-        NetworkManager.SendPacket(this, data, intent);
-    }
+    public bool isOwner;
 
     void OnValidate()
     {
@@ -151,24 +148,6 @@ public abstract class NetworkObject : MonoBehaviour
         return Guid.NewGuid().ToString("N");
     }
 
-    protected void SendInt(uint index, int value)
-    {
-        using (RTData data = RTData.Get())
-        {
-            data.SetInt(index, value);
-            SendPacket(data, GameSparksRT.DeliveryIntent.RELIABLE);
-        }
-    }
-
-    protected void SendFloat(uint index, float value)
-    {
-        using (RTData data = RTData.Get())
-        {
-            data.SetFloat(index, value);
-            SendPacket(data, GameSparksRT.DeliveryIntent.RELIABLE);
-        }
-    }
-
     public void SetId(string newId)
     {
         if (string.IsNullOrEmpty(newId))
@@ -183,5 +162,70 @@ public abstract class NetworkObject : MonoBehaviour
     {
         this.owner = owner;
         isOwner = (peerId == owner);
+    }
+
+    public virtual void OnPacket(RTPacket packet)
+    {
+
+    }
+
+    public virtual void OnPacket(RTPacket packet, int code)
+    {
+
+    }
+
+    public void SendPacket(RTData data, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
+    {
+        NetworkManager.SendPacket(this, data, intent);
+    }
+
+    public void SendPacket(int code, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt((int)NetworkManager.DataIndex.ObjectCode, code);
+            SendPacket(data, intent);
+        }
+    }
+
+    public void SendPacket(int code, RTData data, GameSparksRT.DeliveryIntent intent = GameSparksRT.DeliveryIntent.RELIABLE)
+    {
+        data.SetInt((int)NetworkManager.DataIndex.ObjectCode,code);
+        SendPacket(data, intent);
+    }
+
+    public void SendInt(uint index, int value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(index, value);
+            SendPacket(data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
+    }
+    public void SendInt(int code, uint index, int value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetInt(index, value);
+            SendPacket(code, data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
+    }
+
+    public void SendFloat(uint index, float value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetFloat(index, value);
+            SendPacket(data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
+    }
+
+    public void SendFloat(int code, uint index, float value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetFloat(index, value);
+            SendPacket(code, data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
     }
 }

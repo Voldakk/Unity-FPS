@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "New ammo", menuName = "Ammo/MultiProjectile")]
 public class MultiProjectile : Projectile
@@ -15,7 +16,7 @@ public class MultiProjectile : Projectile
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
 
-        float[] playerDamage = new float[GameManager.Instance().NumPlayers()];
+        Dictionary<Health, float> damageTable= new Dictionary<Health, float>();
 
         for (int i = 0; i < numProjectiles; i++)
         {
@@ -40,18 +41,20 @@ public class MultiProjectile : Projectile
             Vector3 worldDirection = gun.camera.transform.TransformDirection(direction);
             if (Physics.Raycast(origin, worldDirection, out hit))
             {
-                Player player = hit.transform.GetComponent<Player>();
-                if (player != null)
+                Health health = hit.transform.GetComponent<Health>();
+                if (health != null)
                 {
-                    playerDamage[player.owner - 1] += damage;
+                    if (!damageTable.ContainsKey(health))
+                        damageTable.Add(health, 0f);
+
+                    damageTable[health] += damage;
                 }
             }
         }
 
-        for (int i = 0; i < playerDamage.Length; i++)
+        foreach (Health health in damageTable.Keys)
         {
-            if (playerDamage[i] != 0.0f)
-                GameManager.Instance().DamagePlayer(i + 1, playerDamage[i]);
+            health.Damage(damageTable[health]);
         }
 
         lineRendererController.Fire(lineTime);

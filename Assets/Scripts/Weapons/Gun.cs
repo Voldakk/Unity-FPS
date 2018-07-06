@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [CreateAssetMenu(fileName = "New gun", menuName = "Items/Weapons/Gun")]
 public class Gun : Weapon
 {
-    protected enum UpdateCode { Fire, Reload, Ads, StopAds }
+    protected enum OpCode { Fire = WeaponBehaviour.OpCode.Last, Reload, Ads, StopAds }
 
     public Ammo ammo;
 
@@ -39,7 +39,7 @@ public class Gun : Weapon
     {
         base.OnStart();
 
-        if (isLocal)
+        if (isOwner)
         {
             hudWeaponIcon = uiObject.Find("Icon").GetComponent<Image>();
             hudWeaponAmmo = uiObject.Find("Ammo").GetComponent<Text>();
@@ -109,31 +109,31 @@ public class Gun : Weapon
                 fireTimer = 0;
                 Fire();
 
-                SendWeaponUpdate(UpdateCode.Fire);
+                SendWeaponUpdate(OpCode.Fire);
             }
         }
 
         if (Input.GetKeyDown(KeyCode.R) && !reloading)
         {
             StartReload();
-            SendWeaponUpdate(UpdateCode.Reload);
+            SendWeaponUpdate(OpCode.Reload);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             Ads();
-            SendWeaponUpdate(UpdateCode.Ads);
+            SendWeaponUpdate(OpCode.Ads);
         }
         else if (Input.GetMouseButtonUp(1))
         {
             StopAds();
-            SendWeaponUpdate(UpdateCode.StopAds);
+            SendWeaponUpdate(OpCode.StopAds);
         }
     }
 
     public void Fire()
     {
-        ammo.Fire(this, isLocal);
+        ammo.Fire(this, isOwner);
         magCurrent--;
 
         UpdateHudAmmo();
@@ -199,25 +199,25 @@ public class Gun : Weapon
             animator.SetBool("Ads", false);
     }
 
-    public override void OnWeaponUpdate(RTPacket packet)
+    public override void OnWeaponUpdate(RTPacket packet, int code)
     {
-        base.OnWeaponUpdate(packet);
+        base.OnWeaponUpdate(packet, code);
 
-        switch ((UpdateCode)packet.Data.GetInt(2).Value)
+        switch ((OpCode)code)
         {
-            case UpdateCode.Fire:
+            case OpCode.Fire:
                 Fire();
                 break;
 
-            case UpdateCode.Reload:
+            case OpCode.Reload:
                 StartReload();
                 break;
 
-            case UpdateCode.Ads:
+            case OpCode.Ads:
                 Ads();
                 break;
 
-            case UpdateCode.StopAds:
+            case OpCode.StopAds:
                 StopAds();
                 break;
 
@@ -227,8 +227,8 @@ public class Gun : Weapon
         }
     }
 
-    protected void SendWeaponUpdate(UpdateCode code)
+    protected void SendWeaponUpdate(OpCode code)
     {
-        SendWeaponUpdate((int)code);
+        weaponBehaviour.SendPacket((int)code);
     }
 }

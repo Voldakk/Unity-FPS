@@ -14,4 +14,5 @@ MonoBehaviour:
   stortCode: bdy2
   partName: Body 2
   prefab: {fileID: 1988106963231136, guid: 759fb12464968d54e94c83167c6907c4, type: 2}
+  icon: {fileID: 21300000, guid: eb5f6e2757c821940b69cf1456f7865a, type: 3}
   partType: 1

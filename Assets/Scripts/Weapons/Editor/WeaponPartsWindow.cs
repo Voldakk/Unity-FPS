@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using System.IO;
 
 public class WeaponPartsWindow : EditorWindow
 {
@@ -55,6 +56,8 @@ public class WeaponPartsWindow : EditorWindow
             part.prefab = newPartPrefab;
             part.partType = newPartType;
 
+            part.icon = GetPrefabIcon(newPartPrefab);
+
             AssetDatabase.CreateAsset(part, "Assets/Resources/WeaponParts/" + newPartShortCode + ".asset");
             partList.Repaint();
         }
@@ -69,7 +72,7 @@ public class WeaponPartsWindow : EditorWindow
             return;
 
         EditorGUILayout.BeginHorizontal();
-        GUILayout.Label(AssetPreview.GetAssetPreview(selected.prefab));
+        EditorGUILayout.ObjectField("Sprite", selected.icon, typeof(Sprite), allowSceneObjects: true);
 
         EditorGUILayout.BeginVertical();
 
@@ -77,7 +80,24 @@ public class WeaponPartsWindow : EditorWindow
         GUILayout.Label("Short code: " + selected.stortCode);
         selected.partName = EditorGUILayout.TextField("Part name", selected.partName);
         selected.partType = (WeaponPartType)EditorGUILayout.EnumPopup("Type", selected.partType);
-        selected.prefab = (GameObject)EditorGUILayout.ObjectField("Prefab", selected.prefab, typeof(GameObject), false);
+
+        GameObject newPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab", selected.prefab, typeof(GameObject), false);
+        if(selected.prefab != newPrefab)
+        {
+            //AssetDatabase.StartAssetEditing();
+            selected.prefab = newPrefab;
+            selected.icon = GetPrefabIcon(newPrefab);
+            //AssetDatabase.StopAssetEditing();
+            //EditorUtility.SetDirty(selected);
+        }
+
+        if (GUILayout.Button("Update icon"))
+        {
+            //AssetDatabase.StartAssetEditing();
+            selected.icon = GetPrefabIcon(selected.prefab, true);
+            //AssetDatabase.StopAssetEditing();
+            //EditorUtility.SetDirty(selected);
+        }
 
         if (GUILayout.Button("Delete part"))
         {
@@ -87,5 +107,26 @@ public class WeaponPartsWindow : EditorWindow
 
         EditorGUILayout.EndVertical();
         EditorGUILayout.EndHorizontal();
+    }
+
+    Sprite GetPrefabIcon(GameObject prefab, bool reset = false)
+    {
+        string prefabPath = AssetDatabase.GetAssetPath(prefab);
+
+        string path = Path.GetDirectoryName(prefabPath) + "/" + Path.GetFileNameWithoutExtension(prefabPath);
+
+        Sprite icon = AssetDatabase.LoadAssetAtPath<Sprite>(path + "_icon.asset");
+        if (icon != null && !reset)
+            return icon;
+
+        Texture2D texture = AssetPreview.GetAssetPreview(prefab);
+        File.WriteAllBytes(path + "_icon_texture.png", texture.EncodeToPNG());
+        AssetDatabase.Refresh();
+        texture = AssetDatabase.LoadAssetAtPath<Texture2D>(path + "_icon_texture.png");
+
+        icon = Sprite.Create(texture, new Rect(Vector2.zero, new Vector2(texture.width, texture.height)), Vector2.zero);
+        AssetDatabase.CreateAsset(icon, path + "_icon.asset");
+
+        return icon;
     }
 }

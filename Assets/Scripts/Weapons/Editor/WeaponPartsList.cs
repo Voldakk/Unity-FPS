@@ -19,7 +19,8 @@ public class WeaponPartsList : EditorWindow
         GetWindow<WeaponPartsList>("Weapon part list", true, typeof(WeaponPartsWindow));
     }
 
-    string searchText;
+    string searchText = "";
+
     void OnGUI()
     {
         if (weaponPartsWindow == null)

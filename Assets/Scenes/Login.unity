@@ -1116,7 +1116,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Test
+  m_Text: '****'
 --- !u!222 &1715105087
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1560,8 +1560,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2116788654}
   m_TextComponent: {fileID: 1715105086}
   m_Placeholder: {fileID: 1483499283}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0

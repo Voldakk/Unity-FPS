@@ -69,6 +69,11 @@ public class RTSessionInfo
     }
 }
 
+public class GSUser
+{
+    public string userId, displayName;
+}
+
 public class GameSparksManager : MonoBehaviour
 {
     public string sceneName;
@@ -107,8 +112,12 @@ public class GameSparksManager : MonoBehaviour
     }
 
     #region Login & Registration
+
+    public GSUser user;
+
     public delegate void AuthCallback(AuthenticationResponse _authresp2);
     public delegate void RegCallback(RegistrationResponse _authResp);
+
     /// <summary>
     /// Sends an authentication request or registration request to GS.
     /// </summary>
@@ -126,8 +135,16 @@ public class GameSparksManager : MonoBehaviour
             .Send((regResp) =>
             {
                 if (!regResp.HasErrors)
-                { // if we get the response back with no errors then the registration was successful
+                { 
+                    // if we get the response back with no errors then the registration was successful
                     Debug.Log("GSM| Registration Successful...");
+
+                    user = new GSUser
+                    {
+                        userId = regResp.UserId,
+                        displayName = regResp.DisplayName
+                    };
+
                     _regcallback(regResp);
                 }
                 else
@@ -144,6 +161,13 @@ public class GameSparksManager : MonoBehaviour
                                 if (!authResp.HasErrors)
                                 {
                                     Debug.Log("Authentication Successful...");
+
+                                    user = new GSUser
+                                    {
+                                        userId = authResp.UserId,
+                                        displayName = authResp.DisplayName
+                                    };
+
                                     _authcallback(authResp);
                                 }
                                 else
@@ -190,6 +214,22 @@ public class GameSparksManager : MonoBehaviour
                 }
             });
     }
+
+    public void CancelMatchmaking(string shortCode)
+    {
+        Debug.Log("GSM| Canceling Matchmaking...");
+        new GameSparks.Api.Requests.MatchmakingRequest()
+            .SetMatchShortCode(shortCode)
+            .SetAction("cancel")
+            .Send((response) =>
+            {
+                if (response.HasErrors)
+                {
+                    Debug.LogError("GSM| MatchMaking Error \n" + response.Errors.JSON);
+                }
+            });
+    }
+
     #endregion
 
     #region Session

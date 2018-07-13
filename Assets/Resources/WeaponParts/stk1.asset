@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Name: stk1
+  m_EditorClassIdentifier: 
+  stortCode: stk1
+  partName: Stock 1
+  prefab: {fileID: 1243855408217054, guid: 5037e758453cc4c4ea6e42fbafb6a9c5, type: 2}
+  partType: 4

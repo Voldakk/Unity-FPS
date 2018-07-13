@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Name: mag2
+  m_EditorClassIdentifier: 
+  stortCode: mag2
+  partName: Mag 2
+  prefab: {fileID: 1403562152451992, guid: fe605e2d3e612984faeffafa80d45daf, type: 2}
+  partType: 3

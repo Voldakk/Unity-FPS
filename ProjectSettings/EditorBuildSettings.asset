@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/WeaponCustomization.unity
-    guid: 53f9564e1b8816c409e7ae362a7b3489
-  - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: ca57476ed2e3cea47aeb76bd8fd52dd6
   - enabled: 1
@@ -26,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Test.unity
     guid: 8caae7aea6c87194d828994e49035ae5
+  - enabled: 1
+    path: Assets/Scenes/WeaponCustomization.unity
+    guid: 53f9564e1b8816c409e7ae362a7b3489
   m_configObjects: {}

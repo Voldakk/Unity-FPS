@@ -20,8 +20,7 @@ public class UiMatchMakingManager : MonoBehaviour
 
     void Start()
     {
-        UpdateUserStatus();
-        GS.GameSparksAvailable += (isAvailable) =>
+        GS.GameSparksAvailable = (isAvailable) =>
         {
             UpdateUserStatus();
         };
@@ -56,7 +55,9 @@ public class UiMatchMakingManager : MonoBehaviour
             matchDetails.text = "No Match Found...";
         };
 
-        GameSparks.Api.Messages.MatchFoundMessage.Listener += OnMatchFound;
+        GameSparks.Api.Messages.MatchFoundMessage.Listener = OnMatchFound;
+
+        UpdateUserStatus();
     }
 
     private void OnMatchFound(GameSparks.Api.Messages.MatchFoundMessage _message)

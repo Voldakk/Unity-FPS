@@ -16,8 +16,7 @@ namespace Voldakk.DragAndDrop
             DragAndDropManager.instance.Subscribe(this);
 
             // Hide the panel in case it's vissible
-            if (dragPanel.gameObject.activeSelf)
-                dragPanel.gameObject.SetActive(false);
+            dragPanel.Hide();
         }
 
         /// <summary>

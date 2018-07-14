@@ -11,6 +11,70 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1988106963231136}
   m_IsPrefabParent: 1
+--- !u!1 &1012111726170744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4750464893553122}
+  - component: {fileID: 114954864334337126}
+  m_Layer: 0
+  m_Name: slot_mag
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1646867135185432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4687126851695952}
+  - component: {fileID: 114680515042802272}
+  m_Layer: 0
+  m_Name: slot_barrel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1854039507702986
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4184154173774914}
+  - component: {fileID: 114475078543694332}
+  m_Layer: 0
+  m_Name: slot_stock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1865201440154808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4213733598751386}
+  - component: {fileID: 114007769809417172}
+  m_Layer: 0
+  m_Name: slot_grip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1988106963231136
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,9 +101,65 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4687126851695952}
+  - {fileID: 4213733598751386}
+  - {fileID: 4184154173774914}
+  - {fileID: 4750464893553122}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4184154173774914
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854039507702986}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.052831497, z: -0.0328}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4065863432663032}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4213733598751386
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865201440154808}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0137, z: -0.0037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4065863432663032}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4687126851695952
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646867135185432}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04898055, z: 0.1847}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4065863432663032}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4750464893553122
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012111726170744}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0036, z: 0.1256}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4065863432663032}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23753899864427004
 MeshRenderer:
@@ -83,3 +203,71 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1988106963231136}
   m_Mesh: {fileID: 4300000, guid: 664ef08f089e88c40b36dada9fc2d22a, type: 3}
+--- !u!114 &114007769809417172
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1865201440154808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Grip
+  slotType: 2
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: -0.3, z: 0}
+--- !u!114 &114475078543694332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854039507702986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Stock
+  slotType: 4
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.166, z: -0.374}
+--- !u!114 &114680515042802272
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646867135185432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Barrel
+  slotType: 0
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.203, z: 0.394}
+--- !u!114 &114954864334337126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1012111726170744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Mag
+  slotType: 3
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: -0.217, z: 0.345}

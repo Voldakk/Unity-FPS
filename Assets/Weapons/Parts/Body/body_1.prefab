@@ -44,6 +44,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1340682556125498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4035413049626186}
+  - component: {fileID: 114362264138204710}
+  m_Layer: 0
+  m_Name: slot_grip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1570257244234330
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +86,7 @@ GameObject:
   - component: {fileID: 4654109419501904}
   - component: {fileID: 114722559131140434}
   m_Layer: 0
-  m_Name: slot_grip
+  m_Name: slot_sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,20 +108,34 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4035413049626186
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340682556125498}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0015917438, z: -0.020972783}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4155466177719818}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4155466177719818
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1061688196356912}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4495784869250946}
-  - {fileID: 4654109419501904}
+  - {fileID: 4035413049626186}
   - {fileID: 4854152378846210}
   - {fileID: 4660018618669298}
+  - {fileID: 4654109419501904}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -129,11 +159,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1768648156809664}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0015917438, z: -0.020972783}
+  m_LocalPosition: {x: 0, y: 0.0733, z: 0.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4155466177719818}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4660018618669298
 Transform:
@@ -216,6 +246,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotName: Stock
   slotType: 4
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.166, z: -0.374}
+--- !u!114 &114362264138204710
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1340682556125498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Grip
+  slotType: 2
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: -0.3, z: 0}
 --- !u!114 &114722559131140434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -227,8 +278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  slotName: Grip
-  slotType: 2
+  slotName: Sight
+  slotType: 5
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.3, z: 0.3}
 --- !u!114 &114838774790327054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -242,6 +297,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotName: Mag
   slotType: 3
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: -0.217, z: 0.345}
 --- !u!114 &114996014501739636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -255,3 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotName: Barrel
   slotType: 0
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.2, z: 0.4}

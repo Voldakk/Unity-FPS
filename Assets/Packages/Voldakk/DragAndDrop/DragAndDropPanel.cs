@@ -59,5 +59,15 @@ namespace Voldakk.DragAndDrop
         {
             manager.ItemOnMouseDown(eventData.button, containerIndex, objectIndices);
         }
+
+        public virtual void Hide()
+        {
+            transform.position = Vector3.one *-10000f;
+        }
+
+        public virtual void Show()
+        {
+
+        }
     }
 }

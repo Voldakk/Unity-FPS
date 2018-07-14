@@ -70,7 +70,7 @@ namespace Voldakk.DragAndDrop
             currentPanel.SetObject(fromObject);
 
             // Show the panel
-            currentPanel.gameObject.SetActive(true);
+            currentPanel.Show();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Voldakk.DragAndDrop
         {
             // Hide the panel
             if (currentPanel != null)
-                currentPanel.gameObject.SetActive(false);
+                currentPanel.Hide();
 
             // Reset
             fromObject = null;

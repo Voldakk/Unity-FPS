@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using Voldakk.DragAndDrop;
 
-public enum WeaponPartType { Barrel, Body, Grip, Mag, Stock }
+public enum WeaponPartType { Barrel, Body, Grip, Mag, Stock, Sight, Muzzle }
 
 [System.Serializable]
 public class WeaponPart : Item
@@ -21,6 +21,7 @@ public class WeaponPart : Item
 
         gameObject = Instantiate(prefab, parent);
         gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.localRotation = Quaternion.identity;
 
         slots = gameObject.GetComponentsInChildren<WeaponPartSlot>();
     }

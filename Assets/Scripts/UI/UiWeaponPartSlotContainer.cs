@@ -2,11 +2,10 @@
 using UnityEngine.EventSystems;
 using Voldakk.DragAndDrop;
 
-public class UiWeaponParts : DragAndDropContainer
+public class UiWeaponPartSlotContainer : DragAndDropContainer
 {
-    public ModularWeapon weapon;
-
-    public UiWeaponPartSlot[] weaponPartSlots;
+    WeaponPartSlot slot;
+    UiWeaponPartSlotPanel panel;
 
     /// <summary>
     /// Use this for initialization
@@ -15,11 +14,12 @@ public class UiWeaponParts : DragAndDropContainer
     {
         base.Initialize();
 
-        for (int i = 0; i < weaponPartSlots.Length; i++)
-        {
-            weaponPartSlots[i].SetIndeces(containerIndex, new int[] { i });
-            weaponPartSlots[i].SetObject(weapon.GetPart(i));
-        }
+        dragPanel = GameObject.FindGameObjectWithTag("WeaponPartItemPanel").GetComponent<DragAndDropPanel>();
+
+        slot = GetComponentInParent<WeaponPartSlot>();
+        panel = GetComponent<UiWeaponPartSlotPanel>();
+        panel.SetIndeces(containerIndex, new int[] { 0 });
+        panel.SetObject(slot.part);
     }
 
     /// <summary>
@@ -29,8 +29,8 @@ public class UiWeaponParts : DragAndDropContainer
     /// <returns>The object in the given indices</returns>
     public override object GetObject(int[] indices, bool isFromContainer)
     {
-        if (indices.Length == 1 && indices[0] >= 0 && indices[0] < weaponPartSlots.Length)
-            return weapon.GetPart(indices[0]);
+        if (indices.Length == 1 && indices[0] == 0)
+            return slot.part;
 
         return null;
     }
@@ -51,18 +51,18 @@ public class UiWeaponParts : DragAndDropContainer
         int index = indices[0];
 
         // Make sure the index is within range
-        if (index < 0 && index >= weapon.numSlots)
+        if (index != 0)
             return false;
 
         // Get the item
         WeaponPart part = o as WeaponPart;
 
         // If the recieving slot is empty
-        if (weapon.GetPart(index) == null)
+        if (slot.part == null)
         {
-            if (weapon.SetPart(index, part))
+            if (slot.SetPart(part))
             {
-                weaponPartSlots[index].SetObject(part);
+                panel.SetObject(part);
                 return true;
             }
         }
@@ -78,11 +78,11 @@ public class UiWeaponParts : DragAndDropContainer
     public override void RemoveObject(int[] indices)
     {
         // Check the indices
-        if (indices.Length == 1 && indices[0] >= 0 && indices[0] < weaponPartSlots.Length)
+        if (indices.Length == 1 && indices[0] == 0)
         {
             // Remove the object
-            weapon.SetPart(indices[0], null);
-            weaponPartSlots[indices[0]].SetObject(null);
+            slot.SetPart(null);
+            panel.SetObject(null);
         }
     }
 

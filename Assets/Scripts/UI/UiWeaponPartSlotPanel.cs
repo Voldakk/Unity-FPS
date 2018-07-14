@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using Voldakk.DragAndDrop;
 
-public class UiWeaponPartSlot : DragAndDropPanel
+public class UiWeaponPartSlotPanel : DragAndDropPanel
 {
     public Text slotName, partName;
     public Image partIcon;

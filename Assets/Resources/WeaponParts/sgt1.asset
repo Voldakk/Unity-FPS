@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Name: sgt1
+  m_EditorClassIdentifier: 
+  name: 
+  icon: {fileID: 21300000, guid: 42b22ef3a5d37f7478dd99717707515b, type: 2}
+  stackSize: 1
+  count: 1
+  stortCode: sgt1
+  partName: Red dot
+  prefab: {fileID: 1277314000337636, guid: 0bf36a07bd010f647b0fefe2142c8314, type: 2}
+  partType: 5
+  slots: []
+  gameObject: {fileID: 0}

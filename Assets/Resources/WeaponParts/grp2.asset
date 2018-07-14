@@ -11,7 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
   m_Name: grp2
   m_EditorClassIdentifier: 
+  name: 
+  icon: {fileID: 21300000, guid: d1a1d8be19b1e3c48980e8e141b7e64f, type: 2}
+  stackSize: 1
+  count: 1
   stortCode: grp2
   partName: Grip 2
   prefab: {fileID: 1882548303570892, guid: 8576b207053d05547bfdf84002573543, type: 2}
   partType: 2
+  slots: []
+  gameObject: {fileID: 0}

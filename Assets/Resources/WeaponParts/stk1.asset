@@ -11,7 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
   m_Name: stk1
   m_EditorClassIdentifier: 
+  name: 
+  icon: {fileID: 21300000, guid: 7c7abe0ac0546a1469f93f664d4e0a9b, type: 2}
+  stackSize: 1
+  count: 1
   stortCode: stk1
   partName: Stock 1
   prefab: {fileID: 1243855408217054, guid: 5037e758453cc4c4ea6e42fbafb6a9c5, type: 2}
   partType: 4
+  slots: []
+  gameObject: {fileID: 0}

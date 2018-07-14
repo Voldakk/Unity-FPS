@@ -11,7 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
   m_Name: mag4
   m_EditorClassIdentifier: 
+  name: 
+  icon: {fileID: 21300000, guid: cfea78ed8fa80414a89ad68ecf027c78, type: 2}
+  stackSize: 1
+  count: 1
   stortCode: mag4
   partName: Mag 4
   prefab: {fileID: 1193142292100114, guid: fd132ccabd3846745ad5291b3c3964c3, type: 2}
   partType: 3
+  slots: []
+  gameObject: {fileID: 0}

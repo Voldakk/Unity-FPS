@@ -11,8 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
   m_Name: brl2
   m_EditorClassIdentifier: 
+  name: 
+  icon: {fileID: 21300000, guid: 2531730692181bb47bfaf1880c72045c, type: 2}
+  stackSize: 1
+  count: 1
   stortCode: brl2
   partName: Barrel 2
   prefab: {fileID: 1512043962858502, guid: c6312d9346b249e4aa9e8178dcddbadf, type: 2}
-  icon: {fileID: 21300000, guid: 97d1018e36d54b04782a8c69b9794b69, type: 2}
   partType: 0
+  slots: []
+  gameObject: {fileID: 0}

@@ -88,7 +88,7 @@ public class WeaponPartsWindow : EditorWindow
             selected.prefab = newPrefab;
             selected.icon = GetPrefabIcon(newPrefab);
             //AssetDatabase.StopAssetEditing();
-            //EditorUtility.SetDirty(selected);
+            EditorUtility.SetDirty(selected);
         }
 
         if (GUILayout.Button("Update icon"))
@@ -96,7 +96,7 @@ public class WeaponPartsWindow : EditorWindow
             //AssetDatabase.StartAssetEditing();
             selected.icon = GetPrefabIcon(selected.prefab, true);
             //AssetDatabase.StopAssetEditing();
-            //EditorUtility.SetDirty(selected);
+            EditorUtility.SetDirty(selected);
         }
 
         if (GUILayout.Button("Delete part"))

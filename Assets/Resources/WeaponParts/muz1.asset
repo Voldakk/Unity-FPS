@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Script: {fileID: 11500000, guid: 29035e518a2c90249a8f886ed5a55bc3, type: 3}
   m_Name: muz1
   m_EditorClassIdentifier: 
   name: 
@@ -21,3 +21,8 @@ MonoBehaviour:
   partType: 6
   slots: []
   gameObject: {fileID: 0}
+  weight: 0
+  cost: 0
+  recoilModifier: 0.9
+  accuracyModifier: 1.1
+  damageModifier: 0.1

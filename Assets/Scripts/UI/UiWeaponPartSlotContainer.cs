@@ -24,7 +24,7 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
         panel.SetIndeces(containerIndex, new int[] { 0 });
         panel.SetObject(slot.part);
 
-        uiWeaponPartList = GameObject.FindObjectOfType<UiWeaponPartList>();
+        uiWeaponPartList = FindObjectOfType<UiWeaponPartList>();
     }
 
     /// <summary>
@@ -68,6 +68,7 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
             if (slot.SetPart(part))
             {
                 panel.SetObject(part);
+
                 return true;
             }
         }

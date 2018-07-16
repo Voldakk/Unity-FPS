@@ -15,6 +15,9 @@ public class WeaponPart : Item
     public WeaponPartSlot[] slots;
     public GameObject gameObject;
 
+    // Stats
+    public float weight, cost;
+
     public void Load(Transform parent)
     {
         if (gameObject != null)

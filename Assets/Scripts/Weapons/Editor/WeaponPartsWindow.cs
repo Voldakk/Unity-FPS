@@ -50,7 +50,37 @@ public class WeaponPartsWindow : EditorWindow
 
         if (GUILayout.Button("Create part"))
         {
-            WeaponPart part = CreateInstance<WeaponPart>();
+
+            WeaponPart part;
+
+            switch (newPartType)
+            {
+                case WeaponPartType.Barrel:
+                    part = CreateInstance<Barrel>();
+                    break;
+                case WeaponPartType.Body:
+                    part = CreateInstance<Body>();
+                    break;
+                case WeaponPartType.Grip:
+                    part = CreateInstance<Grip>();
+                    break;
+                case WeaponPartType.Mag:
+                    part = CreateInstance<Mag>();
+                    break;
+                case WeaponPartType.Sight:
+                    part = CreateInstance<Sight>();
+                    break;
+                case WeaponPartType.Stock:
+                    part = CreateInstance<Stock>();
+                    break;
+                case WeaponPartType.Muzzle:
+                    part = CreateInstance<Muzzle>();
+                    break;
+                default:
+                    part = CreateInstance<WeaponPart>();
+                    break;
+            }
+
             part.stortCode = newPartShortCode;
             part.partName = newPartName;
             part.prefab = newPartPrefab;
@@ -79,7 +109,8 @@ public class WeaponPartsWindow : EditorWindow
         GUILayout.Label("Edit part");
         GUILayout.Label("Short code: " + selected.stortCode);
         selected.partName = EditorGUILayout.TextField("Part name", selected.partName);
-        selected.partType = (WeaponPartType)EditorGUILayout.EnumPopup("Type", selected.partType);
+        GUILayout.Label("Part type: " + selected.partType.ToString());
+        //selected.partType = (WeaponPartType)EditorGUILayout.EnumPopup("Type", selected.partType);
 
         GameObject newPrefab = (GameObject)EditorGUILayout.ObjectField("Prefab", selected.prefab, typeof(GameObject), false);
         if(selected.prefab != newPrefab)

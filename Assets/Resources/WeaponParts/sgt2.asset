@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Script: {fileID: 11500000, guid: 633f915ed8a1b434fba148112817a532, type: 3}
   m_Name: sgt2
   m_EditorClassIdentifier: 
   name: 
@@ -21,3 +21,7 @@ MonoBehaviour:
   partType: 4
   slots: []
   gameObject: {fileID: 0}
+  weight: 0
+  cost: 0
+  fov: 15
+  accuracyModifier: 2

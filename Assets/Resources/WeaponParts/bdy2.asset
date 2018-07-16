@@ -8,7 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 534680278c449044b8fe2b475357a703, type: 3}
+  m_Script: {fileID: 11500000, guid: 9158d43e5ff66824a87a6a36814e6927, type: 3}
   m_Name: bdy2
   m_EditorClassIdentifier: 
   name: 
@@ -21,3 +21,6 @@ MonoBehaviour:
   partType: 1
   slots: []
   gameObject: {fileID: 0}
+  weight: 0
+  cost: 0
+  fireRate: 300

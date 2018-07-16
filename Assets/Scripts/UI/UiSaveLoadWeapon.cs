@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 using System.Collections.Generic;
-using System.Linq;
 
 public class UiSaveLoadWeapon : MonoBehaviour
 {
-
     public InputField weaponNameInput;
 
     PlayerData playerData;
@@ -14,10 +13,11 @@ public class UiSaveLoadWeapon : MonoBehaviour
 
     public ModularWeapon weapon;
 
-    List<WeaponData> weapons;
     int selectedWeapon = -1;
 
     List<GameObject> weaponPanels;
+
+    public UiWeaponPartList uiWeaponPartList;
 
 	void Start ()
     {
@@ -25,11 +25,8 @@ public class UiSaveLoadWeapon : MonoBehaviour
 
         weaponPanels = new List<GameObject>();
 
-        WeaponData[] wd = playerData.LoadWeaponsFromFile();
-        if (wd == null)
-            weapons = new List<WeaponData>();
-        else 
-            weapons = wd.ToList();
+
+        var weapons = playerData.GetWeapons();
 
         if(weapons.Count == 0)
         {
@@ -39,8 +36,7 @@ public class UiSaveLoadWeapon : MonoBehaviour
         {
             for (int i = 0; i < weapons.Count; i++)
             {
-                int index = i;
-                GameObject go = Instantiate(weaponPanelPrefab, transform);
+                var go = Instantiate(weaponPanelPrefab, transform);
                 go.GetComponent<Button>().onClick.AddListener(() => { OnWeaponPanelClick(go); });
                 go.GetComponentInChildren<Text>().text = weapons[i].weaponName;
 
@@ -53,45 +49,65 @@ public class UiSaveLoadWeapon : MonoBehaviour
 
     public void New()
     {
-        weapon.bodySlot.SetPart(null);
-        
-        weapon.weaponName = "New Weapon";
-        weaponNameInput.text = weapon.weaponName;
+        Save();
 
-        AddNew(playerData.GetWeaponData(weapon));
+        var wd = playerData.GetWeaponData(weapon);
+        wd.rootPart.partShortCode = "";
+        wd.weaponName = "New weapon";
+        AddNew(wd);
 
-        UiWeaponPartSlotContainer uiSlot = weapon.bodySlot.GetComponentInChildren<UiWeaponPartSlotContainer>();
-        if (uiSlot != null)
-        {
-            uiSlot.RemoveObject(new int[] { 0 });
-        }
+        Save();
     }
 
-    public void Save()
+    public void Delete()
     {
-        if (!string.IsNullOrEmpty(weaponNameInput.text))
-        {
-            weapon.weaponName = weaponNameInput.text;
-            weapons[selectedWeapon] = playerData.GetWeaponData(weapon);
+        if (playerData.WeaponCount() <= 1)
+            return;
 
-            playerData.SaveWeaponsToFile(weapons.ToArray());
+        playerData.ClearSlot(weapon.bodySlot, false);
 
-            weaponPanels[selectedWeapon].GetComponentInChildren<Text>().text = weapons[selectedWeapon].weaponName;
-        }
+        playerData.RemoveWeapon(selectedWeapon);
+        Destroy(weaponPanels[selectedWeapon]);
+        weaponPanels.RemoveAt(selectedWeapon);
+
+        if (selectedWeapon >= playerData.WeaponCount())
+            SetSelected(playerData.WeaponCount() - 1, false);
+        else
+            SetSelected(selectedWeapon, false);
+
+        uiWeaponPartList.UpdatePanels();
     }
 
     public void Copy()
     {
+        /*Save();
+
         WeaponData copy = playerData.GetWeaponData(weapon);
         copy.weaponName += " Copy";
         AddNew(copy);
 
         Save();
+
+        playerData.SaveWeaponsToFile();*/
     }
 
-    public void Load()
+    void Save()
     {
-        playerData.LoadWeaponFromData(weapon, weapons[selectedWeapon]);
+        if (!string.IsNullOrEmpty(weaponNameInput.text))
+        {
+            weapon.weaponName = weaponNameInput.text;
+
+            playerData.SaveWeapon(selectedWeapon, weapon);
+
+            weaponPanels[selectedWeapon].GetComponentInChildren<Text>().text = weapon.weaponName;
+        }
+    }
+
+    void Load()
+    {
+        weapon.bodySlot.SetPart(null);
+
+        playerData.LoadWeapon(selectedWeapon, weapon);
         weaponNameInput.text = weapon.weaponName;
 
         UiWeaponPartSlotPanel uiSlot = weapon.bodySlot.GetComponentInChildren<UiWeaponPartSlotPanel>();
@@ -101,21 +117,25 @@ public class UiSaveLoadWeapon : MonoBehaviour
         }
     }
 
-    public void SetSelected(int index)
+    void SetSelected(int index, bool save = true)
     {
         if (selectedWeapon >= 0 && selectedWeapon < weaponPanels.Count)
             weaponPanels[selectedWeapon].GetComponent<Image>().color = new Color(1f, 1f, 1f, 0.4f);
 
+        if (save)
+            Save();
+
         selectedWeapon = index;
+
         Load();
 
         weaponPanels[selectedWeapon].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
     }
 
-    public void AddNew(WeaponData weaponData)
+    void AddNew(WeaponData weaponData)
     {
-        weapons.Add(weaponData);
-        int index = weapons.Count - 1;
+        playerData.AddWeapon(weaponData);
+        int index = playerData.WeaponCount() - 1;
 
         GameObject go = Instantiate(weaponPanelPrefab, transform);
         go.GetComponent<Button>().onClick.AddListener(() => { OnWeaponPanelClick(go);  });
@@ -126,23 +146,8 @@ public class UiSaveLoadWeapon : MonoBehaviour
         SetSelected(index);
     }
 
-    public void OnWeaponPanelClick(GameObject sender)
+    void OnWeaponPanelClick(GameObject sender)
     {
         SetSelected(weaponPanels.IndexOf(sender));
-    }
-
-    public void Delete()
-    {
-        if (weapons.Count <= 1)
-            return;
-
-        weapons.RemoveAt(selectedWeapon);
-        Destroy(weaponPanels[selectedWeapon]);
-        weaponPanels.RemoveAt(selectedWeapon);
-
-        playerData.SaveWeaponsToFile(weapons.ToArray());
-
-        if (selectedWeapon == weapons.Count)
-            SetSelected(selectedWeapon - 1);
     }
 }

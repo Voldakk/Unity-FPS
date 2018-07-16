@@ -18,6 +18,6 @@ MonoBehaviour:
   stortCode: sgt3
   partName: IR Scope
   prefab: {fileID: 1897656239116664, guid: 6aa1933ad8f56ac498e0448567951469, type: 2}
-  partType: 5
+  partType: 4
   slots: []
   gameObject: {fileID: 0}

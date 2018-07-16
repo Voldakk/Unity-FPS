@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+
 using Voldakk.DragAndDrop;
 
 public class UiWeaponPartSlotPanel : DragAndDropPanel
@@ -20,7 +21,6 @@ public class UiWeaponPartSlotPanel : DragAndDropPanel
 
             partName.text = part.partName;
             partIcon.sprite = part.icon;
-            
         }
     }
 }

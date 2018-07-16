@@ -18,6 +18,6 @@ MonoBehaviour:
   stortCode: sgt1
   partName: Red dot
   prefab: {fileID: 1277314000337636, guid: 0bf36a07bd010f647b0fefe2142c8314, type: 2}
-  partType: 5
+  partType: 4
   slots: []
   gameObject: {fileID: 0}

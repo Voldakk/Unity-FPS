@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using UnityEngine;
+
+using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
-using UnityEngine;
 
 [System.Serializable]
 public class WeaponPartData
@@ -21,36 +24,165 @@ public class PlayerData : MonoBehaviour
 {
     public static PlayerData instance;
 
-	void Awake ()
+    public List<WeaponPart> defaultWeaponParts;
+    private List<WeaponPart> weaponParts;
+
+    public List<WeaponData> defaultWeapons;
+    private List<WeaponData> weapons;
+
+    void Awake ()
     {
         instance = this;
-	}
 
-    public void SaveWeaponsToFile(WeaponData[] weapons)
+
+        var fileParts = LoadPartsFromFile();
+
+        if (fileParts == null)
+            weaponParts = defaultWeaponParts;
+        else
+            weaponParts = fileParts.ToList();
+
+
+        var fileWeapons = LoadWeaponsFromFile();
+
+        if (fileWeapons == null)
+            weapons = defaultWeapons;
+        else
+            weapons = fileWeapons.ToList();
+    }
+
+    public void Save()
     {
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/Weapons.dat");
+        SavePartsToFile();
+        SaveWeaponsToFile();
+    }
 
-        bf.Serialize(file, weapons);
+    public void SaveToFile(object o, string path)
+    {
+        var bf = new BinaryFormatter();
+        var file = File.Create(Application.persistentDataPath + "/" + path);
+
+        bf.Serialize(file, o);
         file.Close();
+    }
+
+    public T LoadFromFile<T>(string path) where T : class
+    {
+        if (File.Exists(Application.persistentDataPath + "/" + path))
+        {
+            var bf = new BinaryFormatter();
+            var file = File.Open(Application.persistentDataPath + "/" + path, FileMode.Open);
+
+            T o = (T)bf.Deserialize(file);
+            file.Close();
+
+            return o;
+        }
+
+        return null;
+    }
+
+    void SavePartsToFile()
+    {
+        var shortCodes = weaponParts.Select(wp => wp.stortCode).ToArray();
+
+        SaveToFile(shortCodes, "parts");
+    }
+
+    public WeaponPart[] LoadPartsFromFile()
+    {
+        var shortCodes = LoadFromFile<string[]>("parts");
+
+        if (shortCodes == null)
+            return null;
+
+        var parts = new WeaponPart[shortCodes.Length];
+
+        for (int i = 0; i < shortCodes.Length; i++)
+        {
+            parts[i] = Resources.Load<WeaponPart>("WeaponParts/" + shortCodes[i]);
+        }
+
+        return parts;
+    }
+
+    public WeaponPart GetPart(int index)
+    {
+        if (index >= 0 && index < weaponParts.Count)
+            return weaponParts[index];
+
+        return null;
+    }
+
+    public void AddPart(WeaponPart weaponPart)
+    {
+        if (weaponPart != null)
+        {
+            weaponParts.Add(weaponPart);
+
+            weaponParts = weaponParts.OrderBy(p => p.stortCode).ToList();
+        }
+    }
+
+    public void RemovePart(int index)
+    {
+        if (index >= 0 && index < weaponParts.Count)
+            weaponParts.RemoveAt(index);
+    }
+
+    public WeaponPart RemovePart(WeaponPart weaponPart)
+    {
+        var part = weaponParts.Single(p => p.stortCode == weaponPart.stortCode);
+
+        if (part != null)
+            weaponParts.Remove(part);
+
+        return part;
+    }
+
+    public List<WeaponPart> GetParts()
+    {
+        return weaponParts;
+    }
+
+    public List<WeaponData> GetWeapons()
+    {
+        return weapons;
+    }
+
+    public void SaveWeapon(int index, ModularWeapon weapon)
+    {
+        weapons[index] = GetWeaponData(weapon);
+    }
+
+    void SaveWeaponsToFile()
+    {
+        SaveToFile(weapons.ToArray(), "weapons");
+    }
+
+    public void LoadWeapon(int index, ModularWeapon weapon)
+    {
+        LoadWeaponFromData(weapon, weapons[index]);
+    }
+
+    public void AddWeapon(WeaponData weaponData)
+    {
+        weapons.Add(weaponData);
+    }
+
+    public void RemoveWeapon(int index)
+    {
+        weapons.RemoveAt(index);
+    }
+
+    public int WeaponCount()
+    {
+        return weapons.Count;
     }
 
     public WeaponData[] LoadWeaponsFromFile()
     {
-        WeaponData[] weapons;
-
-        if (File.Exists(Application.persistentDataPath + "/Weapons.dat"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/Weapons.dat", FileMode.Open);
-
-            weapons = (WeaponData[])bf.Deserialize(file);
-            file.Close();
-
-            return weapons;
-        }
-
-        return null;
+        return LoadFromFile<WeaponData[]>("weapons");
     }
 
     public string WeaponToJson(ModularWeapon weapon)
@@ -63,12 +195,12 @@ public class PlayerData : MonoBehaviour
 
     public WeaponData GetWeaponData(ModularWeapon weapon)
     {
-        WeaponData weaponData = new WeaponData
+        var weaponData = new WeaponData
         {
             weaponName = weapon.weaponName
         };
 
-        WeaponPartData wpd = new WeaponPartData();
+        var wpd = new WeaponPartData();
         weaponData.rootPart = wpd;
 
         SavePart(ref wpd, weapon.bodySlot.part);
@@ -93,9 +225,10 @@ public class PlayerData : MonoBehaviour
             SavePart(ref wpd.dataParts[i], part.slots[i].part);
         }
     }
+
     public void JsonToWeapon(ModularWeapon weapon, string json)
     {
-        WeaponData weaponData = JsonUtility.FromJson<WeaponData>(json);
+        var weaponData = JsonUtility.FromJson<WeaponData>(json);
 
         LoadWeaponFromData(weapon, weaponData);
     }
@@ -105,13 +238,13 @@ public class PlayerData : MonoBehaviour
         if (wpd.partShortCode == "")
             return;
 
-        WeaponPart loadedPart = Resources.Load<WeaponPart>("WeaponParts/" + wpd.partShortCode);
+        var loadedPart = Resources.Load<WeaponPart>("WeaponParts/" + wpd.partShortCode);
         slot.SetPart(loadedPart);
 
         for (int i = 0; i < wpd.dataParts.Length; i++)
         {
-            WeaponPartSlot childSlot = loadedPart.slots[i];
-            WeaponPartData childData = wpd.dataParts[i];
+            var childSlot = loadedPart.slots[i];
+            var childData = wpd.dataParts[i];
             LoadPart(ref childSlot, childData);
         }
     }
@@ -121,5 +254,21 @@ public class PlayerData : MonoBehaviour
         weapon.weaponName = weaponData.weaponName;
 
         LoadPart(ref weapon.bodySlot, weaponData.rootPart);
+    }
+
+    public void ClearSlot(WeaponPartSlot slot, bool root = true)
+    {
+        if (slot == null || slot.part == null)
+            return;
+
+        foreach (WeaponPartSlot s in slot.part.slots)
+        {
+            ClearSlot(s, false);
+        }
+
+        if (!root)
+            AddPart(slot.part);
+
+        slot.SetPart(null);
     }
 }

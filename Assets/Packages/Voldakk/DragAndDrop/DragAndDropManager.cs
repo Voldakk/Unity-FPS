@@ -156,6 +156,8 @@ namespace Voldakk.DragAndDrop
                     containers[fromContainer].RemoveObject(fromIndices);
                 }
             }
+
+            ItemOnEndDrag();
         }
 
         /// <summary>

@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+
 using Voldakk.DragAndDrop;
 
-public enum WeaponPartType { Barrel, Body, Grip, Mag, Stock, Sight, Muzzle }
+public enum WeaponPartType { Barrel, Body, Grip, Mag, Sight, Stock, Muzzle }
 
 [System.Serializable]
 public class WeaponPart : Item

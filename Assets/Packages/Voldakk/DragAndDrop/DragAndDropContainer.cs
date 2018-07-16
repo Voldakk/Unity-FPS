@@ -10,7 +10,7 @@ namespace Voldakk.DragAndDrop
 
         protected int containerIndex;
 
-        void Start()
+        protected virtual void Start()
         {
             // Subscribe to the DragAndDropManager
             DragAndDropManager.instance.Subscribe(this);

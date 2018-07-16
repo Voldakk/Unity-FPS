@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+
 using Voldakk.DragAndDrop;
 
 public class UiWeaponPartSlotContainer : DragAndDropContainer
 {
     WeaponPartSlot slot;
     UiWeaponPartSlotPanel panel;
+
+    public UiWeaponPartList uiWeaponPartList;
 
     /// <summary>
     /// Use this for initialization
@@ -20,6 +23,8 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
         panel = GetComponent<UiWeaponPartSlotPanel>();
         panel.SetIndeces(containerIndex, new int[] { 0 });
         panel.SetObject(slot.part);
+
+        uiWeaponPartList = GameObject.FindObjectOfType<UiWeaponPartList>();
     }
 
     /// <summary>
@@ -81,8 +86,15 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
         if (indices.Length == 1 && indices[0] == 0)
         {
             // Remove the object
-            slot.SetPart(null);
             panel.SetObject(null);
+
+            if (slot.part != null)
+            {
+                PlayerData.instance.ClearSlot(slot);
+
+                if (uiWeaponPartList != null)
+                    uiWeaponPartList.UpdatePanels();
+            }
         }
     }
 

@@ -18,6 +18,6 @@ MonoBehaviour:
   stortCode: stk2
   partName: Stock 2
   prefab: {fileID: 1342265508628556, guid: 8f6a876362249324ca10c0425f44a390, type: 2}
-  partType: 4
+  partType: 5
   slots: []
   gameObject: {fileID: 0}

@@ -18,6 +18,6 @@ MonoBehaviour:
   stortCode: sgt2
   partName: Scope
   prefab: {fileID: 1194571819976532, guid: 0389fa24635157e4b9a57c61d1d51dd8, type: 2}
-  partType: 5
+  partType: 4
   slots: []
   gameObject: {fileID: 0}

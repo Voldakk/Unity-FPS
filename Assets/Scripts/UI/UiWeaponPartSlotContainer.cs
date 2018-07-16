@@ -114,4 +114,14 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
         else if (button == PointerEventData.InputButton.Right)
             Debug.LogFormat("Right click on index {0}", indices[0]);
     }
+
+    public void MouseEnter()
+    {
+        FindObjectOfType<UiWeaponPartHoverPanel>().Show(slot.part);
+    }
+
+    public void MouseExit()
+    {
+        FindObjectOfType<UiWeaponPartHoverPanel>().Hide();
+    }
 }

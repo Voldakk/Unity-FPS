@@ -25,4 +25,4 @@ MonoBehaviour:
   cost: 0
   recoilModifier: 0.9
   accuracyModifier: 1.1
-  damageModifier: 0.1
+  damageModifier: 1.1

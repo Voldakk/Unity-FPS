@@ -24,5 +24,5 @@ MonoBehaviour:
   weight: 0
   cost: 0
   accuracy: 90
-  recoilModifier: 0
-  damageModifier: 0
+  recoilModifier: 0.9
+  damageModifier: 1.1

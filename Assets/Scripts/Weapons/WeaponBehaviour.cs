@@ -1,9 +1,9 @@
-﻿using GameSparks.RT;
-using UnityEngine;
+﻿using UnityEngine;
+using GameSparks.RT;
 
 public class WeaponBehaviour : NetworkObject
 {
-    private Weapon weapon;
+    public ModularWeapon weapon;
 
     public Camera eyes;
     public Transform weaponHolder;
@@ -31,9 +31,6 @@ public class WeaponBehaviour : NetworkObject
 
     public void SetWeapon(int index)
     {
-        Weapon[] weapons = Resources.LoadAll<Weapon>("Weapons");
-        Weapon newWeapon = weapons[index];
-
         if(isOwner)
         {
             SendInt((int)OpCode.SetWeapon, 1, index);
@@ -41,12 +38,16 @@ public class WeaponBehaviour : NetworkObject
 
         if (weapon != null)
         {
-            weapon.OnDestroy();
+            //weapon.OnDestroy();
         }
 
         // Weapon
-        weapon = Instantiate(newWeapon);
+        /*weapon = Instantiate(newWeapon);
         weapon.Setup(eyes, hud, transform, weaponHolder, this);
+        weapon.OnStart();*/
+
+        PlayerData.instance.LoadWeapon(PlayerData.instance.currentWeapon, weapon);
+        weapon.Setup(eyes, hud, this);
         weapon.OnStart();
     }
 

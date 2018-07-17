@@ -11,6 +11,21 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1513671734876052}
   m_IsPrefabParent: 1
+--- !u!1 &1418565221945040
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4714062414679772}
+  m_Layer: 10
+  m_Name: BarrelEnd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1513671734876052
 GameObject:
   m_ObjectHideFlags: 0
@@ -21,7 +36,7 @@ GameObject:
   - component: {fileID: 4309617455934578}
   - component: {fileID: 33295518885195370}
   - component: {fileID: 23894442350423216}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: barrel_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4293058583362556}
   - component: {fileID: 114143539694436134}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,8 +83,22 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4293058583362556}
+  - {fileID: 4714062414679772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4714062414679772
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418565221945040}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4309617455934578}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23894442350423216
 MeshRenderer:

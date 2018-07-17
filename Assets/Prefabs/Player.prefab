@@ -28,6 +28,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1412826515830454
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4138849562477544}
+  - component: {fileID: 114796729789120596}
+  m_Layer: 0
+  m_Name: slot_body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1567632108853674
 GameObject:
   m_ObjectHideFlags: 0
@@ -73,6 +89,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1751024159226916
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4299534918587160}
+  - component: {fileID: 114521500853182376}
+  m_Layer: 0
+  m_Name: Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1884499177612810
 GameObject:
   m_ObjectHideFlags: 1
@@ -105,6 +137,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4138849562477544
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412826515830454}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4299534918587160}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4201135688409574
 Transform:
   m_ObjectHideFlags: 1
@@ -118,6 +163,20 @@ Transform:
   - {fileID: 4372903203487486}
   - {fileID: 4966101520006242}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4299534918587160
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751024159226916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4138849562477544}
+  m_Father: {fileID: 4758672324593234}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4372903203487486
@@ -155,7 +214,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.16, y: -0.15, z: 0.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4299534918587160}
   m_Father: {fileID: 4966101520006242}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -523,9 +583,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 7270c6d9f4cc498ab0186ce9d66a3d8b
+  networkId: 1c4a5d6bd33c4427bf48e7caa1e590a4
   owner: 1
   isOwner: 0
+  weapon: {fileID: 114521500853182376}
   eyes: {fileID: 20176361024510456}
   weaponHolder: {fileID: 4758672324593234}
   player: {fileID: 0}
@@ -540,7 +601,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 10454b0a2b9643a996b0dec0db24f392
+  networkId: 7539d2f89d86451cabe837542cba2369
   owner: 1
   isOwner: 0
 --- !u!114 &114380427003930066
@@ -554,7 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 4cc956174f4645419a5cedb0aab9ef25
+  networkId: 6ff5ac6004e949af90fb6121f2626bdc
   owner: 1
   isOwner: 0
   updateRate: 0.1
@@ -567,6 +628,19 @@ MonoBehaviour:
   rotX: 0
   rotY: 1
   rotZ: 0
+--- !u!114 &114521500853182376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751024159226916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d94a04eabefc74eaac2b07dff95c60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponName: 
+  bodySlot: {fileID: 114796729789120596}
 --- !u!114 &114549533520525098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -716,10 +790,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 588fb9d50a5648e1a2b9a4dba3ff25bf
+  networkId: b2e147d430f64fe8be9715b556f9c312
   owner: 1
   isOwner: 0
   maxHealth: 1000
+--- !u!114 &114796729789120596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1412826515830454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76568565ce0694a4bb9a1c76176dd4b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slotName: Body
+  slotType: 1
+  part: {fileID: 0}
+  uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
+    type: 2}
+  uiSlotPosition: {x: 0, y: 0.3, z: 0}
 --- !u!114 &114950151999775700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -731,7 +822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: c92b376e4c9c47cbb767a37f9e32fadd
+  networkId: 9d5a7ca024f349199ac879cbe3872149
   owner: 1
   isOwner: 0
   updateRate: 0.1

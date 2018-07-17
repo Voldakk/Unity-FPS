@@ -9,9 +9,9 @@ public class MultiProjectile : Projectile
     public float coneRadius;
     public float coneLength;
 
-    public override void Fire(Gun gun, bool doDamage)
+    public override void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
     {
-        base.Fire(gun, doDamage);
+        base.Fire(weapon, barrel, doDamage);
 
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
@@ -37,17 +37,21 @@ public class MultiProjectile : Projectile
                 continue;
 
             RaycastHit hit;
-            Vector3 origin = gun.camera.transform.position;
-            Vector3 worldDirection = gun.camera.transform.TransformDirection(direction);
+            Vector3 origin = weapon.camera.transform.position;
+            Vector3 worldDirection = weapon.camera.transform.TransformDirection(direction);
             if (Physics.Raycast(origin, worldDirection, out hit))
             {
-                Health health = hit.transform.GetComponent<Health>();
-                if (health != null)
+                if (hit.rigidbody == null)
                 {
-                    if (!damageTable.ContainsKey(health))
-                        damageTable.Add(health, 0f);
-
-                    damageTable[health] += damage;
+                    GameObject bulletMark = bulletMarkPool.Get();
+                    bulletMark.transform.position = hit.point + hit.normal * 0.001f;
+                    bulletMark.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
+                }
+                else if (doDamage)
+                {
+                    Health health = hit.rigidbody.GetComponent<Health>();
+                    if (health != null)
+                        health.Damage(damage);
                 }
             }
         }
@@ -58,5 +62,6 @@ public class MultiProjectile : Projectile
         }
 
         lineRendererController.Fire(lineTime);
+        ApplyRecoil(weapon);
     }
 }

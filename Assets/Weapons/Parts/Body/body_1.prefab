@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4155466177719818}
   - component: {fileID: 33654120694709724}
   - component: {fileID: 23947013401267178}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: body_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4854152378846210}
   - component: {fileID: 114201409594222464}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4035413049626186}
   - component: {fileID: 114362264138204710}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_grip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4495784869250946}
   - component: {fileID: 114996014501739636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4452117769014826}
   - component: {fileID: 33127089285226882}
   - component: {fileID: 23559629818137290}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: rail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4654109419501904}
   - component: {fileID: 114722559131140434}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4660018618669298}
   - component: {fileID: 114838774790327054}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}

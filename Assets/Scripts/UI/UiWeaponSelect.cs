@@ -5,20 +5,15 @@ public class UiWeaponSelect : MonoBehaviour
 {
     public GameObject weaponPanelPrefab;
     public Transform weaponList;
-
-    Weapon[] weapons;
-
 	void Start ()
     {
-        weapons = Resources.LoadAll<Weapon>("Weapons");
-        Debug.Log("Count: " + weapons.Length);
-        for (int i = 0; i < weapons.Length; i++)
+        var weapons = PlayerData.instance.GetWeapons();
+        Debug.Log("Count: " + weapons.Count);
+        for (int i = 0; i < weapons.Count; i++)
         {
             GameObject go = Instantiate(weaponPanelPrefab, weaponList);
-            Image image = go.transform.Find("Image").GetComponent<Image>();
-            image.sprite = weapons[i].icon;
-            image.type = Image.Type.Simple;
-            image.preserveAspect = true;
+            Text weaponNameText = go.transform.Find("WeaponName").GetComponent<Text>();
+            weaponNameText.text = weapons[i].weaponName;
 
             int index = i;
             go.GetComponent<Button>().onClick.AddListener(delegate{ OnButtonPressed(index); });
@@ -29,6 +24,6 @@ public class UiWeaponSelect : MonoBehaviour
     {
         Debug.Log("Clicked " + index);
 
-        PlayerSetting.Current.startingWeapon = index;
+        PlayerData.instance.currentWeapon = index;
     }
 }

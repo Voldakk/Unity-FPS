@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4513057030114184}
   - component: {fileID: 33992898864885996}
   - component: {fileID: 23840578974714364}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: sight_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

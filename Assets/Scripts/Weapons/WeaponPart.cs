@@ -15,6 +15,9 @@ public class WeaponPart : Item
     public WeaponPartSlot[] slots;
     public GameObject gameObject;
 
+    [HideInInspector]
+    public ModularWeapon weapon;
+
     // Stats
     public float weight, cost;
 
@@ -36,5 +39,10 @@ public class WeaponPart : Item
             Destroy(gameObject);
 
         slots = null;
+    }
+
+    public virtual void OnStart(ModularWeapon weapon)
+    {
+        this.weapon = weapon;
     }
 }

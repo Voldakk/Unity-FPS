@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4615543859886160}
   - component: {fileID: 114348772127815228}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}

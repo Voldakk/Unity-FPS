@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4929339231374866}
   - component: {fileID: 33674077548266322}
   - component: {fileID: 23087641045983150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: grip_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

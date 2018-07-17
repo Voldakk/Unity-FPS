@@ -17,11 +17,11 @@ public class Projectile : Ammo
     public string bulletMarkPoolName;
     protected Pool bulletMarkPool;
 
-    public override void Load(Gun gun)
+    public override void Load(ModularWeapon weapon, Barrel barrel)
     {
-        base.Load(gun);
+        base.Load(weapon, barrel);
 
-        lineRendererController = Instantiate(lineRendererPrefab, gun.weaponObject.transform.Find("BarrelEnd")).GetComponent<LineRendererController>();
+        lineRendererController = Instantiate(lineRendererPrefab, barrel.barrelEnd).GetComponent<LineRendererController>();
 
         bulletMarkPool = GameObject.Find(bulletMarkPoolName).GetComponent<Pool>();
     }
@@ -34,14 +34,14 @@ public class Projectile : Ammo
         base.Unload();
     }
 
-    public override void Fire(Gun gun, bool doDamage)
+    public override void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
     {
-        base.Fire(gun, doDamage);
+        base.Fire(weapon, barrel, doDamage);
     }
 
-    protected void ApplyRecoil(Gun gun)
+    protected void ApplyRecoil(ModularWeapon weapon)
     {
-        gun.transform.localRotation *= Quaternion.Euler(0f, Random.Range(-horizontalRecoil, horizontalRecoil), 0f);
-        gun.camera.transform.localRotation *= Quaternion.Euler(-verticalRecoil, 0f, 0f);
+        weapon.weaponBehaviour.transform.localRotation *= Quaternion.Euler(0f, Random.Range(-horizontalRecoil, horizontalRecoil), 0f);
+        weapon.camera.transform.localRotation *= Quaternion.Euler(-verticalRecoil, 0f, 0f);
     }
 }

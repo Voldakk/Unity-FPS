@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WeaponPartSlot : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class WeaponPartSlot : MonoBehaviour
 
     void Awake()
     {
+        if (SceneManager.GetActiveScene().name != "WeaponCustomization")
+            return;
+
         UiWeaponPartSlotPanel uiSlot = Instantiate(uiSlotPrefab, transform).GetComponent<UiWeaponPartSlotPanel>();
         uiSlot.transform.localPosition = uiSlotPosition;
         uiSlot.slotName.text = slotName;

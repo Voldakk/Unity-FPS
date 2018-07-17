@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4400365368099256}
   - component: {fileID: 114164137684796508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4195891809234636}
   - component: {fileID: 114163336090519334}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: slot_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,9 +98,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d94a04eabefc74eaac2b07dff95c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 0}
-  barrel: {fileID: 0}
-  stock: {fileID: 0}
-  grip: {fileID: 0}
-  mag: {fileID: 0}
-  numSlots: 5
+  weaponName: 
+  bodySlot: {fileID: 114163336090519334}

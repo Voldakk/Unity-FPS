@@ -50,6 +50,7 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
             case WeaponPartType.Mag:
                 var m = part as Mag;
                 AddStat("Size", m.magSize);
+                AddStat("Reload time", m.reloadTime);
                 AddModifier("Recoil", m.recoilModifier);
                 break;
 

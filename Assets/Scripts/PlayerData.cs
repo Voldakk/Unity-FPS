@@ -30,10 +30,11 @@ public class PlayerData : MonoBehaviour
     public List<WeaponData> defaultWeapons;
     private List<WeaponData> weapons;
 
+    public int currentWeapon;
+
     void Awake ()
     {
         instance = this;
-
 
         var fileParts = LoadPartsFromFile();
 
@@ -238,7 +239,7 @@ public class PlayerData : MonoBehaviour
         if (wpd.partShortCode == "")
             return;
 
-        var loadedPart = Resources.Load<WeaponPart>("WeaponParts/" + wpd.partShortCode);
+        var loadedPart = Instantiate(Resources.Load<WeaponPart>("WeaponParts/" + wpd.partShortCode));
         slot.SetPart(loadedPart);
 
         for (int i = 0; i < wpd.dataParts.Length; i++)

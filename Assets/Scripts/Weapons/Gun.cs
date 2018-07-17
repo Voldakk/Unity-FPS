@@ -59,7 +59,7 @@ public class Gun : Weapon
         audioSource = weaponHolder.GetComponent<AudioSource>();
 
         ammo = Instantiate(ammo);
-        ammo.Load(this);
+        //ammo.Load(this);
 
         UpdateHudWeapon();
         EndReload();
@@ -133,7 +133,7 @@ public class Gun : Weapon
 
     public void Fire()
     {
-        ammo.Fire(this, isOwner);
+        //ammo.Fire(this, isOwner);
         magCurrent--;
 
         UpdateHudAmmo();

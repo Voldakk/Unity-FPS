@@ -91,7 +91,7 @@ public class UiSaveLoadWeapon : MonoBehaviour
         playerData.SaveWeaponsToFile();*/
     }
 
-    void Save()
+    public void Save()
     {
         if (!string.IsNullOrEmpty(weaponNameInput.text))
         {

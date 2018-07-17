@@ -16,7 +16,7 @@ MonoBehaviour:
   stackSize: 1
   count: 1
   stortCode: muz1
-  partName: Supressor
+  partName: Suppressor
   prefab: {fileID: 1256865142636132, guid: 4c93dde36e3cbe24b88d9538ec3208f1, type: 2}
   partType: 6
   slots: []

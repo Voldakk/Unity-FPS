@@ -40,9 +40,4 @@ public class WeaponPart : Item
 
         slots = null;
     }
-
-    public virtual void OnStart(ModularWeapon weapon)
-    {
-        this.weapon = weapon;
-    }
 }

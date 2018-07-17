@@ -17,11 +17,15 @@ public class Projectile : Ammo
     public string bulletMarkPoolName;
     protected Pool bulletMarkPool;
 
-    public override void Load(ModularWeapon weapon, Barrel barrel)
-    {
-        base.Load(weapon, barrel);
+    protected Transform barrelEnd;
 
-        lineRendererController = Instantiate(lineRendererPrefab, barrel.barrelEnd).GetComponent<LineRendererController>();
+    public override void Load(ModularWeapon weapon, Transform barrelEnd)
+    {
+        base.Load(weapon, barrelEnd);
+
+        this.barrelEnd = barrelEnd;
+
+        lineRendererController = Instantiate(lineRendererPrefab, barrelEnd).GetComponent<LineRendererController>();
 
         bulletMarkPool = GameObject.Find(bulletMarkPoolName).GetComponent<Pool>();
     }
@@ -34,9 +38,9 @@ public class Projectile : Ammo
         base.Unload();
     }
 
-    public override void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
+    public override void Fire(ModularWeapon weapon, bool doDamage)
     {
-        base.Fire(weapon, barrel, doDamage);
+        base.Fire(weapon, doDamage);
     }
 
     protected void ApplyRecoil(ModularWeapon weapon)

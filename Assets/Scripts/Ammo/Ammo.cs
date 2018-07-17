@@ -5,7 +5,7 @@ public abstract class Ammo : ScriptableObject
     public string ammoName;
     public Sprite icon;
 
-    public virtual void Load(ModularWeapon weapon, Barrel barrel)
+    public virtual void Load(ModularWeapon weapon, Transform barrelEnd)
     {
 
     }
@@ -15,7 +15,7 @@ public abstract class Ammo : ScriptableObject
 
     }
 
-    public virtual void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
+    public virtual void Fire(ModularWeapon weapon, bool doDamage)
     {
 
     }

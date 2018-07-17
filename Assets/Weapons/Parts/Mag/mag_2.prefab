@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4343901312954952}
   - component: {fileID: 33121044659963606}
   - component: {fileID: 23947596892576960}
+  - component: {fileID: 114152171635321280}
   m_Layer: 10
   m_Name: mag_2
   m_TagString: Untagged
@@ -83,3 +84,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1403562152451992}
   m_Mesh: {fileID: 4300000, guid: 892ea20ec5dc7574faf9b386ee901dff, type: 3}
+--- !u!114 &114152171635321280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1403562152451992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ecb9d06ff518d04fbdec1f84addbc0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  weapon: {fileID: 0}
+  data: {fileID: 0}
+  ammo: {fileID: 0}
+  muzzle: {fileID: 0}
+  barrelEnd: {fileID: 0}

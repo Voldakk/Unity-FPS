@@ -5,7 +5,7 @@ public class ModularWeapon : MonoBehaviour
 {
     public string weaponName;
     public WeaponPartSlot bodySlot;
-    private Body body;
+    private BodyBehaviour body;
 
     public enum OpCode { Fire = WeaponBehaviour.OpCode.Last, Reload, Ads, StopAds, Last }
 
@@ -39,10 +39,9 @@ public class ModularWeapon : MonoBehaviour
             }
         }
 
-        if (bodySlot.part != null)
-            body = bodySlot.part as Body;
+        body = GetComponentInChildren<BodyBehaviour>();
         if (body != null)
-            body.OnStart(this);
+            body.OnStart();
     }
 
     public void OnUpdate()

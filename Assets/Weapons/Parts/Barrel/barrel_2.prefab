@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4255134614480796}
   - component: {fileID: 33826854108854520}
   - component: {fileID: 23712383678448370}
+  - component: {fileID: 114486388538486956}
   m_Layer: 10
   m_Name: barrel_2
   m_TagString: Untagged
@@ -112,3 +113,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1512043962858502}
   m_Mesh: {fileID: 4300000, guid: 38f99026900fde24281b876c50f7a78f, type: 3}
+--- !u!114 &114486388538486956
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1512043962858502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463c105a32b2c1c4b841617e9fe4a733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  weapon: {fileID: 0}
+  data: {fileID: 0}
+  muzzle: {fileID: 0}
+  barrelEnd: {fileID: 0}

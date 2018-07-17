@@ -36,6 +36,7 @@ GameObject:
   - component: {fileID: 4309617455934578}
   - component: {fileID: 33295518885195370}
   - component: {fileID: 23894442350423216}
+  - component: {fileID: 114841621031806836}
   m_Layer: 10
   m_Name: barrel_1
   m_TagString: Untagged
@@ -159,3 +160,19 @@ MonoBehaviour:
   uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
     type: 2}
   uiSlotPosition: {x: 0, y: 0.168, z: 0.3}
+--- !u!114 &114841621031806836
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1513671734876052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 463c105a32b2c1c4b841617e9fe4a733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  weapon: {fileID: 0}
+  data: {fileID: 0}
+  muzzle: {fileID: 0}
+  barrelEnd: {fileID: 0}

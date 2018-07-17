@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4155466177719818}
   - component: {fileID: 33654120694709724}
   - component: {fileID: 23947013401267178}
+  - component: {fileID: 114447145149891000}
   m_Layer: 10
   m_Name: body_1
   m_TagString: Untagged
@@ -340,6 +341,20 @@ MonoBehaviour:
   uiSlotPrefab: {fileID: 1990235880204484, guid: d420f7e6f32fd564388bee67b116cef4,
     type: 2}
   uiSlotPosition: {x: 0, y: -0.3, z: 0}
+--- !u!114 &114447145149891000
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1061688196356912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847f296a91741174d9c915dba1ec7ba2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  weapon: {fileID: 0}
+  data: {fileID: 0}
 --- !u!114 &114722559131140434
 MonoBehaviour:
   m_ObjectHideFlags: 1

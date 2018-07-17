@@ -9,14 +9,14 @@ public class MultiProjectile : Projectile
     public float coneRadius;
     public float coneLength;
 
-    public override void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
+    public override void Fire(ModularWeapon weapon, bool doDamage)
     {
-        base.Fire(weapon, barrel, doDamage);
+        base.Fire(weapon, doDamage);
 
         LineRenderer lr = lineRendererController.lineRenderer;
         lr.positionCount = numProjectiles * 2;
 
-        Dictionary<Health, float> damageTable= new Dictionary<Health, float>();
+        Dictionary<Health, float> damageTable = new Dictionary<Health, float>();
 
         for (int i = 0; i < numProjectiles; i++)
         {

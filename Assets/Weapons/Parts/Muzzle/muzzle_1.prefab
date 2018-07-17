@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4224077592762870}
   - component: {fileID: 33913176724965130}
   - component: {fileID: 23926718169361638}
+  - component: {fileID: 114226624444999574}
   m_Layer: 10
   m_Name: muzzle_1
   m_TagString: Untagged
@@ -112,3 +113,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256865142636132}
   m_Mesh: {fileID: 4300000, guid: f15d890f57536444fb35e48c98b18c45, type: 3}
+--- !u!114 &114226624444999574
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256865142636132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5aec1ac00e3a145ab614a57ae7fea0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slots: []
+  weapon: {fileID: 0}

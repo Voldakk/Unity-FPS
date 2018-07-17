@@ -3,22 +3,22 @@
 [CreateAssetMenu(fileName = "New ammo", menuName = "Ammo/SingleProjectile")]
 public class SingleProjectile : Projectile
 {
-    public override void Load(ModularWeapon weapon, Barrel barrel)
+    public override void Load(ModularWeapon weapon, Transform barrelEnd)
     {
-        base.Load(weapon, barrel);
+        base.Load(weapon, barrelEnd);
 
         lineRendererController.lineRenderer.useWorldSpace = true;
         lineRendererController.lineRenderer.SetPositions(new Vector3[] { Vector3.zero, Vector3.forward * lineLength });
     }
 
-    public override void Fire(ModularWeapon weapon, Barrel barrel, bool doDamage)
+    public override void Fire(ModularWeapon weapon, bool doDamage)
     {
-        base.Fire(weapon, barrel, doDamage);
+        base.Fire(weapon, doDamage);
 
         RaycastHit hit;
         if (Physics.Raycast(weapon.camera.transform.position, weapon.camera.transform.forward, out hit))
         {
-            lineRendererController.lineRenderer.SetPosition(0, barrel.barrelEnd.position);
+            lineRendererController.lineRenderer.SetPosition(0, barrelEnd.position);
             lineRendererController.lineRenderer.SetPosition(1, hit.point);
             lineRendererController.Fire(lineTime);
 
@@ -37,8 +37,8 @@ public class SingleProjectile : Projectile
         }
         else
         {
-            lineRendererController.lineRenderer.SetPosition(0, barrel.barrelEnd.position);
-            lineRendererController.lineRenderer.SetPosition(1, barrel.barrelEnd.position + weapon.camera.transform.forward * lineLength);
+            lineRendererController.lineRenderer.SetPosition(0, barrelEnd.position);
+            lineRendererController.lineRenderer.SetPosition(1, barrelEnd.position + weapon.camera.transform.forward * lineLength);
             lineRendererController.Fire(lineTime);
         }
 

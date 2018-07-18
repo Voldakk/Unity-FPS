@@ -173,6 +173,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: []
   weapon: {fileID: 0}
-  data: {fileID: 0}
+  barrelEnd: {fileID: 4714062414679772}
   muzzle: {fileID: 0}
-  barrelEnd: {fileID: 0}

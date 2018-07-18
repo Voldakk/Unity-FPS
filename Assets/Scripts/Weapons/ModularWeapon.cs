@@ -10,20 +10,24 @@ public class ModularWeapon : MonoBehaviour
     public enum OpCode { Fire = WeaponBehaviour.OpCode.Last, Reload, Ads, StopAds, Last }
 
     [HideInInspector] public Camera camera;
+    [HideInInspector] public Camera weaponCamera;
     [HideInInspector] public RectTransform hud;
     [HideInInspector] public WeaponBehaviour weaponBehaviour;
     [HideInInspector] public bool isOwner;
+
+    SightBehaviour sight;
 
     void Awake()
     {
         bodySlot = GetComponentInChildren<WeaponPartSlot>();
     }
 
-    public void Setup(Camera camera, RectTransform hud, WeaponBehaviour weaponBehaviour)
+    public void Setup( RectTransform hud, WeaponBehaviour weaponBehaviour)
     {
-        this.camera = camera;
         this.hud = hud;
         this.weaponBehaviour = weaponBehaviour;
+        camera = weaponBehaviour.eyes;
+        weaponCamera = weaponBehaviour.weaponCamera;
 
         isOwner = weaponBehaviour.isOwner;
     }
@@ -42,6 +46,10 @@ public class ModularWeapon : MonoBehaviour
         body = GetComponentInChildren<BodyBehaviour>();
         if (body != null)
             body.OnStart();
+
+        sight = GetComponentInChildren<SightBehaviour>();
+        if (sight != null)
+            sight.OnStart();
     }
 
     public void OnUpdate()
@@ -54,6 +62,18 @@ public class ModularWeapon : MonoBehaviour
         if(Input.GetButtonDown("Reload"))
         {
             body.Reload();
+        }
+
+        if (sight != null)
+        {
+            if (Input.GetButtonDown("Fire2"))
+            {
+                sight.Ads();
+            }
+            if (Input.GetButtonUp("Fire2"))
+            {
+                sight.StopAds();
+            }
         }
     }
 

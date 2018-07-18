@@ -126,3 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slots: []
   weapon: {fileID: 0}
+  data: {fileID: 0}
+  barrelEnd: {fileID: 4420324382003224}

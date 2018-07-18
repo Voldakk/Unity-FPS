@@ -21,7 +21,11 @@ MonoBehaviour:
   partType: 4
   slots: []
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
   weight: 0
   cost: 0
-  fov: 15
+  fov: 5
   accuracyModifier: 2
+  adsTime: 1
+  scopePrefab: {fileID: 1467750359349034, guid: 36895cade52df4c4faa8244689362185,
+    type: 2}

@@ -21,7 +21,9 @@ MonoBehaviour:
   partType: 4
   slots: []
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
   weight: 0
   cost: 0
   fov: 45
   accuracyModifier: 1.5
+  adsTime: 1

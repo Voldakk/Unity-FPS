@@ -6,6 +6,7 @@ public class WeaponBehaviour : NetworkObject
     public ModularWeapon weapon;
 
     public Camera eyes;
+    public Camera weaponCamera;
     public Transform weaponHolder;
     private RectTransform hud;
 
@@ -47,7 +48,7 @@ public class WeaponBehaviour : NetworkObject
         weapon.OnStart();*/
 
         PlayerData.instance.LoadWeapon(PlayerData.instance.currentWeapon, weapon);
-        weapon.Setup(eyes, hud, this);
+        weapon.Setup(hud, this);
         weapon.OnStart();
     }
 

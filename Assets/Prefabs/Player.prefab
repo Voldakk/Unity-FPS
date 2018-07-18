@@ -583,11 +583,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 8b88ccc996114238b5746ec949e4fbc5
+  networkId: f742e21f10e3456abcb9c88179eb92db
   owner: 1
   isOwner: 0
   weapon: {fileID: 114521500853182376}
   eyes: {fileID: 20176361024510456}
+  weaponCamera: {fileID: 20482633665861622}
   weaponHolder: {fileID: 4758672324593234}
   player: {fileID: 0}
 --- !u!114 &114281359851977902
@@ -601,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: a784de470ac04665954dd67a54c78da8
+  networkId: 6b03bbb674164814a3844482620c92f6
   owner: 1
   isOwner: 0
 --- !u!114 &114380427003930066
@@ -615,7 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: e3a6e8ee6f4c43eeb8ad4e0791c42c28
+  networkId: fdb9a10c814b4e519724ee3d995e4821
   owner: 1
   isOwner: 0
   updateRate: 0.1
@@ -642,6 +643,7 @@ MonoBehaviour:
   weaponName: 
   bodySlot: {fileID: 114796729789120596}
   camera: {fileID: 0}
+  weaponCamera: {fileID: 0}
   hud: {fileID: 0}
   weaponBehaviour: {fileID: 0}
   isOwner: 0
@@ -794,7 +796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: cf15175287c24c1f87773b1e90e66c0b
+  networkId: d1fffa8fdcd249bdb94212513a33a883
   owner: 1
   isOwner: 0
   maxHealth: 1000
@@ -826,7 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 9fe17a8636314b20a5bef23825406d4f
+  networkId: 8aad82573b574505982c2ec14e04302f
   owner: 1
   isOwner: 0
   updateRate: 0.1

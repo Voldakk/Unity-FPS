@@ -24,5 +24,6 @@ MonoBehaviour:
   weapon: {fileID: 0}
   weight: 0
   cost: 0
-  fov: 60
+  fov: 50
   accuracyModifier: 1.1
+  adsTime: 1

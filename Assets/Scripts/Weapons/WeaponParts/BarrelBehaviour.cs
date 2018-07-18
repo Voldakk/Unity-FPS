@@ -7,22 +7,16 @@ public class BarrelBehaviour : WeaponPartBehaviour
 {
     Barrel data;
 
+    public Transform barrelEnd;
+
     [HideInNormalInspector]
     public MuzzleBehaviour muzzle;
-    Transform barrelEnd;
 
     public override void SetPart(WeaponPart part)
     {
         base.SetPart(part);
 
         data = part as Barrel;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        barrelEnd = transform.Find("BarrelEnd");
     }
 
     public void OnStart()

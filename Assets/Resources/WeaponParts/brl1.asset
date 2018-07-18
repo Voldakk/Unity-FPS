@@ -19,8 +19,10 @@ MonoBehaviour:
   partName: Barrel 1
   prefab: {fileID: 1513671734876052, guid: 5c72a75d21a4c294fa3942c63007162d, type: 2}
   partType: 0
-  slots: []
+  slots:
+  - {fileID: 0}
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
   weight: 0
   cost: 0
   accuracy: 95

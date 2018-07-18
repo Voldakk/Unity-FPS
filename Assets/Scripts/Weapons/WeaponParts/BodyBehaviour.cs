@@ -30,6 +30,12 @@ public class BodyBehaviour : WeaponPartBehaviour
         if (mag != null && barrel != null)
         {
             mag.SetupAmmo(barrel.GetBarrelEnd());
+
+            if(barrel.muzzle != null)
+            {
+                (mag.Ammo as Projectile).audioSource.pitch = barrel.muzzle.data.pitchModifier;
+                (mag.Ammo as Projectile).audioSource.volume = barrel.muzzle.data.volumeModifier;
+            }
         }
     }
 

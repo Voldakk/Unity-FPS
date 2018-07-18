@@ -19,8 +19,14 @@ MonoBehaviour:
   partName: Body 1
   prefab: {fileID: 1061688196356912, guid: eab004c2e217ff34e91e6140c40762da, type: 2}
   partType: 1
-  slots: []
+  slots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
   weight: 0
   cost: 0
   fireRate: 600

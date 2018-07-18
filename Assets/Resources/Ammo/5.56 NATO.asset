@@ -21,3 +21,4 @@ MonoBehaviour:
   lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
     type: 2}
   bulletMarkPoolName: PoolBulletMarkGeneric1
+  fireSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}

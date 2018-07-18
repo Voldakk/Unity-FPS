@@ -6,6 +6,8 @@ public class MagBehaviour : WeaponPartBehaviour
     Mag data;
     bool isReloading;
 
+    AudioSource audioSource;
+
     public Ammo Ammo { get; private set; }
 
     public int CurrentAmmo { get; private set; }
@@ -18,6 +20,8 @@ public class MagBehaviour : WeaponPartBehaviour
 
     public void OnStart()
     {
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = data.reloadSound;
         EndReload();
     }
 
@@ -40,6 +44,8 @@ public class MagBehaviour : WeaponPartBehaviour
         CurrentAmmo = 0;
         isReloading = true;
         StartCoroutine(Reload());
+
+        audioSource.Play();
     }   
     public void EndReload()
     {

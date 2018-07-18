@@ -28,3 +28,4 @@ MonoBehaviour:
   reloadTime: 1.6
   recoilModifier: 0.95
   ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
+  reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}

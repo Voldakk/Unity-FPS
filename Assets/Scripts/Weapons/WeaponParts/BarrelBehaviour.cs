@@ -7,7 +7,8 @@ public class BarrelBehaviour : WeaponPartBehaviour
 {
     Barrel data;
 
-    MuzzleBehaviour muzzle;
+    [HideInNormalInspector]
+    public MuzzleBehaviour muzzle;
     Transform barrelEnd;
 
     public override void SetPart(WeaponPart part)

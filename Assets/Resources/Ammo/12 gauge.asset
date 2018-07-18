@@ -21,6 +21,7 @@ MonoBehaviour:
   lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
     type: 2}
   bulletMarkPoolName: PoolBulletMarkGeneric1
+  fireSound: {fileID: 8300000, guid: 53a1a8c18087346d18a02d8a4e0c59ca, type: 3}
   numProjectiles: 8
   coneRadius: 1
   coneLength: 10

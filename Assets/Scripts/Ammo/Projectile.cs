@@ -19,6 +19,9 @@ public class Projectile : Ammo
 
     protected Transform barrelEnd;
 
+    public AudioClip fireSound;
+    public AudioSource audioSource;
+
     public override void Load(ModularWeapon weapon, Transform barrelEnd)
     {
         base.Load(weapon, barrelEnd);
@@ -26,7 +29,8 @@ public class Projectile : Ammo
         this.barrelEnd = barrelEnd;
 
         lineRendererController = Instantiate(lineRendererPrefab, barrelEnd).GetComponent<LineRendererController>();
-
+        audioSource = lineRendererController.gameObject.AddComponent<AudioSource>();
+        audioSource.clip = fireSound;
         bulletMarkPool = GameObject.Find(bulletMarkPoolName).GetComponent<Pool>();
     }
 
@@ -41,6 +45,7 @@ public class Projectile : Ammo
     public override void Fire(ModularWeapon weapon, bool doDamage)
     {
         base.Fire(weapon, doDamage);
+        audioSource.Play();
     }
 
     protected void ApplyRecoil(ModularWeapon weapon)

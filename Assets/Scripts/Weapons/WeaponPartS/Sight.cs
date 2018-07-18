@@ -2,6 +2,6 @@
 
 public class Sight : WeaponPart
 {
-    public float fov;
-    public float accuracyModifier;
+    public float fov = 60;
+    public float accuracyModifier = 1;
 }

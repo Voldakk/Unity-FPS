@@ -2,5 +2,5 @@
 
 public class Grip : WeaponPart
 {
-    public float recoilModifier;
+    public float recoilModifier = 1;
 }

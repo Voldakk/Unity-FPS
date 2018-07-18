@@ -21,8 +21,11 @@ MonoBehaviour:
   partType: 6
   slots: []
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
   weight: 0
   cost: 0
   recoilModifier: 0.9
   accuracyModifier: 1.1
   damageModifier: 1.1
+  pitchModifier: 2
+  volumeModifier: 0.5

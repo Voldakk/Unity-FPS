@@ -3,8 +3,8 @@ using System.Linq;
 
 public class Barrel : WeaponPart
 {
-    public float accuracy;
+    public float accuracy = 100;
     public float 
-        recoilModifier, 
-        damageModifier;
+        recoilModifier = 1, 
+        damageModifier = 1;
 }

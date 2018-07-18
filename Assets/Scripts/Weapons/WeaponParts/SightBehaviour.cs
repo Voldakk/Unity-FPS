@@ -37,7 +37,7 @@ public class SightBehaviour : WeaponPartBehaviour
 
         if (data.scopePrefab != null)
         {
-            scopeObject = Instantiate(data.scopePrefab, crosshair.transform);
+            scopeObject = Instantiate(data.scopePrefab, crosshair.transform.parent);
             scopeObject.SetActive(false);
         }
 

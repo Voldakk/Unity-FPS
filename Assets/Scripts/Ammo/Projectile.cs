@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : Ammo
 {
-    public float damage;
+    public float damage = 10;
     public float lineTime = 0.01f;
     public float lineLength = 1000.0f;
 
@@ -20,7 +18,11 @@ public class Projectile : Ammo
     protected Transform barrelEnd;
 
     public AudioClip fireSound;
+    [HideInNormalInspector]
     public AudioSource audioSource;
+
+    public GameObject muzzleFlashPrefab;
+    protected ParticleSystem[] particleSystems;
 
     public override void Load(ModularWeapon weapon, Transform barrelEnd)
     {
@@ -32,6 +34,8 @@ public class Projectile : Ammo
         audioSource = lineRendererController.gameObject.AddComponent<AudioSource>();
         audioSource.clip = fireSound;
         bulletMarkPool = GameObject.Find(bulletMarkPoolName).GetComponent<Pool>();
+
+        particleSystems = Instantiate(muzzleFlashPrefab, barrelEnd).GetComponentsInChildren<ParticleSystem>();
     }
 
     public override void Unload()
@@ -45,7 +49,14 @@ public class Projectile : Ammo
     public override void Fire(ModularWeapon weapon, bool doDamage)
     {
         base.Fire(weapon, doDamage);
+
         audioSource.Play();
+
+        foreach (var ps in particleSystems)
+        {
+            ps.Stop();
+            ps.Play();
+        }
     }
 
     protected void ApplyRecoil(ModularWeapon weapon)

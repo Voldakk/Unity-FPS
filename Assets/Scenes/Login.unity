@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4030401628782572, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7, type: 2}
@@ -186,6 +186,7 @@ GameObject:
   - component: {fileID: 192664350}
   - component: {fileID: 192664349}
   - component: {fileID: 192664348}
+  - component: {fileID: 192664351}
   m_Layer: 5
   m_Name: Login Panel
   m_TagString: Untagged
@@ -272,6 +273,22 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 192664346}
+--- !u!114 &192664351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 192664346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 914c8f528bc69d941a5735365231baf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userStatus: {fileID: 1556994504}
+  userNameInput: {fileID: 2018359065}
+  passwordInput: {fileID: 2116788656}
+  loginPanel: {fileID: 192664346}
+  loginBttn: {fileID: 1410043283}
 --- !u!1 &400084505
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,31 +382,13 @@ GameObject:
   - component: {fileID: 679599120}
   - component: {fileID: 679599119}
   - component: {fileID: 679599118}
-  - component: {fileID: 679599117}
   m_Layer: 5
-  m_Name: LoginManager
+  m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &679599117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114715154768045614, guid: 7d79d52abb39afe4ab9fd930b7665ed4,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 679599116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 914c8f528bc69d941a5735365231baf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  userStatus: {fileID: 1556994504}
-  userNameInput: {fileID: 2018359065}
-  passwordInput: {fileID: 2116788656}
-  loginPanel: {fileID: 192664346}
-  loginBttn: {fileID: 1410043283}
 --- !u!114 &679599118
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +465,7 @@ RectTransform:
   - {fileID: 1556994503}
   - {fileID: 192664347}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

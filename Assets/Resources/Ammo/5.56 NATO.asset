@@ -22,3 +22,5 @@ MonoBehaviour:
     type: 2}
   bulletMarkPoolName: PoolBulletMarkGeneric1
   fireSound: {fileID: 8300000, guid: 65201ddabb4144f6a8fb9480120b7656, type: 3}
+  audioSource: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 100004, guid: 5b3b6337d372a444e82d7da3a83990dd, type: 2}

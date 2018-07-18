@@ -12,10 +12,13 @@ public class WeaponPart : Item
     public GameObject prefab;
     public WeaponPartType partType;
 
+    [HideInNormalInspector]
     public WeaponPartSlot[] slots;
+
+    [HideInNormalInspector]
     public GameObject gameObject;
 
-    [HideInInspector]
+    [HideInNormalInspector]
     public ModularWeapon weapon;
 
     // Stats

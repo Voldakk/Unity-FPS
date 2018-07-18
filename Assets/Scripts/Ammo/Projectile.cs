@@ -18,7 +18,7 @@ public class Projectile : Ammo
     protected Transform barrelEnd;
 
     public AudioClip fireSound;
-    [HideInNormalInspector]
+    [HideInInspector]
     public AudioSource audioSource;
 
     public GameObject muzzleFlashPrefab;

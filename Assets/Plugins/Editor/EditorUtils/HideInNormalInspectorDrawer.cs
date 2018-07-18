@@ -9,8 +9,6 @@
 using UnityEngine;
 using UnityEditor;
 
-
-
 [CustomPropertyDrawer(typeof(HideInNormalInspectorAttribute))]
 class HideInNormalInspectorDrawer : PropertyDrawer
 {

@@ -228,4 +228,21 @@ public abstract class NetworkObject : MonoBehaviour
             SendPacket(code, data, GameSparksRT.DeliveryIntent.RELIABLE);
         }
     }
+    public void SendString(uint index, string value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetString(index, value);
+            SendPacket(data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
+    }
+
+    public void SendString(int code, uint index, string value)
+    {
+        using (RTData data = RTData.Get())
+        {
+            data.SetString(index, value);
+            SendPacket(code, data, GameSparksRT.DeliveryIntent.RELIABLE);
+        }
+    }
 }

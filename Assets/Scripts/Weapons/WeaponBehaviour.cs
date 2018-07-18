@@ -32,22 +32,18 @@ public class WeaponBehaviour : NetworkObject
 
     public void SetWeapon(int index)
     {
-        if(isOwner)
-        {
-            SendInt((int)OpCode.SetWeapon, 1, index);
-        }
-
-        if (weapon != null)
-        {
-            //weapon.OnDestroy();
-        }
-
-        // Weapon
-        /*weapon = Instantiate(newWeapon);
-        weapon.Setup(eyes, hud, transform, weaponHolder, this);
-        weapon.OnStart();*/
-
         PlayerData.instance.LoadWeapon(PlayerData.instance.currentWeapon, weapon);
+
+        if (isOwner)
+            SendString((int)OpCode.SetWeapon, 1, PlayerData.instance.WeaponToJson(weapon));
+
+        weapon.Setup(hud, this);
+        weapon.OnStart();
+    }
+
+    public void SetWeapon(string json)
+    {
+        PlayerData.instance.JsonToWeapon(weapon, json);
         weapon.Setup(hud, this);
         weapon.OnStart();
     }
@@ -70,7 +66,7 @@ public class WeaponBehaviour : NetworkObject
         switch ((OpCode)code)
         {
             case OpCode.SetWeapon:
-                SetWeapon(packet.Data.GetInt(1).Value);
+                SetWeapon(packet.Data.GetString(1));
                 break;
 
             default:

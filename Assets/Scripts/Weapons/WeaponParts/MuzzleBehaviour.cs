@@ -2,7 +2,7 @@
 
 public class MuzzleBehaviour : WeaponPartBehaviour
 {
-    [HideInNormalInspector]
+    [HideInInspector]
     public Muzzle data;
 
     public Transform barrelEnd;

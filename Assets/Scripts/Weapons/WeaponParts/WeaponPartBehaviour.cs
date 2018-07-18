@@ -3,10 +3,10 @@ using System.Linq;
 
 public class WeaponPartBehaviour : MonoBehaviour
 {
-    [HideInNormalInspector]
+    [HideInInspector]
     public WeaponPartSlot[] slots;
 
-    [HideInNormalInspector]
+    [HideInInspector]
     public ModularWeapon weapon;
 
 	protected virtual void Awake ()

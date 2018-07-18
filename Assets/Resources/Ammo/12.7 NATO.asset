@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85a066c9e77371409e8a6be8c40e643, type: 3}
+  m_Name: 12.7 NATO
+  m_EditorClassIdentifier: 
+  ammoName: 12.7 NATO
+  icon: {fileID: 21300010, guid: 2f84b5c8ce2b18549a175522847db7d6, type: 3}
+  damage: 100
+  lineTime: 0.01
+  lineLength: 1000
+  verticalRecoil: 5
+  horizontalRecoil: 5
+  lineRendererPrefab: {fileID: 1003330123847458, guid: 9b189a691b8c93c4b92b40ee0396155f,
+    type: 2}
+  bulletMarkPoolName: PoolBulletMarkGeneric1
+  fireSound: {fileID: 8300000, guid: 53a1a8c18087346d18a02d8a4e0c59ca, type: 3}
+  audioSource: {fileID: 0}
+  muzzleFlashPrefab: {fileID: 100002, guid: 14ca6e2b0a551be4c8071e897143d088, type: 2}

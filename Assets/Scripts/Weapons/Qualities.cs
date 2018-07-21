@@ -3,12 +3,15 @@
 [System.Serializable]
 public class Quality
 {
+    [HideInInspector]
     public int index;
+
     public string name;
     public Color color;
     public float modifier;
     [Range(0, 1)]
     public float rarity;
+    
     public string calculatedChance;
 }
 

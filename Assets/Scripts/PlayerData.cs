@@ -46,14 +46,15 @@ public class PlayerData : MonoBehaviour
 
             for (int i = 0; i < defaultWeaponParts.Count; i++)
             {
-                weaponParts.Add(Instantiate(Resources.Load<WeaponPart>("WeaponParts/" + defaultWeaponParts[i].partShortCode)));
+                weaponParts.Add(WeaponParts.GetPart(defaultWeaponParts[i].partShortCode));
                 weaponParts[i].level = defaultWeaponParts[i].level;
                 weaponParts[i].quality = Qualities.GetQuality(defaultWeaponParts[i].quality);
             }
         }
         else
+        {
             weaponParts = fileParts.ToList();
-
+        }
 
         var fileWeapons = LoadWeaponsFromFile();
 
@@ -63,7 +64,9 @@ public class PlayerData : MonoBehaviour
             weapons = defaultWeapons;
         }
         else
+        {
             weapons = fileWeapons.ToList();
+        }
     }
 
     public void Save()
@@ -121,7 +124,7 @@ public class PlayerData : MonoBehaviour
 
         for (int i = 0; i < partData.Length; i++)
         {
-            parts[i] = Instantiate(Resources.Load<WeaponPart>("WeaponParts/" + partData[i].partShortCode));
+            parts[i] = WeaponParts.GetPart(partData[i].partShortCode);
             parts[i].level = partData[i].level;
             parts[i].quality = Qualities.GetQuality(partData[i].quality);
         }
@@ -263,7 +266,7 @@ public class PlayerData : MonoBehaviour
         if (wpd.partShortCode == "")
             return;
 
-        var loadedPart = Instantiate(Resources.Load<WeaponPart>("WeaponParts/" + wpd.partShortCode));
+        var loadedPart = WeaponParts.GetPart(wpd.partShortCode);
         loadedPart.level = wpd.level;
         loadedPart.quality = Qualities.GetQuality(wpd.quality);
 

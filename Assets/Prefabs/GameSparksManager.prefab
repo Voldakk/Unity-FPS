@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 114151669066856276}
   - component: {fileID: 114911154883278560}
   - component: {fileID: 114363012957754464}
+  - component: {fileID: 114937349162712586}
   - component: {fileID: 114235899949200110}
   m_Layer: 0
   m_Name: GameSparksManager
@@ -198,3 +199,14 @@ MonoBehaviour:
   prefabs:
   - {fileID: 1567632108853674, guid: 142120d47341a1e4292650ebb0cae19d, type: 2}
   - {fileID: 1266246065868918, guid: 8732e9874b9822348bd144cb88f87266, type: 2}
+--- !u!114 &114937349162712586
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138964251828944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d420ee31ef34d54a88e2bfa72a6e19f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

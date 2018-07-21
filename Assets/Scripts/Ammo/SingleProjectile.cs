@@ -22,17 +22,25 @@ public class SingleProjectile : Projectile
             lineRendererController.lineRenderer.SetPosition(1, hit.point);
             lineRendererController.Fire(lineTime);
 
+            if (doDamage)
+            {
+                Health health;
+
+                if(hit.rigidbody == null)
+                    health = hit.transform.GetComponent<Health>();
+                else
+                    health = hit.rigidbody.GetComponent<Health>();
+
+                if (health != null)
+                    health.Damage(damage);
+            }
+
             if (hit.rigidbody == null)
             {
                 GameObject bulletMark = bulletMarkPool.Get();
+                bulletMark.transform.parent = hit.transform;
                 bulletMark.transform.position = hit.point + hit.normal * 0.001f;
                 bulletMark.transform.rotation = Quaternion.LookRotation(-hit.normal, Vector3.up);
-            }
-            else if(doDamage)
-            {
-                Health health = hit.rigidbody.GetComponent<Health>();
-                if (health != null)
-                    health.Damage(damage);
             }
         }
         else

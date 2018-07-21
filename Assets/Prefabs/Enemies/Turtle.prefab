@@ -186,8 +186,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1524451088103128}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20, y: 0, z: -20}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 33, y: 0, z: 42}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4307252974216800}
@@ -198,7 +198,7 @@ Transform:
   - {fileID: 4213730126757756}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4307252974216800
 Transform:
   m_ObjectHideFlags: 1
@@ -576,16 +576,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: f36f2f007c8242afb357cc8a3eb7ed10
+  networkId: b60bd3a8135c400d81ae1258c13707f9
   owner: 1
   isOwner: 0
   updateRate: 0.1
   local: 1
-  position: 1
+  sendPosition: 1
   posX: 1
   posY: 1
   posZ: 1
-  rotation: 1
+  sendRotation: 1
   rotX: 0
   rotY: 1
   rotZ: 0
@@ -600,10 +600,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 7fe2ab2b71244cb2aade99fc6704572e
+  networkId: 010a3a5e12ca448fa8a8b365f4ce6e9b
   owner: 1
   isOwner: 0
-  maxHealth: 100
+  maxHealth: 500
 --- !u!114 &114810795449361824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -627,7 +627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1cddd1938df7db43aceaed1f9a1f39d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: bd8b1e8480104ca58ee315747c88728b
+  networkId: 9914c927ec59473d9a0d8cbc4362a0ca
   owner: 1
   isOwner: 0
   updateRate: 0.2

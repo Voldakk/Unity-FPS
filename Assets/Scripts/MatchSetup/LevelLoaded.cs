@@ -4,6 +4,8 @@ public class LevelLoaded : MonoBehaviour
 {
 	void Start ()
     {
-        GameSparksManager.Instance().SetPlayerLoaded();
+        var gsm = GameSparksManager.Instance();
+        if(gsm != null)
+            GameSparksManager.Instance().SetPlayerLoaded();
 	}
 }

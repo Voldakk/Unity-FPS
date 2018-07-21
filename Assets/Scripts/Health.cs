@@ -1,5 +1,6 @@
 ﻿using GameSparks.RT;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Health : NetworkObject
@@ -10,6 +11,8 @@ public class Health : NetworkObject
     private bool dead;
 
     private Text hudPlayerHealth;
+
+    public UnityEvent onDamage, onDeath;
 
     protected override void Awake ()
     {
@@ -42,17 +45,22 @@ public class Health : NetworkObject
         if (currentHealth <= 0.0f)
         {
             currentHealth = 0.0f;
-            Die();
+            OnDeath();
         }
 
         UpdateHud();
-        SendMessage("OnDamage", amount, SendMessageOptions.DontRequireReceiver);
+        onDamage.Invoke();
     }
 
-    void Die()
+    public void Die()
+    {
+        ApplyDamage(currentHealth);
+    }
+
+    void OnDeath()
     {
         dead = true;
-        SendMessage("OnDeath", SendMessageOptions.DontRequireReceiver);
+        onDeath.Invoke();
     }
 
     void Reset()
@@ -71,5 +79,10 @@ public class Health : NetworkObject
     public override void OnPacket(RTPacket packet)
     {
         ApplyDamage(packet.Data.GetFloat(1).Value);
+    }
+
+    public void DestroyGameObject()
+    {
+        Destroy(gameObject);
     }
 }

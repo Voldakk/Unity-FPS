@@ -12,21 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 05f40bc9beb0ef74eaf1c8e779f461ee
   - enabled: 1
+    path: Assets/Scenes/WeaponCustomization.unity
+    guid: 53f9564e1b8816c409e7ae362a7b3489
+  - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: a1c68b7d59296ec4dae22cbd7c7a2721
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/Desert.unity
-    guid: a32b8397452bdea4b8a861ab4687a0b3
-  - enabled: 1
-    path: Assets/Scenes/Test.unity
-    guid: 8caae7aea6c87194d828994e49035ae5
-  - enabled: 1
-    path: Assets/Scenes/WeaponCustomization.unity
-    guid: 53f9564e1b8816c409e7ae362a7b3489
-  - enabled: 1
-    path: Assets/Scenes/Levels/Template.unity
-    guid: 86f6f9629276246488dff95678904ea4
+    path: Assets/Scenes/Levels/Level01.unity
+    guid: 98848773697f8df45b39fa627ffaa59b
   m_configObjects: {}

@@ -36,4 +36,5 @@ sysinfo.txt
 *.unitypackage
 
 # Packages
-Assets/Packages/3D-Game-Kit*
+Assets/Packages/3D-Game-Kit/Art/
+Assets/Packages/3D-Game-Kit/Audio/

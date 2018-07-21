@@ -19,22 +19,22 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Level
+  - Player
   - Weapon
   - 
   - 
   - 
   - 
   - 
+  - Enviroment
   - 
   - 
   - 
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Enemy
+  - EnemyDamager
   - 
   - 
   - 

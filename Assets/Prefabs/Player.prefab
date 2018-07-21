@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4372903203487486}
   - component: {fileID: 33155802503383830}
   - component: {fileID: 23885058314742672}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37,7 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4138849562477544}
   - component: {fileID: 114796729789120596}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: slot_body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,8 @@ GameObject:
   - component: {fileID: 136953207784159010}
   - component: {fileID: 114028219249617452}
   - component: {fileID: 114380427003930066}
-  m_Layer: 0
+  - component: {fileID: 114212613876395162}
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +83,7 @@ GameObject:
   - component: {fileID: 81996527430007672}
   - component: {fileID: 124195535388948110}
   - component: {fileID: 114950151999775700}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -98,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4299534918587160}
   - component: {fileID: 114521500853182376}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4732914294365710}
   - component: {fileID: 20482633665861622}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WeaponCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -130,7 +131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4758672324593234}
   - component: {fileID: 82239877621028742}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: WeaponHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -572,6 +573,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1266246065868918, guid: 8732e9874b9822348bd144cb88f87266, type: 2}
+--- !u!114 &114212613876395162
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1567632108853674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70e38a9fa67f2847b1f3e5b9f503260, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcsCount: 4
 --- !u!114 &114246891403942720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -583,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: f742e21f10e3456abcb9c88179eb92db
+  networkId: 3b84e2d6e4394158b72b307d9f046a2c
   owner: 1
   isOwner: 0
   weapon: {fileID: 114521500853182376}
@@ -602,7 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 6b03bbb674164814a3844482620c92f6
+  networkId: e0775a8b56af4016bdc93a8e47ec1dcb
   owner: 1
   isOwner: 0
 --- !u!114 &114380427003930066
@@ -616,7 +629,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: fdb9a10c814b4e519724ee3d995e4821
+  networkId: acd66b58b101426596dbd6350d548e01
   owner: 1
   isOwner: 0
   updateRate: 0.1
@@ -796,10 +809,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: d1fffa8fdcd249bdb94212513a33a883
+  networkId: d8327275ad8944f395c083c68e325fb3
   owner: 1
   isOwner: 0
   maxHealth: 1000
+  onDamage:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onDeath:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &114796729789120596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -828,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 8aad82573b574505982c2ec14e04302f
+  networkId: 259623d2428f4188a9261baeb9d5635f
   owner: 1
   isOwner: 0
   updateRate: 0.1

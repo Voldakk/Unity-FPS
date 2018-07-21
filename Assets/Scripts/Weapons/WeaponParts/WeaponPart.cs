@@ -22,6 +22,8 @@ public class WeaponPart : Item
     public ModularWeapon weapon;
 
     // Stats
+    public int level = 1;
+    public Quality quality;
     public float weight, cost;
 
     public void Load(Transform parent)

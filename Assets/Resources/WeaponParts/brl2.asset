@@ -21,6 +21,14 @@ MonoBehaviour:
   partType: 0
   slots: []
   gameObject: {fileID: 0}
+  weapon: {fileID: 0}
+  level: 1
+  quality:
+    name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    modifier: 0
+    rarity: 0
+    calculatedChance: 
   weight: 0
   cost: 0
   accuracy: 90

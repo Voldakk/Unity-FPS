@@ -25,8 +25,10 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
         }
 
         partName.text = part.partName;
-        partIcon.sprite = part.icon;
+        partName.color = part.quality.color;
 
+        partIcon.sprite = part.icon;
+        AddStat("Level", part.level);
 
         switch (part.partType)
         {

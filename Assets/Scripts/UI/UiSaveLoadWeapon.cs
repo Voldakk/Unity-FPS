@@ -150,4 +150,9 @@ public class UiSaveLoadWeapon : MonoBehaviour
     {
         SetSelected(weaponPanels.IndexOf(sender));
     }
+
+    public void SaveToFile()
+    {
+        PlayerData.instance.Save();
+    }
 }

@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114390786185295724}
   - component: {fileID: 114151669066856276}
   - component: {fileID: 114911154883278560}
+  - component: {fileID: 114363012957754464}
+  - component: {fileID: 114235899949200110}
   m_Layer: 0
   m_Name: GameSparksManager
   m_TagString: GameSparksManager
@@ -54,6 +56,118 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: db3892bf30e42684bbfbacdf35183cbc, type: 2}
+--- !u!114 &114235899949200110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138964251828944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2978b90d1700a26498cf25627cde84dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultWeaponParts:
+  - partShortCode: bdy1
+    level: 1
+    quality: 1
+    dataParts: []
+  - partShortCode: brl1
+    level: 1
+    quality: 2
+    dataParts: []
+  - partShortCode: mag2
+    level: 1
+    quality: 3
+    dataParts: []
+  - partShortCode: grp1
+    level: 1
+    quality: 4
+    dataParts: []
+  - partShortCode: muz1
+    level: 1
+    quality: 5
+    dataParts: []
+  - partShortCode: stk1
+    level: 1
+    quality: 2
+    dataParts: []
+  - partShortCode: sgt1
+    level: 1
+    quality: 2
+    dataParts: []
+  defaultWeapons:
+  - weaponName: Poor rifle
+    rootPart:
+      partShortCode: bdy2
+      level: 1
+      quality: 0
+      dataParts:
+      - partShortCode: brl2
+        level: 1
+        quality: 0
+        dataParts: []
+      - partShortCode: grp2
+        level: 1
+        quality: 0
+        dataParts: []
+      - partShortCode: mag1
+        level: 1
+        quality: 0
+        dataParts: []
+      - partShortCode: stk2
+        level: 1
+        quality: 0
+        dataParts: []
+  currentWeapon: 0
+--- !u!114 &114363012957754464
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1138964251828944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34a1b6e61218c76459e5c9da423c8337, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  qualities:
+  - index: 0
+    name: Poor
+    color: {r: 0.6156863, g: 0.6156863, b: 0.6156863, a: 1}
+    modifier: 0.9
+    rarity: 0.6
+    calculatedChance: 60.00%
+  - index: 1
+    name: Common
+    color: {r: 1, g: 1, b: 1, a: 1}
+    modifier: 1
+    rarity: 0.6
+    calculatedChance: 24.00%
+  - index: 2
+    name: Uncommon
+    color: {r: 0.11764707, g: 1, b: 0, a: 1}
+    modifier: 1.05
+    rarity: 0.6
+    calculatedChance: 9.60%
+  - index: 3
+    name: Rare
+    color: {r: 0, g: 0.43921572, b: 1, a: 1}
+    modifier: 1.1
+    rarity: 0.6
+    calculatedChance: 3.84%
+  - index: 4
+    name: Epic
+    color: {r: 0.6392157, g: 0.20784315, b: 0.9333334, a: 1}
+    modifier: 1.2
+    rarity: 0.6
+    calculatedChance: 1.54%
+  - index: 5
+    name: Legendary
+    color: {r: 1, g: 0.5019608, b: 0, a: 1}
+    modifier: 1.3
+    rarity: 1
+    calculatedChance: 1.02%
 --- !u!114 &114390786185295724
 MonoBehaviour:
   m_ObjectHideFlags: 1

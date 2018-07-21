@@ -27,3 +27,5 @@ MonoBehaviour:
   fov: 45
   accuracyModifier: 1.5
   adsTime: 1
+  scopePrefab: {fileID: 1467750359349034, guid: 36895cade52df4c4faa8244689362185,
+    type: 2}

@@ -51,7 +51,7 @@ public class Interactor : MonoBehaviour
         }
         else
         {
-            InteractPanel.Show("Interact with " + target.name);
+            InteractPanel.Show(target.text);
 
             target.OnSetAsTarget();
         }

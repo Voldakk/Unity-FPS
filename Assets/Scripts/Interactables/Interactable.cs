@@ -2,7 +2,7 @@
 
 public class Interactable : MonoBehaviour
 {
-    public new string name = "Interactable";
+    public string text = "Interact";
     public float maxDistance = 5f;
 
     public virtual void Interact(Interactor interactor)

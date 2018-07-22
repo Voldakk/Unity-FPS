@@ -13,7 +13,13 @@ public class WeaponPartBehaviour : MonoBehaviour
     {
         weapon = GetComponentInParent<ModularWeapon>();
         slots = gameObject.GetComponentsInChildren<WeaponPartSlot>().Where(s => s.transform.parent = transform).ToArray();
-        SetPart(transform.parent.GetComponent<WeaponPartSlot>().part);
+
+        if (transform.parent != null)
+        {
+            var slot = transform.parent.GetComponent<WeaponPartSlot>();
+            if (slot != null)
+                SetPart(slot.part);
+        }
     }
 
     public virtual void SetPart(WeaponPart part)

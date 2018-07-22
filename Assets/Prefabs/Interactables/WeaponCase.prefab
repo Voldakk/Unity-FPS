@@ -767,8 +767,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8757782c5f4efef4f80ca360fae20e93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Weapon case
+  text: Open
   maxDistance: 5
+  partPickupPrefab: {fileID: 1267639015021180, guid: 7fbe38d9279fc08439a053a67c156bd6,
+    type: 2}
+  partLocation: {fileID: 0}
 --- !u!205 &205989308683771288
 LODGroup:
   m_ObjectHideFlags: 1

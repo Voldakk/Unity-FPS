@@ -64,6 +64,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42e6fbd29fca07f4bae27bc399ad74af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Part pickup
+  text: Take
   maxDistance: 5
   part: {fileID: 0}

@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Countdown : MonoBehaviour
 {
-    public Text text;
+    public TextMeshProUGUI text;
     public float time;
 
     public void SetCountdown(float value)

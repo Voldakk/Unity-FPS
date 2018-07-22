@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class InteractPanel : MonoBehaviour
 {
-    public Text text;
+    public TextMeshProUGUI text;
 
     static InteractPanel instance;
 

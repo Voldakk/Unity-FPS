@@ -33,6 +33,9 @@ public class PlayerData : MonoBehaviour
 
     public int currentWeapon;
 
+    public int level = 1;
+    public int xp = 0;
+
     void Start ()
     {
         instance = this;

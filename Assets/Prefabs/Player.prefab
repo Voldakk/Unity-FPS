@@ -64,6 +64,7 @@ GameObject:
   - component: {fileID: 114028219249617452}
   - component: {fileID: 114380427003930066}
   - component: {fileID: 114212613876395162}
+  - component: {fileID: 114409998689869880}
   m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
@@ -596,7 +597,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 164484ea30596324f94abf569086472d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 3b84e2d6e4394158b72b307d9f046a2c
+  networkId: ab05c3f45f9d40f4b8ad98b7d929633a
   owner: 1
   isOwner: 0
   weapon: {fileID: 114521500853182376}
@@ -615,7 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1817b6e190c6c3748832aa876a2af9c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: e0775a8b56af4016bdc93a8e47ec1dcb
+  networkId: 4389aa6610144e2cbb5a3ddd932b75e4
   owner: 1
   isOwner: 0
 --- !u!114 &114380427003930066
@@ -629,7 +630,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: acd66b58b101426596dbd6350d548e01
+  networkId: 4979ea116a7c4920895888ce0f999c9f
   owner: 1
   isOwner: 0
   updateRate: 0.1
@@ -642,6 +643,20 @@ MonoBehaviour:
   rotX: 0
   rotY: 1
   rotZ: 0
+--- !u!114 &114409998689869880
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1567632108853674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6245f047c79f40448b555dd03b4f9fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camera: {fileID: 20176361024510456}
+  maxDistance: 10
+  button: Interact
 --- !u!114 &114521500853182376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -809,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: d8327275ad8944f395c083c68e325fb3
+  networkId: d0976964648c4281b0e06031c7fda743
   owner: 1
   isOwner: 0
   maxHealth: 1000
@@ -851,7 +866,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef4d78c127d70d40b62e764d8788cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 259623d2428f4188a9261baeb9d5635f
+  networkId: 7d7484d84597466f9d88349713f95603
   owner: 1
   isOwner: 0
   updateRate: 0.1

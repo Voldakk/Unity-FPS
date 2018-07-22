@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class UiWeaponPartStatsLine : MonoBehaviour
 {
-    public Text statsName, statsValue;
+    public TextMeshProUGUI statsName, statsValue;
 
     public void Set(string name, string value)
     {

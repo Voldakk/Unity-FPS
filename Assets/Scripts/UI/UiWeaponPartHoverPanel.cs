@@ -1,15 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UiWeaponPartHoverPanel : MonoBehaviour
 {
-    public Text partName;
+    static UiWeaponPartHoverPanel instance;
+
+    public TextMeshProUGUI partLevel;
+    public TextMeshProUGUI partName;
     public Image partIcon;
 
     public Transform statsPanel;
     public GameObject statsLinePrefab;
 
-    public void Show(WeaponPart part)
+    public TextMeshProUGUI partCost;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    public static void Show(WeaponPart part)
+    {
+        if (instance != null)
+            instance.ShowPanel(part);
+    }
+
+    public void ShowPanel(WeaponPart part)
     {
         if(part == null)
         {
@@ -27,8 +44,11 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
         partName.text = part.partName;
         partName.color = part.quality.color;
 
+        partLevel.text = "LEVEL REQUIREMENT: " + part.level;
+
+        partCost.text = "$" + part.cost;
+
         partIcon.sprite = part.icon;
-        AddStat("Level", part.level);
 
         switch (part.partType)
         {
@@ -80,7 +100,13 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
 
     }
 
-    public void Hide()
+    public static void Hide()
+    {
+        if(instance != null)
+            instance.HidePanel();
+    }
+
+    public void HidePanel()
     {
         transform.position = Vector3.one * 1000000f;
     }

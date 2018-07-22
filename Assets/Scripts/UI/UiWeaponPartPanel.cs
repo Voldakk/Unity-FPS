@@ -34,11 +34,11 @@ public class UiWeaponPartPanel : DragAndDropPanel
 
     public void MouseEnter()
     {
-        FindObjectOfType<UiWeaponPartHoverPanel>().Show(part);
+        UiWeaponPartHoverPanel.Show(part);
     }
 
     public void MouseExit()
     {
-        FindObjectOfType<UiWeaponPartHoverPanel>().Hide();
+        UiWeaponPartHoverPanel.Hide();
     }
 }

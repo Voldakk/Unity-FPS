@@ -348,6 +348,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_PostInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_PreInfinity
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_Curve.Array.data[0].outSlope
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_Curve.Array.data[0].tangentMode
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_Curve.Array.data[1].outSlope
+      value: Infinity
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_Curve.Array.data[1].tangentMode
+      value: 69
+      objectReference: {fileID: 0}
+    - target: {fileID: 114937349162712586, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: relativeLootLevel.m_Curve.Array.data[1].inSlope
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7, type: 2}
   m_IsPrefabParent: 0
@@ -426,7 +461,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0

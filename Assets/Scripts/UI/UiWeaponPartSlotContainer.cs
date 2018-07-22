@@ -117,11 +117,11 @@ public class UiWeaponPartSlotContainer : DragAndDropContainer
 
     public void MouseEnter()
     {
-        FindObjectOfType<UiWeaponPartHoverPanel>().Show(slot.part);
+        UiWeaponPartHoverPanel.Show(slot.part);
     }
 
     public void MouseExit()
     {
-        FindObjectOfType<UiWeaponPartHoverPanel>().Hide();
+        UiWeaponPartHoverPanel.Hide();
     }
 }

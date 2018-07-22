@@ -9,6 +9,8 @@ public class WeaponParts : MonoBehaviour
     WeaponPart[] parts;
     Dictionary<string, WeaponPart> shortCodes;
 
+    public AnimationCurve relativeLootLevel = new AnimationCurve(new Keyframe[] { new Keyframe(0, -2f), new Keyframe(1, 2f) });
+
 	void Awake ()
     {
         instance = this;
@@ -34,7 +36,7 @@ public class WeaponParts : MonoBehaviour
     public static WeaponPart GetRandomPart(int level)
     {
         var part = Instantiate(instance.parts[Random.Range(0, instance.parts.Length)]);
-        part.level = level;
+        part.level = Mathf.Max(1, Mathf.RoundToInt(instance.relativeLootLevel.Evaluate(Random.value)));
         part.quality = Qualities.GetRandomQuality();
 
         return part;

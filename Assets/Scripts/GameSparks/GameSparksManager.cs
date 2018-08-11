@@ -411,6 +411,9 @@ public class GameSparksManager : MonoBehaviour
 
     void OnGUI()
     {
+        if (sessionInfo == null)
+            return;
+
         GUI.Label(new Rect(10, 10, 400, 30), "Peer id: " + PeerId());
         GUI.Label(new Rect(10, 30, 400, 30), "Elapsed time: " + Time.timeSinceLevelLoad.ToString("0.0") + "s");
 

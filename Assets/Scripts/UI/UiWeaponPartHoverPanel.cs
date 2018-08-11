@@ -34,6 +34,10 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
             return;
         }
 
+
+        RectTransform rt = GetComponent<RectTransform>();
+        rt.pivot = new Vector2(Input.mousePosition.x <= Screen.width/2f ? 0 : 1, Input.mousePosition.y <= Screen.height/2f ? 0 : 1);
+
         transform.position = Input.mousePosition;
 
         for (int i = 0; i < statsPanel.childCount; i++)
@@ -46,7 +50,7 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
 
         partLevel.text = "LEVEL REQUIREMENT: " + part.level;
 
-        partCost.text = "$" + part.cost;
+        partCost.text = "$" + part.price;
 
         partIcon.sprite = part.icon;
 

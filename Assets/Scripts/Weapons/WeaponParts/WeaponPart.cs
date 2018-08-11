@@ -23,7 +23,7 @@ public class WeaponPart : Item
     // Stats
     public int level = 1;
     public Quality quality;
-    public float weight, cost;
+    public float weight, price;
 
     public void Load(Transform parent)
     {

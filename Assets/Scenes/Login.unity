@@ -383,6 +383,61 @@ Prefab:
       propertyPath: relativeLootLevel.m_Curve.Array.data[1].inSlope
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[0].rarity
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[0].calculatedChance
+      value: 20.00%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[1].calculatedChance
+      value: 50.00%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[2].calculatedChance
+      value: 21.00%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[3].calculatedChance
+      value: 5.40%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[4].calculatedChance
+      value: 2.52%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[5].calculatedChance
+      value: 1.08%
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[1].rarity
+      value: 0.625
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[2].rarity
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[3].rarity
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114363012957754464, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7,
+        type: 2}
+      propertyPath: qualities.Array.data[4].rarity
+      value: 0.7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a2b4892cb9b05ad4cbda18dd99c4d8c7, type: 2}
   m_IsPrefabParent: 0

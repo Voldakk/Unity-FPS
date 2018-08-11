@@ -85,4 +85,9 @@ public class Health : NetworkObject
     {
         Destroy(gameObject);
     }
+
+    public float CurrentHealth()
+    {
+        return currentHealth;
+    }
 }

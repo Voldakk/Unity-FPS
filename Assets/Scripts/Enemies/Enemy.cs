@@ -9,7 +9,8 @@ public class Enemy : NetworkObject
     public float updateRate = 0.1f;
 
     private new Rigidbody rigidbody;
-    private Health health;
+    [HideInInspector]
+    public Health health;
 
     protected override void Awake()
     {

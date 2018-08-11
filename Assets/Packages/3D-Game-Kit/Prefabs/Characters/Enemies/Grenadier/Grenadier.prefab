@@ -1030,6 +1030,7 @@ GameObject:
   - component: {fileID: 114161401988340100}
   - component: {fileID: 114516983396116286}
   - component: {fileID: 114341630571888604}
+  - component: {fileID: 114488672388392566}
   m_Layer: 23
   m_Name: Grenadier
   m_TagString: Untagged
@@ -2934,7 +2935,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: 4ac8712ab6204a09867aaa2cf1a4b0e8
+  networkId: cf7b8ad9083f42a5823818f88a261a70
   owner: 1
   isOwner: 0
   maxHealth: 1000
@@ -3111,6 +3112,22 @@ MonoBehaviour:
   overrides: []
   playing: 0
   canPlay: 0
+--- !u!114 &114488672388392566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1878432194002958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cddd1938df7db43aceaed1f9a1f39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkId: 2a5d5e6cc43a4ff3872b9efff2c39390
+  owner: 1
+  isOwner: 0
+  updateRate: 0.1
+  health: {fileID: 0}
 --- !u!114 &114516983396116286
 MonoBehaviour:
   m_ObjectHideFlags: 1

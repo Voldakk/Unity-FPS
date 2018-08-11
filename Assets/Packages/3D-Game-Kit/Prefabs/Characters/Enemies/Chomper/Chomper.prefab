@@ -1286,6 +1286,7 @@ GameObject:
   - component: {fileID: 195733995024529676}
   - component: {fileID: 114458646780233230}
   - component: {fileID: 54385632480023008}
+  - component: {fileID: 114264388631850912}
   m_Layer: 23
   m_Name: Chomper
   m_TagString: Untagged
@@ -4051,6 +4052,22 @@ MonoBehaviour:
   damagedLayers:
     serializedVersion: 2
     m_Bits: 512
+--- !u!114 &114264388631850912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1722084123150156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cddd1938df7db43aceaed1f9a1f39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkId: fe26dcc084dc47feb3041a2c128ac543
+  owner: 1
+  isOwner: 0
+  updateRate: 0.1
+  health: {fileID: 0}
 --- !u!114 &114290622220327500
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4090,7 +4107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: e31f83c8b5d84b448cd0677e120b73c6
+  networkId: 3d8c40d6572d481f85316aea635ec378
   owner: 1
   isOwner: 0
   maxHealth: 100

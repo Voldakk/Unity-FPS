@@ -908,6 +908,7 @@ GameObject:
   - component: {fileID: 114262391854553980}
   - component: {fileID: 54840076793666620}
   - component: {fileID: 114367529294713712}
+  - component: {fileID: 114297008753861334}
   m_Layer: 23
   m_Name: Spitter
   m_TagString: Untagged
@@ -4093,6 +4094,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ragdollPrefab: {fileID: 1808019460845018, guid: 498ce9a6d8cee064eb3a0ae89cd17d58,
     type: 2}
+--- !u!114 &114297008753861334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1500461124768838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1cddd1938df7db43aceaed1f9a1f39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkId: 40ac63110be9440c8f77711d515d4ebf
+  owner: 1
+  isOwner: 0
+  updateRate: 0.1
+  health: {fileID: 0}
 --- !u!114 &114354233313049246
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4128,7 +4145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d750d332cfa30464ca9a9f40fd34cddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkId: c255d92008ab42d3b1b1c7ebf6c050cd
+  networkId: 732b44ce294c4f45b9c75833396040fd
   owner: 1
   isOwner: 0
   maxHealth: 100

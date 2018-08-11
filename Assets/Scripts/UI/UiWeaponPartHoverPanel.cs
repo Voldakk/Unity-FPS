@@ -41,7 +41,7 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
             Destroy(statsPanel.GetChild(i).gameObject);
         }
 
-        partName.text = part.partName;
+        partName.text = part.name;
         partName.color = part.quality.color;
 
         partLevel.text = "LEVEL REQUIREMENT: " + part.level;

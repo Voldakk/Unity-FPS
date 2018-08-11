@@ -11,12 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9158d43e5ff66824a87a6a36814e6927, type: 3}
   m_Name: bdy1
   m_EditorClassIdentifier: 
-  name: 
+  name: Body 1
   icon: {fileID: 21300000, guid: 7ee76d9cf73b00b498209007eccc4852, type: 2}
   stackSize: 1
   count: 1
   stortCode: bdy1
-  partName: Body 1
   prefab: {fileID: 1061688196356912, guid: eab004c2e217ff34e91e6140c40762da, type: 2}
   partType: 1
   slots:
@@ -27,6 +26,14 @@ MonoBehaviour:
   - {fileID: 0}
   gameObject: {fileID: 0}
   weapon: {fileID: 0}
+  level: 1
+  quality:
+    index: 0
+    name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    modifier: 0
+    rarity: 0
+    calculatedChance: 
   weight: 0
   cost: 0
   fireRate: 600

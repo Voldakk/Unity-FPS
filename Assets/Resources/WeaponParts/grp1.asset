@@ -11,12 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7678f106a39538418e0a48aed5bd4e6, type: 3}
   m_Name: grp1
   m_EditorClassIdentifier: 
-  name: 
+  name: Grip 1
   icon: {fileID: 21300000, guid: 02297142763d68348aa5af4ca9bd4d08, type: 2}
   stackSize: 1
   count: 1
   stortCode: grp1
-  partName: Grip 1
   prefab: {fileID: 1729859552498390, guid: 352e49eaeefc1b8498643d43e42f929b, type: 2}
   partType: 2
   slots: []
@@ -24,11 +23,12 @@ MonoBehaviour:
   weapon: {fileID: 0}
   level: 1
   quality:
+    index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
     modifier: 0
     rarity: 0
-    calculatedChance: 1.54%
+    calculatedChance: 
   weight: 0
   cost: 0
   recoilModifier: 0.8

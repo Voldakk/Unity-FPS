@@ -25,7 +25,7 @@ public class UiWeaponPartPanel : DragAndDropPanel
             part = o as WeaponPart;
 
             if (partName != null)
-                partName.text = part.partName;
+                partName.text = part.name;
 
             if (partIcon != null)
                 partIcon.sprite = part.icon;

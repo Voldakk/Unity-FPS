@@ -11,19 +11,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 633f915ed8a1b434fba148112817a532, type: 3}
   m_Name: sgt1
   m_EditorClassIdentifier: 
-  name: 
+  name: Red dot
   icon: {fileID: 21300000, guid: 42b22ef3a5d37f7478dd99717707515b, type: 2}
   stackSize: 1
   count: 1
   stortCode: sgt1
-  partName: Red dot
   prefab: {fileID: 1277314000337636, guid: 0bf36a07bd010f647b0fefe2142c8314, type: 2}
   partType: 4
   slots: []
   gameObject: {fileID: 0}
   weapon: {fileID: 0}
+  level: 1
+  quality:
+    index: 0
+    name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    modifier: 0
+    rarity: 0
+    calculatedChance: 
   weight: 0
   cost: 0
   fov: 50
   accuracyModifier: 1.1
   adsTime: 1
+  scopePrefab: {fileID: 0}

@@ -11,12 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4c8393506e83fb48b821abe0663df23, type: 3}
   m_Name: mag1
   m_EditorClassIdentifier: 
-  name: 
+  name: Mag 1
   icon: {fileID: 21300000, guid: a93fa06cff6e88b4e82b98f5eb377b44, type: 2}
   stackSize: 1
   count: 1
   stortCode: mag1
-  partName: Mag 1
   prefab: {fileID: 1405910059718444, guid: eb0735e4400259145902ad590ba0924b, type: 2}
   partType: 3
   slots: []
@@ -24,6 +23,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   level: 1
   quality:
+    index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
     modifier: 0

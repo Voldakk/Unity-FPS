@@ -11,12 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29035e518a2c90249a8f886ed5a55bc3, type: 3}
   m_Name: muz1
   m_EditorClassIdentifier: 
-  name: 
+  name: Suppressor
   icon: {fileID: 21300000, guid: d3d16756279330543aefc66f79c94827, type: 2}
   stackSize: 1
   count: 1
   stortCode: muz1
-  partName: Suppressor
   prefab: {fileID: 1256865142636132, guid: 4c93dde36e3cbe24b88d9538ec3208f1, type: 2}
   partType: 6
   slots: []
@@ -24,6 +23,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   level: 1
   quality:
+    index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
     modifier: 0

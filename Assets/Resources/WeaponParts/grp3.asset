@@ -11,12 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7678f106a39538418e0a48aed5bd4e6, type: 3}
   m_Name: grp3
   m_EditorClassIdentifier: 
-  name: 
+  name: Grip 3
   icon: {fileID: 21300000, guid: 516e8173e49b3cc4283c33bb7b147dd3, type: 2}
   stackSize: 1
   count: 1
   stortCode: grp3
-  partName: Grip 3
   prefab: {fileID: 1040925355609722, guid: f49c61e955f8c474191ec4851484b96c, type: 2}
   partType: 2
   slots: []
@@ -24,6 +23,7 @@ MonoBehaviour:
   weapon: {fileID: 0}
   level: 1
   quality:
+    index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
     modifier: 0

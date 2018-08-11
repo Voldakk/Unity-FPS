@@ -19,7 +19,7 @@ public class UiWeaponPartSlotPanel : DragAndDropPanel
         {
             WeaponPart part = o as WeaponPart;
 
-            partName.text = part.partName;
+            partName.text = part.name;
             partIcon.sprite = part.icon;
         }
     }

@@ -82,7 +82,7 @@ public class WeaponPartsWindow : EditorWindow
             }
 
             part.stortCode = newPartShortCode;
-            part.partName = newPartName;
+            part.name = newPartName;
             part.prefab = newPartPrefab;
             part.partType = newPartType;
 
@@ -108,7 +108,7 @@ public class WeaponPartsWindow : EditorWindow
 
         GUILayout.Label("Edit part");
         GUILayout.Label("Short code: " + selected.stortCode);
-        selected.partName = EditorGUILayout.TextField("Part name", selected.partName);
+        selected.name = EditorGUILayout.TextField("Part name", selected.name);
         GUILayout.Label("Part type: " + selected.partType.ToString());
         //selected.partType = (WeaponPartType)EditorGUILayout.EnumPopup("Type", selected.partType);
 

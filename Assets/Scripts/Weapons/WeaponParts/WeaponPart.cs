@@ -8,7 +8,6 @@ public enum WeaponPartType { Barrel, Body, Grip, Mag, Sight, Stock, Muzzle }
 public class WeaponPart : Item
 {
     public string stortCode;
-    public string partName;
     public GameObject prefab;
     public WeaponPartType partType;
 

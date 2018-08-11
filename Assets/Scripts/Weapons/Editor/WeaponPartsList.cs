@@ -38,8 +38,8 @@ public class WeaponPartsList : EditorWindow
 
         string[] names = parts
             .Where(p => p.stortCode.ToLower().Contains(searchText.ToLower()) || 
-                        p.partName.ToLower().Contains(searchText.ToLower()))
-            .Select(p => "(" + p.stortCode + ") " + p.partName)
+                        p.name.ToLower().Contains(searchText.ToLower()))
+            .Select(p => "(" + p.stortCode + ") " + p.name)
             .ToArray();
 
         selectedIndex = GUILayout.SelectionGrid(selectedIndex, names, 1);

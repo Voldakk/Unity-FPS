@@ -9,14 +9,14 @@ public class SightBehaviour : WeaponPartBehaviour
     public Vector3 holderPos;
     Transform holder;
 
-    float fov;
-
     Crosshair crosshair;
 
     GameObject scopeObject;
 
     Look look;
 
+    float prevFov;
+    float fov;
     float fovMod;
 
     bool ads;
@@ -26,6 +26,8 @@ public class SightBehaviour : WeaponPartBehaviour
         base.SetPart(part);
 
         data = part as Sight;
+
+        fov = Sight.baseFov * data.Zoom;
     }
 
     public void OnStart()
@@ -43,7 +45,7 @@ public class SightBehaviour : WeaponPartBehaviour
 
         look = GetComponentInParent<Look>();
 
-        fovMod = weapon.camera.fieldOfView / data.fov;
+        fovMod = weapon.camera.fieldOfView / fov;
 
         ads = false;
     }
@@ -57,9 +59,9 @@ public class SightBehaviour : WeaponPartBehaviour
         Vector3 diff = adsPos.position - weapon.camera.transform.position;
         holder.position = holder.position - diff;
 
-        fov = weapon.camera.fieldOfView;
-        weapon.camera.fieldOfView = data.fov;
-        weapon.weaponCamera.fieldOfView = data.fov;
+        prevFov = weapon.camera.fieldOfView;
+        weapon.camera.fieldOfView = fov;
+        weapon.weaponCamera.fieldOfView = fov;
 
         crosshair.Hide();
 
@@ -77,8 +79,8 @@ public class SightBehaviour : WeaponPartBehaviour
         ads = false;
 
         holder.localPosition = holderPos;
-        weapon.camera.fieldOfView = fov;
-        weapon.weaponCamera.fieldOfView = fov;
+        weapon.camera.fieldOfView = prevFov;
+        weapon.weaponCamera.fieldOfView = prevFov;
 
         crosshair.Show();
 

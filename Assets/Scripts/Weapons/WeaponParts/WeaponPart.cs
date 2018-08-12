@@ -23,7 +23,8 @@ public class WeaponPart : Item
     // Stats
     public int level = 1;
     public Quality quality;
-    public float weight, price;
+    public float weight = 0;
+    public float price = 0;
 
     public void Load(Transform parent)
     {
@@ -43,5 +44,21 @@ public class WeaponPart : Item
             Destroy(gameObject);
 
         slots = null;
+    }
+
+    public float ApplyModifier(float value)
+    {
+        if (value < 0)
+            return value * (1f - (quality.modifier - 1f));
+        else
+            return value * quality.modifier;
+    }
+
+    public float ApplyLowIsPosModifier(float value)
+    {
+        if (value < 0)
+            return value * quality.modifier;
+        else
+            return value * (1f - (quality.modifier - 1f));
     }
 }

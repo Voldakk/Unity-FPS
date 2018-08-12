@@ -26,13 +26,83 @@ MonoBehaviour:
     index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    modifier: 0
     rarity: 0
     calculatedChance: 
+    modifier: 0
+    maxPartLevel: 0
   weight: 0
-  cost: 0
-  fov: 45
-  accuracyModifier: 1.5
-  adsTime: 1
+  price: 0
   scopePrefab: {fileID: 1467750359349034, guid: 36895cade52df4c4faa8244689362185,
     type: 2}
+  zoom:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1.5
+      inSlope: 0.05102041
+      outSlope: 0.05102041
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 4
+      inSlope: 0.05102041
+      outSlope: 0.05102041
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  adsTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 0.3
+      inSlope: -0.004081633
+      outSlope: -0.004081633
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 0.1
+      inSlope: -0.004081633
+      outSlope: -0.004081633
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  accuracyModifier:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.0040816334
+      outSlope: 0.0040816334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 1.2
+      inSlope: 0.0040816334
+      outSlope: 0.0040816334
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

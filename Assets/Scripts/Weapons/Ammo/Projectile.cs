@@ -3,11 +3,13 @@
 public class Projectile : Ammo
 {
     public float damage = 10;
+    public float accuracyModifier = 1;
+    public float verticalRecoil = 0;
+    public float horizontalRecoil = 0;
+
     public float lineTime = 0.01f;
     public float lineLength = 1000.0f;
 
-    public float verticalRecoil;
-    public float horizontalRecoil;
 
     public GameObject lineRendererPrefab;
     protected LineRendererController lineRendererController;

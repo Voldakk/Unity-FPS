@@ -1,8 +1,20 @@
 ﻿using UnityEngine;
-using System.Linq;
-using System.Collections;
 
 public class Body : WeaponPart
 {
-    public float fireRate;
+    public enum FireMode
+    {
+        Single, Burst, Auto
+    }
+
+    public AnimationCurve fireRate; // RPM
+    public FireMode fireMode;
+
+    public int FireRate
+    {
+        get
+        {
+            return Mathf.RoundToInt(ApplyModifier(fireRate.Evaluate(level)));
+        }
+    }
 }

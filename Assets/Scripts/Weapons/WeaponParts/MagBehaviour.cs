@@ -49,13 +49,13 @@ public class MagBehaviour : WeaponPartBehaviour
     }   
     public void EndReload()
     {
-        CurrentAmmo = data.magSize;
+        CurrentAmmo = data.MagSize;
         isReloading = false;
     }
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(data.reloadTime);
+        yield return new WaitForSeconds(data.ReloadTime);
         EndReload();
     }
 }

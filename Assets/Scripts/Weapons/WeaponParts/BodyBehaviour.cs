@@ -10,11 +10,15 @@ public class BodyBehaviour : WeaponPartBehaviour
     BarrelBehaviour barrel;
     MagBehaviour mag;
 
+    float fireRate;
+
     public override void SetPart(WeaponPart part)
     {
         base.SetPart(part);
 
         data = part as Body;
+
+        fireRate = data.FireRate;
     }
 
     public void OnStart()
@@ -33,8 +37,8 @@ public class BodyBehaviour : WeaponPartBehaviour
 
             if(barrel.muzzle != null)
             {
-                (mag.Ammo as Projectile).audioSource.pitch = barrel.muzzle.data.pitchModifier;
-                (mag.Ammo as Projectile).audioSource.volume = barrel.muzzle.data.volumeModifier;
+                (mag.Ammo as Projectile).audioSource.pitch = barrel.muzzle.data.PitchModifier;
+                (mag.Ammo as Projectile).audioSource.volume = barrel.muzzle.data.VolumeModifier;
             }
         }
     }
@@ -62,7 +66,7 @@ public class BodyBehaviour : WeaponPartBehaviour
     IEnumerator Cycle()
     {
         ready = false;
-        yield return new WaitForSeconds(60.0f / data.fireRate);
+        yield return new WaitForSeconds(60.0f / fireRate);
         ready = true;
     }
 }

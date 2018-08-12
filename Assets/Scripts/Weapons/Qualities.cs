@@ -8,11 +8,12 @@ public class Quality
 
     public string name;
     public Color color;
-    public float modifier;
     [Range(0, 1)]
     public float rarity;
-    
     public string calculatedChance;
+
+    public float modifier;
+    public int maxPartLevel;
 }
 
 public class Qualities : MonoBehaviour

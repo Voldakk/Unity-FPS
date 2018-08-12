@@ -26,13 +26,59 @@ MonoBehaviour:
     index: 0
     name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    modifier: 0
     rarity: 0
     calculatedChance: 
+    modifier: 0
+    maxPartLevel: 0
   weight: 0
-  cost: 0
-  magSize: 50
-  reloadTime: 1.6
-  recoilModifier: 0.95
-  ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
+  price: 0
   reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
+  ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
+  magSize:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 30
+      inSlope: 0.6122449
+      outSlope: 0.6122449
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 60
+      inSlope: 0.6122449
+      outSlope: 0.6122449
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reloadTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 1
+      value: 2
+      inSlope: -0.020408163
+      outSlope: -0.020408163
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 50
+      value: 1
+      inSlope: -0.020408163
+      outSlope: -0.020408163
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

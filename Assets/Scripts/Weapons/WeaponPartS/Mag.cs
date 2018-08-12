@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Mag : WeaponPart
 {
-    public int magSize = 10;
-    public float reloadTime = 1;
-    public float recoilModifier = 1;
-
+    public AudioClip reloadSound;
     public Ammo ammo;
 
-    public AudioClip reloadSound;
+    public AnimationCurve magSize;
+    public AnimationCurve reloadTime;    // s
+
+    public int MagSize
+    {
+        get
+        {
+            return Mathf.RoundToInt(ApplyModifier(magSize.Evaluate(level)));
+        }
+    }
+
+    public float ReloadTime
+    {
+        get
+        {
+            return ApplyLowIsPosModifier(reloadTime.Evaluate(level));
+        }
+    }
 }

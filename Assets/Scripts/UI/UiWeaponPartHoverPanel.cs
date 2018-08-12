@@ -58,44 +58,45 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
         {
             case WeaponPartType.Barrel:
                 var b = part as Barrel;
-                AddStat("Accuracy", b.accuracy);
-                AddModifier("Damage", b.damageModifier);
-                AddModifier("Recoil", b.recoilModifier);
+                AddStat("Damage", b.Damage);
+                AddStat("Recoil", b.Recoil);
+                AddStat("Accuracy", b.Accuracy);
                 break;
 
             case WeaponPartType.Body:
                 var bd = part as Body;
-                AddStat("Firerate", bd.fireRate);
+                AddStat("Firerate", bd.FireRate);
                 break;
 
             case WeaponPartType.Grip:
                 var g = part as Grip;
-                AddModifier("Recoil", g.recoilModifier);
+                //AddModifier("Recoil", g.RecoilModifier);
                 break;
 
             case WeaponPartType.Mag:
                 var m = part as Mag;
-                AddStat("Size", m.magSize);
-                AddStat("Reload time", m.reloadTime);
-                AddModifier("Recoil", m.recoilModifier);
+                AddStat("Size", m.MagSize);
+                AddStat("Reload time", m.ReloadTime);
+                //AddModifier("Recoil", m.recoilModifier);
                 break;
 
             case WeaponPartType.Sight:
                 var s = part as Sight;
-                AddStat("Fov", s.fov);
-                AddModifier("Accuracy", s.accuracyModifier);
+                AddStat("Zoom", s.Zoom);
+                AddStat("ADS time", s.AdsTime);
+                AddModifier("Accuracy", s.AccuracyModifier);
                 break;
 
             case WeaponPartType.Stock:
                 var st = part as Stock;
-                AddModifier("Recoil", st.recoilModifier);
+                //AddModifier("Recoil", st.RecoilModifier);
                 break;
 
             case WeaponPartType.Muzzle:
                 var mu = part as Muzzle;
-                AddModifier("Damage", mu.damageModifier);
-                AddModifier("Accuracy", mu.accuracyModifier);
-                AddModifier("Recoil", mu.recoilModifier);
+                AddStat("Damage", mu.Damage);
+                AddStat("Recoil", mu.Recoil);
+                AddModifier("Accuracy", mu.AccuracyModifier);
                 break;
 
             default:
@@ -117,7 +118,7 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
 
     void AddStat(string name, float value)
     {
-        AddStat(name, value.ToString());
+        AddStat(name, value.ToString("0.0"));
     }
     void AddStat(string name, int value)
     {

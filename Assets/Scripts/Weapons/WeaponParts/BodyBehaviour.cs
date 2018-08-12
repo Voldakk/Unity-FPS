@@ -18,7 +18,7 @@ public class BodyBehaviour : WeaponPartBehaviour
 
         data = part as Body;
 
-        fireRate = data.FireRate;
+        fireRate = data.GetStats(WeaponPartStats.FireRate, 60f);
     }
 
     public void OnStart()
@@ -37,8 +37,8 @@ public class BodyBehaviour : WeaponPartBehaviour
 
             if(barrel.muzzle != null)
             {
-                (mag.Ammo as Projectile).audioSource.pitch = barrel.muzzle.data.PitchModifier;
-                (mag.Ammo as Projectile).audioSource.volume = barrel.muzzle.data.VolumeModifier;
+                (mag.Ammo as Projectile).audioSource.pitch = barrel.muzzle.data.GetStats(WeaponPartStats.Pitch, 1f);
+                (mag.Ammo as Projectile).audioSource.volume = barrel.muzzle.data.GetStats(WeaponPartStats.Volume, 1f);
             }
         }
     }

@@ -34,6 +34,11 @@ public class WeaponPartSlot : MonoBehaviour
         if (part != null)
             part.Load(transform);
 
+        if (SceneManager.GetActiveScene().name == "WeaponCustomization")
+        {
+            UiWeaponStats.UpdateStats();
+        }
+
         return true;
     }
 

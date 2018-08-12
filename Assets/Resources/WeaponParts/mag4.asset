@@ -32,53 +32,70 @@ MonoBehaviour:
     maxPartLevel: 0
   weight: 0
   price: 0
+  stats:
+  - stats: 4
+    statsType: 0
+    valueCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 100
+        inSlope: 2.0408163
+        outSlope: 2.0408163
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 50
+        value: 200
+        inSlope: 2.0408163
+        outSlope: 2.0408163
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    isInt: 1
+    lowIsPositive: 0
+    capMinValue: 1
+    minValue: 0
+    capMaxValue: 0
+    maxValue: 0
+  - stats: 5
+    statsType: 0
+    valueCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 1
+        value: 5
+        inSlope: -0.06122449
+        outSlope: -0.06122449
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 50
+        value: 2
+        inSlope: -0.06122449
+        outSlope: -0.06122449
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 0
+    isInt: 0
+    lowIsPositive: 1
+    capMinValue: 1
+    minValue: 0
+    capMaxValue: 0
+    maxValue: 0
   reloadSound: {fileID: 8300000, guid: cef0fa03af5b747f0abe82cde0b2bccc, type: 3}
   ammo: {fileID: 11400000, guid: 51281162d1af5774a9e8e72e528cc4a4, type: 2}
-  magSize:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 100
-      inSlope: 2.0408163
-      outSlope: 2.0408163
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50
-      value: 200
-      inSlope: 2.0408163
-      outSlope: 2.0408163
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reloadTime:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 5
-      inSlope: -0.06122449
-      outSlope: -0.06122449
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 50
-      value: 2
-      inSlope: -0.06122449
-      outSlope: -0.06122449
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4

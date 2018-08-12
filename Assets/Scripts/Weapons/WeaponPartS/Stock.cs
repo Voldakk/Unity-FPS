@@ -2,5 +2,5 @@
 
 public class Stock : WeaponPart
 {
-    //public float recoilModifier = 1;
+
 }

@@ -1067,6 +1067,7 @@ RectTransform:
   - {fileID: 373749542}
   - {fileID: 1316570105}
   - {fileID: 1246919020}
+  - {fileID: 1854935523}
   - {fileID: 903674876}
   - {fileID: 1047365319}
   - {fileID: 956469514}
@@ -1509,7 +1510,7 @@ Prefab:
     - target: {fileID: 224834299418280990, guid: 980a0c56a8904f841b43970307e92d07,
         type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 224834299418280990, guid: 980a0c56a8904f841b43970307e92d07,
         type: 2}
@@ -1870,7 +1871,7 @@ RectTransform:
   - {fileID: 1051920979}
   - {fileID: 226564637}
   m_Father: {fileID: 526569892}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -2127,7 +2128,7 @@ RectTransform:
   - {fileID: 834508097}
   - {fileID: 443893461}
   m_Father: {fileID: 526569892}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3159,13 +3160,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d94a04eabefc74eaac2b07dff95c60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponName: 
-  bodySlot: {fileID: 424628473}
   camera: {fileID: 0}
   weaponCamera: {fileID: 0}
   hud: {fileID: 0}
   weaponBehaviour: {fileID: 0}
   isOwner: 0
+  weaponName: 
+  bodySlot: {fileID: 424628473}
 --- !u!1 &1509897245
 GameObject:
   m_ObjectHideFlags: 0
@@ -3272,7 +3273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -0.00015748559}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1522576138
@@ -3310,6 +3311,131 @@ MonoBehaviour:
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 1
+--- !u!1 &1854935522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1128942000985994, guid: 980a0c56a8904f841b43970307e92d07,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1854935523}
+  - component: {fileID: 1854935527}
+  - component: {fileID: 1854935526}
+  - component: {fileID: 1854935525}
+  - component: {fileID: 1854935524}
+  - component: {fileID: 1854935528}
+  m_Layer: 5
+  m_Name: WeaponS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1854935523
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 224270818305281580, guid: 980a0c56a8904f841b43970307e92d07,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 526569892}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 300, y: 60}
+  m_SizeDelta: {x: 500, y: 0}
+  m_Pivot: {x: 0, y: 0}
+--- !u!114 &1854935524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1741964061, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalFit: 0
+  m_VerticalFit: 2
+--- !u!114 &1854935525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114409951542573286, guid: 980a0c56a8904f841b43970307e92d07,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 10
+    m_Right: 10
+    m_Top: 10
+    m_Bottom: 10
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+--- !u!114 &1854935526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114737094013869562, guid: 980a0c56a8904f841b43970307e92d07,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 0
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1854935527
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 222656245375575358, guid: 980a0c56a8904f841b43970307e92d07,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+--- !u!114 &1854935528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1854935522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 363b42b0236d6bb4380d6d6bdcaeff11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapon: {fileID: 1387933196}
+  statsLinePrefab: {fileID: 1769632944687012, guid: a67f0e59d7d998d46a73c4d5ecebf684,
+    type: 2}
 --- !u!1 &1858530969
 GameObject:
   m_ObjectHideFlags: 0
@@ -3419,8 +3545,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 685138488}
   m_HandleRect: {fileID: 685138487}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3801,7 +3927,7 @@ Prefab:
     - target: {fileID: 224849532421634902, guid: 2bb1a2334115be442bea3c6ecc86f07c,
         type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 224849532421634902, guid: 2bb1a2334115be442bea3c6ecc86f07c,
         type: 2}

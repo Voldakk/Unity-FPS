@@ -10,12 +10,18 @@ public class MagBehaviour : WeaponPartBehaviour
 
     public Ammo Ammo { get; private set; }
 
+    int magSize;
     public int CurrentAmmo { get; private set; }
+
+    float reloadTime;
 
     public override void SetPart(WeaponPart part)
     {
         base.SetPart(part);
         data = part as Mag;
+
+        magSize = data.GetStatsI(WeaponPartStats.MagSize, 1);
+        reloadTime = data.GetStats(WeaponPartStats.ReloadTime, 1f);
     }
 
     public void OnStart()
@@ -49,13 +55,13 @@ public class MagBehaviour : WeaponPartBehaviour
     }   
     public void EndReload()
     {
-        CurrentAmmo = data.MagSize;
+        CurrentAmmo = magSize;
         isReloading = false;
     }
 
     IEnumerator Reload()
     {
-        yield return new WaitForSeconds(data.ReloadTime);
+        yield return new WaitForSeconds(reloadTime);
         EndReload();
     }
 }

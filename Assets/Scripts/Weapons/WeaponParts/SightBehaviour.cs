@@ -27,7 +27,7 @@ public class SightBehaviour : WeaponPartBehaviour
 
         data = part as Sight;
 
-        fov = Sight.baseFov * data.Zoom;
+        fov = Sight.baseFov / data.GetStats(WeaponPartStats.Zoom, 1f);
     }
 
     public void OnStart()

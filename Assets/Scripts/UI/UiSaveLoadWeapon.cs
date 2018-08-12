@@ -57,6 +57,8 @@ public class UiSaveLoadWeapon : MonoBehaviour
         AddNew(wd);
 
         Save();
+
+        UiWeaponStats.UpdateStats();
     }
 
     public void Delete()
@@ -76,6 +78,8 @@ public class UiSaveLoadWeapon : MonoBehaviour
             SetSelected(selectedWeapon, false);
 
         uiWeaponPartList.UpdatePanels();
+
+        UiWeaponStats.UpdateStats();
     }
 
     public void Copy()
@@ -115,6 +119,8 @@ public class UiSaveLoadWeapon : MonoBehaviour
         {
             uiSlot.SetObject(weapon.bodySlot.part);
         }
+
+        UiWeaponStats.UpdateStats();
     }
 
     void SetSelected(int index, bool save = true)

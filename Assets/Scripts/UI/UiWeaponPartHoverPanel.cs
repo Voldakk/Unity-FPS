@@ -54,55 +54,23 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
 
         partIcon.sprite = part.icon;
 
-        switch (part.partType)
+        foreach (var stat in part.stats)
         {
-            case WeaponPartType.Barrel:
-                var b = part as Barrel;
-                AddStat("Damage", b.Damage);
-                AddStat("Recoil", b.Recoil);
-                AddStat("Accuracy", b.Accuracy);
-                break;
-
-            case WeaponPartType.Body:
-                var bd = part as Body;
-                AddStat("Firerate", bd.FireRate);
-                break;
-
-            case WeaponPartType.Grip:
-                var g = part as Grip;
-                //AddModifier("Recoil", g.RecoilModifier);
-                break;
-
-            case WeaponPartType.Mag:
-                var m = part as Mag;
-                AddStat("Size", m.MagSize);
-                AddStat("Reload time", m.ReloadTime);
-                //AddModifier("Recoil", m.recoilModifier);
-                break;
-
-            case WeaponPartType.Sight:
-                var s = part as Sight;
-                AddStat("Zoom", s.Zoom);
-                AddStat("ADS time", s.AdsTime);
-                AddModifier("Accuracy", s.AccuracyModifier);
-                break;
-
-            case WeaponPartType.Stock:
-                var st = part as Stock;
-                //AddModifier("Recoil", st.RecoilModifier);
-                break;
-
-            case WeaponPartType.Muzzle:
-                var mu = part as Muzzle;
-                AddStat("Damage", mu.Damage);
-                AddStat("Recoil", mu.Recoil);
-                AddModifier("Accuracy", mu.AccuracyModifier);
-                break;
-
-            default:
-                break;
+            switch (stat.statsType)
+            {
+                case StatsType.Base:
+                    AddStat(stat, part.GetStats(stat.stats));
+                    break;
+                case StatsType.Additive:
+                    AddStat(stat, part.GetStats(stat.stats));
+                    break;
+                case StatsType.Modifier:
+                    AddModifier(stat, part.GetStats(stat.stats));
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
 
     public static void Hide()
@@ -116,27 +84,24 @@ public class UiWeaponPartHoverPanel : MonoBehaviour
         transform.position = Vector3.one * 1000000f;
     }
 
-    void AddStat(string name, float value)
+    void AddStat(WeaponPartStat stat, float value)
     {
-        AddStat(name, value.ToString("0.0"));
+        AddStat(stat.stats.ToString(), stat.isInt ? ((int)value).ToString() : value.ToString("0.0"));
     }
-    void AddStat(string name, int value)
-    {
-        AddStat(name, value.ToString());
-    }
+
     void AddStat(string name, string value)
     {
         var statsLine = Instantiate(statsLinePrefab, statsPanel).GetComponent<UiWeaponPartStatsLine>();
         statsLine.Set(name, value);
     }
 
-    void AddModifier(string name, float value)
+    void AddModifier(WeaponPartStat stat, float value)
     {
         if (value == 1f)
             return;
 
         var statsLine = Instantiate(statsLinePrefab, statsPanel).GetComponent<UiWeaponPartStatsLine>();
         float p = (value - 1.0f) * 100f;
-        statsLine.Set(name, (p > 0f ? "+" : "") + p.ToString("0.0") + "%");
+        statsLine.Set(stat.stats.ToString(), (p > 0f ? "+" : "") + p.ToString("0.0") + "%");
     }
 }

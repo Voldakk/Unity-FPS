@@ -1,0 +1,126 @@
+// ====================================================================================================
+//
+// Cloud Code for rtmatch, write your code here to customize the GameSparks platform.
+//
+// For details of the GameSparks Cloud Code API see https://docs.gamesparks.com/
+//
+// ====================================================================================================
+
+// Op codes
+var opCodeTimeStamp = 101;
+var opCodeClockSync = 102;
+
+var opCodePlayerReady = 200;
+var opCodeLoadGame = 201;
+var opCodePlayerLoaded = 202;
+var opCodeMatchStartTimer = 203;
+var matchStartTime = 1000;
+var opCodeStartMatch = 204;
+
+// List of the connected players
+var playersConnected = [];
+var playersJoined = [];
+var playersReady = [];
+var playersLoaded = [];
+
+// Get the total amount of players in the match
+var totalPlayers = 0;
+
+// Clock sync
+RTSession.setInterval(function()
+{ 
+    var rtData = RTSession.newData().setNumber(1, new Date().getTime());
+    RTSession.newPacket()
+    .setReliable(false)
+    .setOpCode(opCodeClockSync)
+    .setTargetPeers()
+    .setData(rtData)
+    .send();
+}, 1000);
+
+// Timestamp from the client for clock-syncing
+RTSession.onPacket(opCodeTimeStamp, function(packet)
+{
+    var rtData = RTSession.newData()
+        .setNumber(1, packet.getData().getNumber(1))    // Return the timestamp the server just got
+        .setNumber(2, new Date().getTime())             // Return the current time on the server
+   
+    RTSession.newPacket()
+    .setReliable(false)
+    .setOpCode(opCodeTimeStamp)
+    .setTargetPeers(packet.getSender().getPeerId())
+    .setData(rtData)
+    .send();
+});
+
+// On player connect
+RTSession.onPlayerConnect(function(player)
+{
+    // First we check to see if the player has already joined the match
+    if(!contains(player.getPeerId(), playersJoined))
+    {
+        playersJoined.push(player.getPeerId()); // and add them if not
+        totalPlayers = playersJoined.length;
+        RTSession.getLogger().debug("Player " + player.getPeerId() + " joined. Total players: " + totalPlayers);
+    }
+});
+
+// On player ready
+RTSession.onPacket(opCodePlayerReady, function(packet)
+{
+    var peerId = packet.getData().getNumber(1);
+    playersReady.push(peerId);
+    RTSession.getLogger().debug("Player " + peerId + " ready");
+    
+    if(playersReady.length == totalPlayers)
+    {
+        RTSession.getLogger().debug("Loading game with " + totalPlayers + " players");
+        RTSession.newPacket()
+        .setReliable(true)
+        .setOpCode(opCodeLoadGame)
+        .setTargetPeers()
+        .send();
+    }
+});
+
+// On player loaded
+RTSession.onPacket(opCodePlayerLoaded, function(packet)
+{
+    var peerId = packet.getData().getNumber(1);
+    playersLoaded.push(peerId);
+    RTSession.getLogger().debug("Player " + peerId + " loaded");
+    
+    if(playersLoaded.length == totalPlayers)
+    {
+         RTSession.getLogger().debug("Starting countdown with " + totalPlayers + " players");
+         
+        var rtData = RTSession.newData().setNumber(1, matchStartTime);
+        RTSession.newPacket()
+        .setReliable(true)
+        .setOpCode(opCodeMatchStartTimer)
+        .setTargetPeers()
+        .setData(rtData)
+        .send();
+        
+        RTSession.setTimeout(function()
+        {
+            RTSession.getLogger().debug("Starting game");
+            RTSession.newPacket()
+            .setReliable(true)
+            .setOpCode(opCodeStartMatch)
+            .setTargetPeers()
+            .send();
+        }, matchStartTime)
+    }
+});
+
+// This is a simple method that just checks if an element is in an array or not
+function contains(a, obj) 
+{
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] === obj) {
+            return true;
+        }
+    }
+    return false;
+}

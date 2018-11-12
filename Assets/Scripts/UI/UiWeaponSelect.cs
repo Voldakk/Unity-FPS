@@ -8,7 +8,7 @@ public class UiWeaponSelect : MonoBehaviour
 	void Start ()
     {
         var weapons = PlayerData.instance.GetWeapons();
-        Debug.Log("Count: " + weapons.Count);
+        Debug.Log("Weapon count: " + weapons.Count);
         for (int i = 0; i < weapons.Count; i++)
         {
             GameObject go = Instantiate(weaponPanelPrefab, weaponList);
@@ -22,7 +22,7 @@ public class UiWeaponSelect : MonoBehaviour
 
     public void OnButtonPressed(int index)
     {
-        Debug.Log("Clicked " + index);
+        Debug.Log("Selected weapon:" + index);
 
         PlayerData.instance.currentWeapon = index;
     }

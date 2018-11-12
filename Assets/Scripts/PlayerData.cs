@@ -108,6 +108,7 @@ public class PlayerData : MonoBehaviour
         var partData = new WeaponPartData[weaponParts.Count];
         for (int i = 0; i < partData.Length; i++)
         {
+            partData[i] = new WeaponPartData();
             partData[i].partShortCode = weaponParts[i].stortCode;
             partData[i].level = weaponParts[i].level;
             partData[i].quality = weaponParts[i].quality.index;
